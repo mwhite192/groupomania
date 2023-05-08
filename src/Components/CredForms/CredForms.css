@@ -6,3 +6,26 @@ label{
     color: white;
     font-weight: bold;
 }
+
+.log-in-btn{
+    background-color: #ced4db;
+}
+
+#formGroupEmail,
+#formGroupPassword{
+    background-color: #d2042d;
+}
+
+#formGroupEmail,
+#formGroupPassword,
+.log-in-btn{
+    border: none;
+    border-radius: 50px;
+}
+
+.form-control::placeholder,
+.log-in-btn{
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+}

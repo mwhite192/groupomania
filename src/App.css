@@ -1,5 +1,16 @@
+@font-face {
+  font-family: 'Amaranth';
+  src: url('./Fonts/Amaranth/Amaranth-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 *{
   background-color: #03396c;
+  font-family: 'Amaranth', sans-serif;
   margin: 0px;
   padding: 0px;
+
 }
+
+

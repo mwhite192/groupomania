@@ -1,5 +1,6 @@
 import React from 'react';
 import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
 import '../CredForms/CredForms.css';
 
 
@@ -19,6 +20,11 @@ export const CredForms = () => {
       <>
         <p>Forgot Password?</p>
       </>
+      <div className="d-grid">
+        <Button variant="primary" size="sm" className="log-in-btn">
+          Log In
+        </Button>
+      </div>
     </>
   );
 }
