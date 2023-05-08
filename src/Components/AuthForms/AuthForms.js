@@ -1,10 +1,13 @@
 import React from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import '../CredForms/CredForms.css';
+// import Col from 'react-bootstrap/Col';
+// import Container from 'react-bootstrap/Container';
+// import Row from 'react-bootstrap/Row';
+import './AuthForms.css';
 
 
-export const CredForms = () => {
+export const AuthForms = () => {
   return (
     <>
       <>
@@ -29,4 +32,4 @@ export const CredForms = () => {
   );
 }
 
-export default CredForms;
+export default AuthForms;

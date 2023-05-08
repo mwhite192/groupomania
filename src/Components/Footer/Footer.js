@@ -1,5 +1,5 @@
 import React from 'react';
-import './AppFooter.css';
+import '../Footer/Footer.css';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
@@ -7,7 +7,7 @@ import Image from 'react-bootstrap/Image';
 import Row from 'react-bootstrap/Row';
 import FooterLogo from '../../Assets/icon-left-font-monochrome-white.png';
 
-export const AppFooter = () => {
+export const Footer = () => {
   return (
     <Container>
       <div className="d-grid">
@@ -24,4 +24,4 @@ export const AppFooter = () => {
   );
 }
 
-export default AppFooter
+export default Footer;

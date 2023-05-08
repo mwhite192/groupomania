@@ -1,15 +1,15 @@
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Logo} from './Components/Logo/Logo';
-import {CredForms} from './Components/CredForms/CredForms';
-import {AppFooter} from './Components/AppFooter/AppFooter';
+import {AuthForms} from './Components/AuthForms/AuthForms';
+import {Footer} from './Components/Footer/Footer';
 
 function App() {
   return (
     <div className="App">
       <Logo />
-      <CredForms />
-      <AppFooter />
+      <AuthForms />
+      <Footer />
     </div>
   );
 }

@@ -1,5 +1,5 @@
 import React from 'react'
-import Icon from '../../Assets/Logo.svg'
+import Icon from '../../Assets/logo.svg'
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import Image from 'react-bootstrap/Image';
