@@ -12,14 +12,12 @@ export const Footer = () => {
     <Container>
       <Row>
         <Col>
-          <div className="d-grid">
+          <footer className="d-grid">
             <Button variant="secondary" size="sm" className="create-account-btn">
               Create Account
             </Button>
-          </div>
-          <div>
             <Image src={FooterLogo} className='company-logo' alt='company logo with company name' fluid />
-          </div>
+          </footer>
         </Col>
       </Row>
     </Container>

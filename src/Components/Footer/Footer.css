@@ -1,6 +1,6 @@
 .company-logo{
     width: 25%;
-    margin-left: 130px;
+    margin-left: 100px;
     padding-top: 20px;
 }
 
@@ -8,8 +8,6 @@
     background-color: #7b8490;
     color: white;
     font-weight: bold;
-    /* border-color: #7b8490;
-    border-width: 3px; */
     border-radius: 50px;
     
 }
