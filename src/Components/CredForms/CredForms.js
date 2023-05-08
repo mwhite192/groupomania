@@ -1,27 +1,20 @@
 import React from 'react';
 import Form from 'react-bootstrap/Form';
+import '../CredForms/CredForms.css';
 
 
 export const CredForms = () => {
   return (
     <>
       <>
-        <Form.Floating className="mb-3">
-          <Form.Control
-            id="floatingInputCustom"
-            type="email"
-            placeholder="name@example.com"
-          />
-          <label htmlFor="floatingInputCustom">Email address</label>
-        </Form.Floating>
-        <Form.Floating>
-          <Form.Control
-            id="floatingPasswordCustom"
-            type="password"
-            placeholder="Password"
-          />
-          <label htmlFor="floatingPasswordCustom">Password</label>
-        </Form.Floating>
+        <Form>
+          <Form.Group className="mb-3" controlId="formGroupEmail">
+            <Form.Control type="email" placeholder="Email" />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="formGroupPassword">
+            <Form.Control type="password" placeholder="Password" />
+          </Form.Group>
+        </Form>
       </>
       <>
         <p>Forgot Password?</p>
