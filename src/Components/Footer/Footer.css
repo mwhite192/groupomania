@@ -1,5 +1,16 @@
-.create-account-btn{
-    background-color: #979ea8;
-    border: none;
-    border-radius: 50px;
+.company-logo{
+    width: 25%;
+    margin-left: 130px;
+    padding-top: 20px;
 }
+
+.create-account-btn{
+    background-color: #7b8490;
+    color: white;
+    font-weight: bold;
+    /* border-color: #7b8490;
+    border-width: 3px; */
+    border-radius: 50px;
+    
+}
+

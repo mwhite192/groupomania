@@ -1,14 +1,28 @@
 p{
     color: white;
+    padding-top: 15px;
+    margin-bottom: 180px;
 }
+
 
 label{
     color: white;
     font-weight: bold;
 }
 
+p,
+.company-icon{
+    display: flex;
+    justify-content: center;
+}
+
 .log-in-btn{
-    background-color: #ced4db;
+    background-color: #b0bac5;
+}
+
+.company-icon{
+    margin-top: 80px;
+    margin-bottom: 85px;
 }
 
 #formGroupEmail,
