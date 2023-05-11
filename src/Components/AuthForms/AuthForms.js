@@ -6,16 +6,16 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Icon from '../../Assets/logo.svg';
-import './AuthForms.css';
+import './AuthForms.scss';
 
-export const AuthForms = () => {
+export const AuthForms = ({setAuthenticated}) => {
   return (
     <Container>
-      <div className='company-icon'>
-        <Image src={Icon} alt="company icon" roundedCircle />;
-      </div>
       <Row>
         <Col>
+          <div className="company-icon">
+            <Image src={Icon} alt="company icon" roundedCircle />;
+          </div>
           <Form>
             <Form.Group className="mb-3" controlId="formGroupEmail">
               <Form.Control type="email" placeholder="Email" />
@@ -24,13 +24,13 @@ export const AuthForms = () => {
               <Form.Control type="password" placeholder="Password" />
             </Form.Group>
           </Form>
+          <div className="d-grid">
+            <Button variant="primary" size="sm" className="log-in-btn" onClick={() => setAuthenticated (true)}>
+              Log In
+            </Button>
+          </div>
+          <p>Forgot Password?</p>
         </Col>
-        <div className="d-grid">
-          <Button variant="primary" size="sm" className="log-in-btn">
-            Log In
-          </Button>
-        </div>
-        <p>Forgot Password?</p>
       </Row>
     </Container>
   );

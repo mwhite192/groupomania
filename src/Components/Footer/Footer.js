@@ -1,15 +1,13 @@
 import React from 'react';
 import Image from 'react-bootstrap/Image';
 import Button from 'react-bootstrap/Button';
-import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import FooterLogo from '../../Assets/icon-left-font-monochrome-white.svg';
-import '../Footer/Footer.css';
+import '../Footer/Footer.scss';
 
 export const Footer = () => {
   return (
-    <Container>
       <Row>
         <Col>
           <footer className="d-grid">
@@ -20,7 +18,6 @@ export const Footer = () => {
           </footer>
         </Col>
       </Row>
-    </Container>
   );
 }
 
