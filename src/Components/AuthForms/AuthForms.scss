@@ -1,45 +1,40 @@
+@import '../../variables.scss';
+
 p{
     color: white;
-    padding-top: 15px;
-    margin-bottom: 180px;
-}
-
-
-label{
-    color: white;
-    font-weight: bold;
-}
-
-p,
-.company-icon{
-    display: flex;
-    justify-content: center;
-}
-
-/* .log-in-btn{
-    background-color: #b0bac5;
-} */
-
-.company-icon{
-    margin-top: 80px;
-    margin-bottom: 85px;
+    // padding-top: 15px;
+    // margin-bottom: 180px;
 }
 
 #formGroupEmail,
 #formGroupPassword{
-    background-color: #d2042d;
-}
-
-#formGroupEmail,
-#formGroupPassword,
-.log-in-btn{
+    background-color: $primary;
     border: none;
-    border-radius: 50px;
 }
 
-.form-control::placeholder,
-.log-in-btn{
-    color: white;
-    font-size: 15px;
-    font-weight: bold;
-}
+// label{
+//     color: white;
+//     font-weight: bold;
+// }
+
+// p,
+// .company-icon{
+//     display: flex;
+//     justify-content: center;
+// }
+
+
+// .company-icon{
+//     margin-top: 80px;
+//     margin-bottom: 85px;
+// }
+
+
+
+// #formGroupEmail,
+// #formGroupPassword,
+// .log-in-btn{
+//     border: none;
+//     border-radius: 50px;
+// }
+
