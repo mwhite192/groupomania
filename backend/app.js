@@ -4,18 +4,21 @@ const app = express();
 const path = require('path');
 require('dotenv').config({path: path.resolve(__dirname, './.env')});
 
-mongoose.connect(`mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@groupomania.itjdiez.mongodb.net/?retryWrites=true&w=majority`)
-.then (() => {
-    console.log('Successfully connected to MongoDB Atlas!');
-})
+mongoose
+  .connect(
+    `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@groupomania.itjdiez.mongodb.net/?retryWrites=true&w=majority`
+  )
+  .then(() => {
+    console.log("Successfully connected to MongoDB Atlas!");
+  })
 
-.catch((error) => {
-    console.log('Unable to connect to MongoDB Atlas!');
+  .catch((error) => {
+    console.log("Unable to connect to MongoDB Atlas!");
     console.log(error);
-});
+  });
 
 app.use((req, res, next) => {
-  console.log('Request received!');
+  console.log("Request received!");
   next();
 });
 
@@ -25,12 +28,17 @@ app.use((req, res, next) => {
 });
 
 app.use((req, res, next) => {
-  res.json({ message: 'Your request was successful!' });
+  res.json({ message: "Your request was successful!" });
   next();
 });
 
 app.use((req, res, next) => {
-  console.log('Response sent successfully!');
+  console.log("Response sent successfully!");
 });
+
+
+
+
+
 
 module.exports = app;

@@ -7,8 +7,10 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Icon from '../../Assets/logo.svg';
 import './AuthForms.scss';
+// import Home from '../../Pages/Home/Home';
 
-export const AuthForms = ({setAuthenticated}, {setUser}) => {
+export const AuthForms = ({setAuthenticated, setCurrentPage}) => {
+  
   return (
     <Container>
       <Row xs={2} md={4} lg={6}>
@@ -29,7 +31,7 @@ export const AuthForms = ({setAuthenticated}, {setUser}) => {
             </Form.Group>
           </Form>
           <div className='d-grid'>
-            <Button variant='light' onClick={() => setAuthenticated(true)}>
+            <Button variant='light' onClick={() => {setAuthenticated(true); setCurrentPage('home')}}>
               Log In
             </Button>
           </div>
@@ -40,7 +42,7 @@ export const AuthForms = ({setAuthenticated}, {setUser}) => {
       </Row>
       <Row xs='auto'>
         <Col>
-          <Button variant='secondary' onClick = {() => setUser(true)}>
+          <Button variant='secondary'>
             Create Account
           </Button>
         </Col>
