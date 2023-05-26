@@ -29,3 +29,49 @@
 ::-webkit-scrollbar-thumb {
     background-color: #7b8490;
 }
+
+//media query breakpoints for responsiveness
+@media only screen and (max-width: 992px){
+    .sidebar{
+        flex: 1;
+        .sidebarWrapper{
+            padding: 17px;
+            .sidebarButton{
+                display: none;
+                .sidebarHr{
+                    display: none;
+                }
+            }
+        }
+    }
+    ::-webkit-scrollbar {
+        display: none;
+    }
+    ::-webkit-scrollbar-track {
+        display: none;
+    }
+    ::-webkit-scrollbar-thumb {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 768px){
+    .sidebar{
+        display: block;
+        .sidebarWrapper{
+            padding: 3px;
+            .sidebarHr{
+                display: none;
+                .sidebarFriendList{
+                    padding-top: 20px;
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 576px){
+    .sidebar{
+        display: none;
+    }
+}

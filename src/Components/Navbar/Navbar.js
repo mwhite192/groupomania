@@ -1,7 +1,7 @@
 import React from 'react';
 import './Navbar.scss';
 import CompanyLogo from '../../Assets/Logos/icon-left-font-monochrome-white.svg';
-import UserImage from '../../Assets/Person/user.jpg';
+import UserImage from '../../Assets/person/user.jpg';
 import SearchIcon from '@mui/icons-material/Search';
 import ChatBubbleIcon from '@mui/icons-material/ChatBubble';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';

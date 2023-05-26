@@ -1,9 +1,9 @@
 import React from 'react';
+import './Home.scss';
 import { Navbar } from '../../Components/Navbar/Navbar';
 import { Sidebar } from '../../Components/Sidebar/Sidebar';
-import './Home.scss';
-import PostFeed from '../../Components/PostFeed/PostFeed';
-import RightSideBar from '../../Components/RightSideBar/RightSideBar';
+import { PostFeed } from '../../Components/PostFeed/PostFeed';
+import { RightSideBar } from '../../Components/RightSideBar/RightSideBar';
 
 export const Home = () => {
   return (
