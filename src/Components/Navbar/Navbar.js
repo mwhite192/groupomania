@@ -1,11 +1,11 @@
 import React from 'react';
-import CompanyLogo from '../../Assets/logos/icon-left-font-monochrome-white.svg';
-import UserImage from '../../Assets/images/user.jpeg';
+import './Navbar.scss';
+import CompanyLogo from '../../Assets/Logos/icon-left-font-monochrome-white.svg';
+import UserImage from '../../Assets/Person/user.jpg';
 import SearchIcon from '@mui/icons-material/Search';
 import ChatBubbleIcon from '@mui/icons-material/ChatBubble';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import NotificationsIcon from '@mui/icons-material/Notifications';
-import './Navbar.scss';
 
 export const Navbar = () => {
   return (
