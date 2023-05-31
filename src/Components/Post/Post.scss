@@ -1,0 +1,99 @@
+.post{
+    width: 100%;
+    margin: 30px 0px;
+    border-radius: 10px;
+    -webkit-box-shadow: 2px 4px 10px 1px rgba(0,0,0,0.47);
+    .postWrapper{
+        padding: 20px;
+        .postTop{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            .postTopLeft{
+                display: flex;
+                align-items: center;
+                .postProfileImg{
+                    width: 40px;
+                    height: 40px;
+                    border-radius: 50%;
+                    object-fit: cover;
+                    cursor: pointer;
+                }
+                .postUsername{
+                    font-size: 15px;
+                    margin: 0px 10px;
+                    cursor: pointer;
+                }
+                .postDate{
+                    font-size: 13px;
+                }
+            }
+            .postTopRight{
+                .postVertButton{
+                    font-size: 30px;
+                    fill: #b0bac5;
+                    cursor: pointer;
+                }
+            }
+        }
+        .postCenter{
+            margin: 20px 0px;
+            .postImg{
+                width: 100%;
+                max-height: 500px;
+                object-fit: contain;
+                margin-top: 20px;
+                cursor: pointer;
+            }
+        }
+        .postBottom{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            .postBottomLeft{
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                .postLikeButton{
+                    font-size: 30px;
+                    cursor: pointer;
+                }
+                .postLikeCounter{
+                    font-size: 15px;
+                }
+                .postDislikeButton{
+                    font-size: 30px;
+                    cursor: pointer;
+                }
+                .postDislikeCounter{
+                    font-size: 15px;
+                }
+            }
+        }
+        .postBottomRight{
+            .postCommentText{
+                font-size: 15px;
+                cursor: pointer;
+            }
+        }
+        .postFooterHr{
+            margin: 10px 0px;
+        }
+        .postFooter{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            .postFooterBottomItem{
+                display: flex;
+                align-items: center;
+                padding: 7px;
+                cursor: pointer;
+                .postFooterIcon{
+                    fill: #d2042d;
+                    font-size: 30px;
+                    margin-right: 10px;
+                }
+            }
+        }
+    }
+}

@@ -1,8 +1,8 @@
 import React from 'react';
 import User from '../../Assets/person/user.jpg';
-import VideoCameraFrontIcon from '@mui/icons-material/VideoCameraFront';
-import PermMediaIcon from '@mui/icons-material/PermMedia';
-import EmojiEmotionsIcon from '@mui/icons-material/EmojiEmotions';
+import { VideoCameraFront } from '@mui/icons-material';
+import { PermMedia } from '@mui/icons-material';
+import { EmojiEmotions } from '@mui/icons-material';
 import './Share.scss';
 
 export const Share = () => {
@@ -21,18 +21,18 @@ export const Share = () => {
         <div className="shareBottom">
           <div className="shareOptions">
             <div className="shareOption">
-              <VideoCameraFrontIcon
+              <VideoCameraFront
                 className="shareIcon"
                 style={{ fill: "#d2042d" }}
               />
               <span className="shareIconText">Live Video</span>
             </div>
             <div className="shareOption">
-              <PermMediaIcon className="shareIcon" style={{ fill: "#7b8490" }} />
+              <PermMedia className="shareIcon" style={{ fill: "#7b8490" }} />
               <span className="shareIconText">Photo/Video</span>
             </div>
             <div className="shareOption">
-              <EmojiEmotionsIcon
+              <EmojiEmotions
                 className="shareIcon"
                 style={{ fill: "#ffd500" }}
               />
