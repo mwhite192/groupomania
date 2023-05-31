@@ -1,0 +1,64 @@
+input::placeholder{
+    color: white;
+}
+
+.post{
+    width: 100%;
+    height: 170%;
+    border-radius: 10px;
+    -webkit-box-shadow: 2px 4px 10px 1px rgba(0,0,0,0.47);
+    .postWrapper{
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        .postTop{
+            display: flex;
+            align-items: center;
+            .postProfileImg{
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                margin-right: 10px;
+                object-fit: cover;
+            }
+            .postInput{
+                border: none;
+                background-color: transparent;
+                font-size: 18px;
+                width: 80%;
+                &:focus{
+                    outline: none;
+                }
+            }
+            .postHr{
+                margin: 20px;
+            }
+        }
+        .postBottom{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            .postOptions{
+                width: 90%;
+                display: flex;
+                align-items: center;
+                margin-left: 20px;
+                justify-content: space-around;
+                .postOption{
+                    display: flex;
+                    align-items: center;
+                    margin-right: 20px;
+                    cursor: pointer;
+                    .postIcon{
+                       font-size: 30px;
+                        margin-right: 10px;
+                        .postOptionText{
+                            font-size: 15px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
