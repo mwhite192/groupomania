@@ -2,7 +2,7 @@ import React from 'react';
 import './Home.scss';
 import { Navbar } from '../../Components/Navbar/Navbar';
 import { Sidebar } from '../../Components/Sidebar/Sidebar';
-import { PostFeed } from '../../Components/PostFeed/PostFeed';
+import { Feed } from '../../Components/Feed/Feed';
 import { RightSideBar } from '../../Components/RightSideBar/RightSideBar';
 
 export const Home = () => {
@@ -11,7 +11,7 @@ export const Home = () => {
       <Navbar />
       <div className="homeContainer">
         <Sidebar />
-        <PostFeed />
+        <Feed />
         <RightSideBar />
       </div>
     </div>

@@ -1,11 +1,11 @@
 import React from 'react';
 import { Stories } from '../Stories/Stories';
 import { Share } from '../Share/Share';
-import './PostFeed.scss';
+import './Feed.scss';
 
-export const PostFeed = () => {
+export const Feed = () => {
   return (
-    <div className='postFeed'>
+    <div className='feed'>
       <div className="feedWrapper">
         <Stories />
         <Share />
@@ -14,4 +14,4 @@ export const PostFeed = () => {
   )
 }
 
-export default PostFeed
+export default Feed
