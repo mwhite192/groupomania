@@ -4,7 +4,7 @@ export const Users = [
     name: "Janet Stephen",
     username: "janet_22",
     email: "amber@logan.tv",
-    profilePicture: "/Assets/person/person1.jpg",
+    profilePicture: "/Assets/Logos/person1.jpg",
   },
   {
     id: 2,
