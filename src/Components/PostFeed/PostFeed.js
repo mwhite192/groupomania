@@ -1,6 +1,6 @@
 import React from 'react';
 import { Stories } from '../Stories/Stories';
-import { Post } from '../Post/Post';
+import { Share } from '../Share/Share';
 import './PostFeed.scss';
 
 export const PostFeed = () => {
@@ -8,7 +8,7 @@ export const PostFeed = () => {
     <div className='postFeed'>
       <div className="feedWrapper">
         <Stories />
-        <Post />
+        <Share />
       </div>
     </div>
   )
