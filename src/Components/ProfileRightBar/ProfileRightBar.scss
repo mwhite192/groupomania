@@ -1,0 +1,66 @@
+.profileRightBar{
+    flex: 7;
+    padding: 0 20px 0 0;
+    .profileRightBarHeading{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin: 20px 0;
+        .profileRightBarTitle{
+            font-size: 18px;
+        }
+        .profileEditButton{
+            border: none;
+            border-radius: 5px;
+            padding: 7px;
+            background-color: #d2042d;
+            color: white;
+            cursor: pointer;
+
+        }
+    }
+    .profileRightBarInfo{
+        margin-bottom: 30px;
+        .profileRightBarInfoItem{
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            .profileRightBarInfoKey{
+                margin-right: 20px;
+                width: 100px;
+            }
+            .profileRightBarInfoValue{
+                font-weight: 300;
+            }
+        }   
+    }
+    .profileRightBarFollowings{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        margin-top: 20px;
+        .profileRightBarFollowing{
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 20px;
+            cursor: pointer;
+            .profileRightBarFollowingImg{
+                width: 100px;
+                height: 100px;
+                object-fit: cover;
+                border-radius: 5px;
+            } 
+            .profileRightBarFollowingName{
+                align-self: center;
+                margin-top: 5px;
+            }
+        }
+    }
+}
+
+//media queries for responsiveness
+@media only screen and (max-width: 768px){
+    .profileRightBar{
+        display: none;
+    }
+}

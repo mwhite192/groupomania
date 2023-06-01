@@ -3,6 +3,9 @@ import Button from 'react-bootstrap/Button';
 import { MenuLink } from '../MenuLink/MenuLink';
 import { Friends } from '../Friends/Friends';
 import { Users } from '../../data';
+import { Settings } from '@mui/icons-material';
+import { Info } from '@mui/icons-material';
+import { Help } from '@mui/icons-material';
 import RssFeedIcon from '@mui/icons-material/RssFeed';
 import ChatIcon from '@mui/icons-material/Chat';
 import VideoLibraryIcon from '@mui/icons-material/VideoLibrary';
@@ -24,6 +27,9 @@ export const Sidebar = () => {
         <MenuLink icon={<NewspaperIcon />} text="NewsLetter" />
         <MenuLink icon={<EventIcon />} text="Events" />
         <MenuLink icon={<Brightness4Icon />} text="Theme" />
+        <MenuLink icon={<Settings />} text="Settings" />
+        <MenuLink icon={<Info />} text="About" />
+        <MenuLink icon={<Help />} text="Help" />
         <MenuLink icon={<ExitToAppIcon />} text="Logout" />
 
         <Button variant="primary" size="sm" className="sidebarButton">
