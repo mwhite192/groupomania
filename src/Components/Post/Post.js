@@ -48,22 +48,22 @@ export const Post = ({ post }) => {
         </div>
         <hr className="postFooterHr" />
         <div className="postFooter">
-          <div className="postFooterBottomItem">
+          <button className="postFooterBottomItem">
             <ThumbUpAltOutlined className="postFooterIcon" />
             <span className="postFooterIconText">Like</span>
-          </div>
-          <div className="postFooterBottomItem">
+          </button>
+          <button className="postFooterBottomItem">
             <ThumbDownAltOutlined className="postFooterIcon" />
             <span className="postFooterIconText">Dislike</span>
-          </div>
-          <div className="postFooterBottomItem">
+          </button>
+          <button className="postFooterBottomItem">
             <ChatBubbleOutline className="postFooterIcon" />
             <span className="postFooterIconText">Comment</span>
-          </div>
-          <div className="postFooterBottomItem">
+          </button>
+          <button className="postFooterBottomItem">
             <ShareOutlined className="postFooterIcon" />
             <span className="postFooterIconText">Share</span>
-          </div>
+          </button>
         </div>
       </div>
     </div>

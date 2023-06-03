@@ -20,24 +20,24 @@ export const Share = () => {
         <hr className="shareHr" />
         <div className="shareBottom">
           <div className="shareOptions">
-            <div className="shareOption">
+            <button className="shareOption">
               <VideoCameraFront
                 className="shareIcon"
                 style={{ fill: "#d2042d" }}
               />
               <span className="shareIconText">Live Video</span>
-            </div>
-            <div className="shareOption">
+            </button>
+            <button className="shareOption">
               <PermMedia className="shareIcon" style={{ fill: "#7b8490" }} />
               <span className="shareIconText">Photo/Video</span>
-            </div>
-            <div className="shareOption">
+            </button>
+            <button className="shareOption">
               <EmojiEmotions
                 className="shareIcon"
                 style={{ fill: "#ffd500" }}
               />
               <span className="shareIconText">Feelings</span>
-            </div>
+            </button>
           </div>
         </div>
       </div>
