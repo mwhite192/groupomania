@@ -13,15 +13,29 @@ export const ProfileRightBar = () => {
       </div>
       <div className="profileRightBarInfo">
         <div className="profileRightBarInfoItem">
-          <span className="profileRightBarInfoKey">Phone Ext: </span>
-          <span className="profileRightBarInfoValue">4951</span>
+          <span className="profileRightBarInfoKey">Email: </span>
+          <span className="profileRightBarInfoValue">
+            amber.logan@groupomania.com
+          </span>
+        </div>
+        <div className="profileRightBarInfoItem">
+          <span className="profileRightBarInfoKey">Username</span>
+          <span className="profileRightBarInfoValue">amber_logan</span>
+        </div>
+        <div className="profileRightBarInfoItem">
+          <span className="profileRightBarInfoKey">Position</span>
+          <span className="profileRightBarInfoValue">Senior Sales Associate</span>
         </div>
         <div className="profileRightBarInfoItem">
           <span className="profileRightBarInfoKey">Department: </span>
           <span className="profileRightBarInfoValue">Corporate Sales</span>
         </div>
         <div className="profileRightBarInfoItem">
-          <span className="profileRightBarInfoKey">Home Office: </span>
+          <span className="profileRightBarInfoKey">Phone#: </span>
+          <span className="profileRightBarInfoValue">901-555-4841</span>
+        </div>
+        <div className="profileRightBarInfoItem">
+          <span className="profileRightBarInfoKey">Address: </span>
           <span className="profileRightBarInfoValue">755 Crossover Lane</span>
         </div>
         <div className="profileRightBarInfoItem">
@@ -33,13 +47,12 @@ export const ProfileRightBar = () => {
           <span className="profileRightBarInfoValue">TN</span>
         </div>
         <div className="profileRightBarInfoItem">
-          <span className="profileRightBarInfoKey">Email: </span>
-          <span className="profileRightBarInfoValue">
-            amber.logan@groupomania.com
-          </span>
+          <span className="profileRightBarInfoKey">Zip</span>
+          <span className="profileRightBarInfoValue">38711</span>
         </div>
       </div>
-      <span className="profileRightBarTitle">Top Friends</span>
+
+      <span className="profileRightBarFollowingTitle">Top Friends</span>
       <div className="profileRightBarFollowings">
         <div className="profileRightBarFollowing">
           <img src={Friend} alt="" className="profileRightBarFollowingImg" />
