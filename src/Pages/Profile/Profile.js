@@ -2,7 +2,7 @@ import React from 'react';
 import ProfileCover from '../../Assets/person/profileCover.jpeg';
 import User from '../../Assets/person/user.jpg';
 import { Navbar } from '../../Components/Navbar/Navbar';
-import { Sidebar} from '../../Components/Sidebar/Sidebar';
+import { Sidebar } from '../../Components/Sidebar/Sidebar';
 import { Feed } from '../../Components/Feed/Feed';
 import { ProfileRightBar } from '../../Components/ProfileRightBar/ProfileRightBar';
 import './Profile.scss';

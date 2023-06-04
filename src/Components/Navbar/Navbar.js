@@ -2,10 +2,10 @@ import React from 'react';
 import './Navbar.scss';
 import CompanyLogo from '../../Assets/Logos/icon-left-font-monochrome-white.svg';
 import UserImage from '../../Assets/person/user.jpg';
-import SearchIcon from '@mui/icons-material/Search';
-import ChatBubbleIcon from '@mui/icons-material/ChatBubble';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import NotificationsIcon from '@mui/icons-material/Notifications';
+import { Search } from '@mui/icons-material';
+import { ChatBubble } from '@mui/icons-material';
+import { AccountCircle } from '@mui/icons-material';
+import { Notifications } from '@mui/icons-material';
 
 export const Navbar = () => {
   return (
@@ -15,7 +15,7 @@ export const Navbar = () => {
       </div>
       <div className="navbarCenter">
         <div className="searchBar">
-          <SearchIcon className="searchIcon" />
+          <Search className="searchIcon" />
           <input
             type="text"
             placeholder="Search for friend, post or video"
@@ -30,15 +30,15 @@ export const Navbar = () => {
         </div>
         <div className="navbarIcons">
           <div className="navbarIconItem">
-            <AccountCircleIcon className="navbarIcon" />
+            <AccountCircle className="navbarIcon" />
             <span className="navbarIconBadge">2</span>
           </div>
           <div className="navbarIconItem">
-            <ChatBubbleIcon className="navbarIcon" />
+            <ChatBubble className="navbarIcon" />
             <span className="navbarIconBadge">10</span>
           </div>
           <div className="navbarIconItem">
-            <NotificationsIcon className="navbarIcon" />
+            <Notifications className="navbarIcon" />
             <span className="navbarIconBadge">4</span>
           </div>
         </div>

@@ -7,7 +7,6 @@
     position: sticky;
     top: 0;
     z-index: 999;
-
     .navbarLeft{
         flex: 3;
         .logo{
@@ -26,6 +25,10 @@
             border-radius: 30px;
             display: flex;
             align-items: center;
+            ::placeholder{
+                font-family: 'Arimo', sans-serif;
+                color: #444a51;
+            }
             .searchIcon{
                 font-size: 20px;
                 margin-left: 10px;
@@ -60,6 +63,7 @@
         .navbarIcons{
             display: flex;
             font-size: 20px;
+            margin-left: 10px;
             gap: 10px;
             .navbarIconItem{
                 display: flex;

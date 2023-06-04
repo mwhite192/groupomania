@@ -18,18 +18,15 @@
             .registerLogo{ 
               width: 45%;
               height: 50%;
-            //   margin-bottom: 10px;
             }
             .registerLogoName{
                 font-size: 60px;
-                font-weight: bold;
                 margin-bottom: 10px;
             }
             .registerDesc{
+                font-family: 'Arimo', sans-serif;
                 font-size: 20px;
                 text-align: center;
-                color: #b0bac5;
-                // align-self: flex-start;
             }
         }
         .registerWrapperRight{
@@ -42,7 +39,7 @@
                 width: 100%;
                 display: flex;
                 flex-direction: column;
-                background-color: #03396c;
+                background-color: white;
                 border-radius: 10px;
                 .registerBoxTop{
                     display: flex;
@@ -53,6 +50,7 @@
                         display: flex;
                         width: 100px;
                         height: 100px;
+                        border: 5px solid #d2042d;
                         border-radius: 50%;
                         object-fit: cover;
                     }
@@ -63,6 +61,7 @@
                         .registerImgUploadLabel{
                             display: flex;
                             align-items: center;
+                            color: #d2042d;
                             // margin-right: 25px;
                             .icon{
                                 font-size: 34px;
@@ -82,13 +81,16 @@
                 display: flex;
                 flex-direction: column;
                 justify-content: space-between;
-                background-color: #03396c;
+                background-color: white;
                 .registerInput{
                     height: 50px;
-                    border: 1px solid #b0bac5;
+                    border: 1px solid #444a51;
                     border-radius: 10px;
                     padding-left: 20px;
                     font-size: 18px;
+                }
+                .registerInput::placeholder{
+                    font-family: 'Arimo', sans-serif;
                 }
                 .registerButton{
                     height: 50px;
@@ -98,19 +100,17 @@
                     font-size: 23px;
                     border: none;
                     border-radius: 10px;
-                    border: none;
                     margin-bottom: 5px;
                     cursor: pointer;
                 }
                 .loginRegisterButton{
                     height: 50px;
                     width: 100%;
-                    background-color: #d2042d;
+                    background-color: #03396c;
                     color: white;
                     font-size: 23px;
                     border: none;
                     border-radius: 10px;
-                    border: none;
                     margin-bottom: 35px;
                     cursor: pointer;
                 }

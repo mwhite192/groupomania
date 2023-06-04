@@ -1,0 +1,83 @@
+.login {
+    background-color: #03396c;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .loginWrapper {
+        width: 80%;
+        display: flex;
+        .loginWrapperLeft {
+            display: flex;
+            flex: 1;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin: 0 20px;
+            .loginLogo {
+                width: 45%;
+                height: 50%;
+            }
+            .loginLogoName {
+                font-size: 60px;
+                margin-bottom: 10px;
+            }
+            .loginDesc {
+                font-family: 'Arimo', sans-serif;
+                font-size: 20px;
+                text-align: center;
+                // color: #b0bac5;
+            }
+        }
+        .loginWrapperRight {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            margin: 0 20px;
+            justify-content: center;
+            .loginForm {
+                height: 350px;
+                padding: 30px;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                border-radius: 10px;
+                background-color: white;
+                .loginInput {
+                    height: 50px;
+                    border-radius: 10px;
+                    padding-left: 20px;
+                    font-size: 18px;
+                    border: 1px solid #444a51;
+                }
+                .loginInput::placeholder {
+                    font-family: 'Arimo', sans-serif;
+                    color: #444a51;
+                }
+                .loginButton {
+                    height: 50px;
+                    width: 100%;
+                    background-color: #d2042d;
+                    color: white;
+                    font-size: 23px;
+                    border: none;
+                    border-radius: 10px;
+                    margin-bottom: 5px;
+                    cursor: pointer;
+                }
+                .loginRegisterButton {
+                    height: 50px;
+                    width: 100%;
+                    background-color: #03396c;
+                    color: white;
+                    font-size: 23px;
+                    border: none;
+                    border-radius: 10px;
+                    margin-bottom: 5px;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+}

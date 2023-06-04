@@ -2,7 +2,8 @@ import React from 'react';
 // import {Home} from './Pages/Home/Home';
 // import { Profile } from './Pages/Profile/Profile';
 // import { EditProfile } from './Pages/EditProfile/EditProfile';
-import { Register } from './Pages/Register/Register';
+// import { Register } from './Pages/Register/Register';
+import {Login} from './Pages/Login/Login';
 // import {SignUpForms} from './Components/SignUpForms/SignUpForms';
 // import {AuthForms} from './Components/AuthForms/AuthForms';
 // import {Footer} from './Components/Footer/Footer';
@@ -17,7 +18,8 @@ function App() {
       {/* <Home /> */}
       {/* <Profile /> */}
       {/* <EditProfile /> */}
-      <Register />
+      {/* <Register /> */}
+      <Login />
       {/* {currentPage === 'home' && <Home />}
       {currentPage === 'auth' && (<AuthForms setAuthenticated = {setAuthenticated} setCurrentPage = {setCurrentPage} />)} */}
       {/* {!user && (<SignUpForms setUser = {setUser} />)} */}

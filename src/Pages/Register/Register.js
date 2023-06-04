@@ -1,5 +1,5 @@
 import React from 'react';
-import CompanyLogo from '../../Assets/Logos/logo.svg';
+import CompanyLogo from '../../Assets/Logos/logo 1.svg';
 import DefaultProfile from '../../Assets/person/DefaultProfile.jpg';
 import DriveFolderUploadOutlinedIcon from '@mui/icons-material/DriveFolderUploadOutlined';
 import './Register.scss';
@@ -12,7 +12,7 @@ export const Register = () => {
           <img src={CompanyLogo} alt="company logo" className="registerLogo" />
           <span className="registerLogoName">Groupomania</span>
           <span className="registerDesc">
-            Connect and interact with colleagues to create a <br></br>network of
+            Connect and interact with colleagues to create a network of
             friends on Groupomania!
           </span>
         </div>
@@ -78,6 +78,6 @@ export const Register = () => {
       </div>
     </div>
   );
-}
+};
 
 export default Register
