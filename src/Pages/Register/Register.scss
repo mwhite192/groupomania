@@ -1,0 +1,120 @@
+.register{
+    background-color: #03396c;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .registerWrapper{
+        width: 80%;
+        display: flex;
+        .registerWrapperLeft{
+            display: flex;
+            flex: 1;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin: 0 20px;
+            .registerLogo{ 
+              width: 45%;
+              height: 50%;
+            //   margin-bottom: 10px;
+            }
+            .registerLogoName{
+                font-size: 60px;
+                font-weight: bold;
+                margin-bottom: 10px;
+            }
+            .registerDesc{
+                font-size: 20px;
+                text-align: center;
+                color: #b0bac5;
+                // align-self: flex-start;
+            }
+        }
+        .registerWrapperRight{
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            justify-content: center;
+            margin: 0 20px;
+            .registerBox{
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                background-color: #03396c;
+                border-radius: 10px;
+                .registerBoxTop{
+                    display: flex;
+                    justify-content: space-around;
+                    align-items: center;
+                    margin: 35px;
+                    .registerImg{
+                        display: flex;
+                        width: 100px;
+                        height: 100px;
+                        border-radius: 50%;
+                        object-fit: cover;
+                    }
+                    .registerImgUpload{
+                        display: flex;
+                        align-items: center;
+                        padding-top: 25px;
+                        .registerImgUploadLabel{
+                            display: flex;
+                            align-items: center;
+                            // margin-right: 25px;
+                            .icon{
+                                font-size: 34px;
+                                margin-left: 10px;
+                                fill: #d2042d;
+                                cursor: pointer;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        .registerBoxBottom{
+            .registerForm{
+                height: 450px;
+                padding: 0 40px 10px 40px;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                background-color: #03396c;
+                .registerInput{
+                    height: 50px;
+                    border: 1px solid #b0bac5;
+                    border-radius: 10px;
+                    padding-left: 20px;
+                    font-size: 18px;
+                }
+                .registerButton{
+                    height: 50px;
+                    width: 100%;
+                    background-color: #d2042d;
+                    color: white;
+                    font-size: 23px;
+                    border: none;
+                    border-radius: 10px;
+                    border: none;
+                    margin-bottom: 5px;
+                    cursor: pointer;
+                }
+                .loginRegisterButton{
+                    height: 50px;
+                    width: 100%;
+                    background-color: #d2042d;
+                    color: white;
+                    font-size: 23px;
+                    border: none;
+                    border-radius: 10px;
+                    border: none;
+                    margin-bottom: 35px;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+}

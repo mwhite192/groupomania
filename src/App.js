@@ -1,8 +1,8 @@
 import React from 'react';
-import { Register } from './Pages/Register/Register';
 // import {Home} from './Pages/Home/Home';
 // import { Profile } from './Pages/Profile/Profile';
 // import { EditProfile } from './Pages/EditProfile/EditProfile';
+import { Register } from './Pages/Register/Register';
 // import {SignUpForms} from './Components/SignUpForms/SignUpForms';
 // import {AuthForms} from './Components/AuthForms/AuthForms';
 // import {Footer} from './Components/Footer/Footer';
@@ -14,10 +14,10 @@ function App() {
   // const [currentPage, setCurrentPage] = React.useState(authenticated ? 'home': 'auth');
   return (
     <div className="App">
-      <Register />
       {/* <Home /> */}
       {/* <Profile /> */}
       {/* <EditProfile /> */}
+      <Register />
       {/* {currentPage === 'home' && <Home />}
       {currentPage === 'auth' && (<AuthForms setAuthenticated = {setAuthenticated} setCurrentPage = {setCurrentPage} />)} */}
       {/* {!user && (<SignUpForms setUser = {setUser} />)} */}
