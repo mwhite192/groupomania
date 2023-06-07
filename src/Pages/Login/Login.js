@@ -1,9 +1,15 @@
 import React from 'react';
 import CompanyLogo from '../../Assets/Logos/logo 1.svg';
-import Form from 'react-bootstrap/Form';
 import './Login.scss';
+// import { useState } from 'react';
 
-export const Login = () => {
+export const Login = ({setShowRegister, setCurrentPage}) => {
+
+  // const [ showRegister, setShowRegister ] = useState(false);
+  // const handleRegisterClick = () => {
+  //   setShowRegister(!showRegister);
+  // };
+
   return (
     <div className="login">
       <div className="login">
@@ -19,7 +25,7 @@ export const Login = () => {
           <div className="loginWrapperRight">
             <div className="loginBox">
               <div className="loginBoxBottom">
-                <form className="loginForm">
+                <form className="loginForm" >
                   <input
                     type="email"
                     placeholder="Email"
@@ -38,7 +44,7 @@ export const Login = () => {
                   <button type="submit" className="loginButton">
                     Sign In
                   </button>
-                  <button className="loginRegisterButton">
+                  <button className="loginRegisterButton" onClick={() => {setShowRegister(true); setCurrentPage('register')}}>
                     Create a New Account
                   </button>
                 </form>
