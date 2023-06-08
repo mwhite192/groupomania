@@ -1,52 +1,52 @@
-.register{
+.register {
     background-color: #03396c;
     width: 100vw;
     height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    .registerWrapper{
+    .registerWrapper {
         width: 80%;
         display: flex;
-        .registerWrapperLeft{
+        .registerWrapperLeft {
             display: flex;
             flex: 1;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             margin: 0 20px;
-            .registerLogo{ 
-              width: 45%;
-              height: 50%;
+            .registerLogo {
+                width: 45%;
+                height: 50%;
             }
-            .registerLogoName{
+            .registerLogoName {
                 font-size: 60px;
                 margin-bottom: 10px;
             }
-            .registerDesc{
+            .registerDesc {
                 font-family: 'Arimo', sans-serif;
                 font-size: 20px;
                 text-align: center;
             }
         }
-        .registerWrapperRight{
+        .registerWrapperRight {
             display: flex;
             flex-direction: column;
             flex: 1;
             justify-content: center;
             margin: 0 20px;
-            .registerBox{
+            .registerBox {
                 width: 100%;
                 display: flex;
                 flex-direction: column;
                 background-color: white;
                 border-radius: 10px;
-                .registerBoxTop{
+                .registerBoxTop {
                     display: flex;
                     justify-content: space-around;
                     align-items: center;
                     margin: 35px;
-                    .registerImg{
+                    .registerImg {
                         display: flex;
                         width: 100px;
                         height: 100px;
@@ -54,45 +54,49 @@
                         border-radius: 50%;
                         object-fit: cover;
                     }
-                    .registerImgUpload{
-                        display: flex;
-                        align-items: center;
-                        padding-top: 25px;
-                        .registerImgUploadLabel{
-                            display: flex;
-                            align-items: center;
-                            color: #d2042d;
-                            // margin-right: 25px;
-                            .icon{
-                                font-size: 34px;
-                                margin-left: 10px;
-                                fill: #d2042d;
-                                cursor: pointer;
-                            }
-                        }
-                    }
+
                 }
             }
         }
-        .registerBoxBottom{
-            .registerForm{
-                height: 450px;
-                padding: 0 40px 10px 40px;
+        .registerBoxBottom {
+            .registerForm {
+                height: 425px;
+                padding: 0 40px 40px 40px;
                 display: flex;
                 flex-direction: column;
                 justify-content: space-between;
                 background-color: white;
-                .registerInput{
+                border-radius: 10px;
+                .registerImgUpload {
+                    display: flex;
+                    align-items: center;
+                    padding-top: 25px;
+                    .registerImgUploadLabel {
+                        display: flex;
+                        align-items: center;
+                        color: #d2042d;      
+                        // margin-right: 25px;
+                        .icon {
+                            font-size: 34px;
+                            margin-left: 10px;
+                            fill: #d2042d;
+                            cursor: pointer;
+                        }
+                    }
+                    
+                }
+                .registerInput {
+                    color: #444a51;
                     height: 50px;
                     border: 1px solid #444a51;
                     border-radius: 10px;
                     padding-left: 20px;
                     font-size: 18px;
                 }
-                .registerInput::placeholder{
+                .registerInput::placeholder {
                     font-family: 'Arimo', sans-serif;
                 }
-                .registerButton{
+                .registerButton {
                     height: 50px;
                     width: 100%;
                     background-color: #d2042d;
@@ -103,18 +107,8 @@
                     margin-bottom: 5px;
                     cursor: pointer;
                 }
-                .loginRegisterButton{
-                    height: 50px;
-                    width: 100%;
-                    background-color: #03396c;
-                    color: white;
-                    font-size: 23px;
-                    border: none;
-                    border-radius: 10px;
-                    margin-bottom: 35px;
-                    cursor: pointer;
-                }
             }
         }
     }
 }
+    

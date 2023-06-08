@@ -1,15 +1,8 @@
 import React from 'react';
 import CompanyLogo from '../../Assets/Logos/logo 1.svg';
 import './Login.scss';
-// import { useState } from 'react';
 
 export const Login = ({setShowRegister, setCurrentPage}) => {
-
-  // const [ showRegister, setShowRegister ] = useState(false);
-  // const handleRegisterClick = () => {
-  //   setShowRegister(!showRegister);
-  // };
-
   return (
     <div className="login">
       <div className="login">
@@ -25,7 +18,7 @@ export const Login = ({setShowRegister, setCurrentPage}) => {
           <div className="loginWrapperRight">
             <div className="loginBox">
               <div className="loginBoxBottom">
-                <form className="loginForm" >
+                <form action='/login' method='POST' className="loginForm" >
                   <input
                     type="email"
                     placeholder="Email"

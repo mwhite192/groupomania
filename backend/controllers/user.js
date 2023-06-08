@@ -14,10 +14,11 @@ exports.signup = (req, res, next) => {
     console.log(hash);
     // sets the user
     const user = new User({
+      image: req.body.image,
+      username: req.body.username,
       email: req.body.email,
       password: hash,
     });
-    // console.log(user);
     // saves the user
     user
       .save()
@@ -26,6 +27,7 @@ exports.signup = (req, res, next) => {
         res.status(201).json({
           message: 'User added successfully!',
         });
+        console.log(user);
       })
       .catch((error) => {
         res.status(500).json({

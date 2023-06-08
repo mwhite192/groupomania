@@ -6,26 +6,38 @@ import { useState } from 'react';
 import './Register.scss';
 
 export const Register = () => {
-
-  const [formData, setFormData] = useState({
-    username: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
-  });
+  const formValues = {  file: '', username: '', registerEmail: '', registerPassword: '' };
+  const [formData, setFormData] = useState(formValues);
+  
+  const handleChange = (event) => {
+    const { id, value } = event.target;
+    setFormData({
+      ...formData,
+      [id]: value
+    });
+  };
 
   const handleSubmit = (event) => {
     // Prevent default form submission
     event.preventDefault(); 
-    // Get the form data
-    // const { username, email, password, confirmPassword } = formData;
-    // Reset the form after submission
-    setFormData({ username: '', email: '', password: '', confirmPassword: '' });
-  };
-
-  const handleChange = (event) => {
-    // Update the form data
-    setFormData({ ...formData, [event.target.name]: event.target.value });
+    // Send form data to backend
+    fetch('/signup', {
+      method: 'POST',
+      body: JSON.stringify(formData)
+    })
+    .then((response) => response.json())
+    .then((data) => {
+      if(data.success){
+        console.log(data);
+      }
+      else{
+        console.log('Error: User not created');
+      }
+    })
+    .catch((error) => {
+      // Handle any errors that occurred during the request
+      console.error(error);
+    });
   };
 
   return (
@@ -35,8 +47,8 @@ export const Register = () => {
           <img src={CompanyLogo} alt="company logo" className="registerLogo" />
           <span className="registerLogoName">Groupomania</span>
           <span className="registerDesc">
-            Connect and interact with colleagues to create a network of
-            friends on Groupomania!
+            Connect and interact with colleagues to create a network of friends
+            on Groupomania!
           </span>
         </div>
         <div className="registerWrapperRight">
@@ -47,21 +59,28 @@ export const Register = () => {
                 alt="default user"
                 className="registerImg"
               />
-              <div className="registerImgUpload">
-                <label className='registerImgUploadLabel' htmlFor="file">
-                    Upload Image: <DriveFolderUploadOutlinedIcon className="icon" />
-                  <input
-                    type="file"
-                    name="file"
-                    id="file"
-                    accept=".png,.jpeg,.jpg"
-                    style={{ display: "none" }}
-                  />
-                </label>
-              </div>
             </div>
             <div className="registerBoxBottom">
-              <form action="" className="registerForm" onSubmit={handleSubmit}>
+              <form
+                action="/signup"
+                method="POST"
+                className="registerForm"
+                onSubmit={handleSubmit}
+              >
+                <div className="registerImgUpload">
+                  <label className="registerImgUploadLabel" htmlFor="file">
+                    Upload Image:{" "}
+                    <DriveFolderUploadOutlinedIcon className="icon" />
+                    <input
+                      type="file"
+                      name="file"
+                      id="file"
+                      onChange={handleChange}
+                      accept=".png,.jpeg,.jpg"
+                      style={{ display: "none" }}
+                    />
+                  </label>
+                </div>
                 <input
                   type="text"
                   placeholder="Username"
@@ -74,7 +93,7 @@ export const Register = () => {
                 <input
                   type="email"
                   placeholder="Email"
-                  id="email"
+                  id="registerEmail"
                   className="registerInput"
                   required
                   value={formData.email}
@@ -83,25 +102,15 @@ export const Register = () => {
                 <input
                   type="password"
                   placeholder="Password"
-                  id="password"
+                  id="registerPassword"
                   className="registerInput"
                   required
                   value={formData.password}
                   onChange={handleChange}
                 />
-                <input
-                  type="password"
-                  placeholder="Confirm Password"
-                  id="confirmPassword"
-                  className="registerInput"
-                  required
-                  value={formData.confirmPassword}
-                  onChange={handleChange}
-                />
-                <button type="submit" className="registerButton" >
+                <button type="submit" className="registerButton">
                   Sign Up
                 </button>
-                <button className="loginRegisterButton">Log In</button>
               </form>
             </div>
           </div>
@@ -112,3 +121,7 @@ export const Register = () => {
 };
 
 export default Register
+
+// onClick={() => {setShowRegister(false); setCurrentPage('login')}}
+
+// {setShowRegister, setCurrentPage}
