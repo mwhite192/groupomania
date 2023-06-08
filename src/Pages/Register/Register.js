@@ -93,7 +93,7 @@ export const Register = ({setShowRegister, setCurrentPage}) => {
                   id="registerEmail"
                   className="registerInput"
                   required
-                  value={formData.email}
+                  value={formData.registerEmail}
                   onChange={handleChange}
                 />
                 <input
@@ -102,7 +102,7 @@ export const Register = ({setShowRegister, setCurrentPage}) => {
                   id="registerPassword"
                   className="registerInput"
                   required
-                  value={formData.password}
+                  value={formData.registerPassword}
                   onChange={handleChange}
                 />
                 <button type="submit" className="registerButton">

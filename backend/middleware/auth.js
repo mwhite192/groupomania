@@ -15,7 +15,7 @@ module.exports = (req, res, next) => {
     // if the userId is not the same as the one in the request, an error is thrown
     if (req.body.userId && req.body.userId !== userId) {
       res.status(403).json({
-        error: error
+        error: 'Invalid user ID!'
       });
     } else {
       next();

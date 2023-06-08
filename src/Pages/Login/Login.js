@@ -1,8 +1,41 @@
 import React from 'react';
+import { useState } from 'react';
 import CompanyLogo from '../../Assets/Logos/logo 1.svg';
 import './Login.scss';
 
 export const Login = ({setShowRegister, setCurrentPage}) => {
+  const formValues = {  email: '', password: '' };
+  const [formData, setFormData] = useState(formValues);
+  
+  const handleChange = (event) => {
+    const { id, value } = event.target;
+    setFormData({
+      ...formData,
+      [id]: value
+    });
+  };
+
+  const handleSubmit = (event) => {
+    // Prevent default form submission
+    event.preventDefault(); 
+    // Send form data to backend
+    fetch('/api/user/login', {
+      method: 'POST',
+      headers: {  
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(formData)
+    })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+    })
+    .catch((error) => {
+      // Handle any errors that occurred during the request
+      console.error(error);
+    });
+  };
+
   return (
     <div className="login">
       <div className="login">
@@ -18,13 +51,15 @@ export const Login = ({setShowRegister, setCurrentPage}) => {
           <div className="loginWrapperRight">
             <div className="loginBox">
               <div className="loginBoxBottom">
-                <form action='/login' method='POST' className="loginForm" >
+                <form className="loginForm" onSubmit={handleSubmit}>
                   <input
                     type="email"
                     placeholder="Email"
                     id="email"
                     className="loginInput"
                     required
+                    value={formData.email}
+                    onChange={handleChange}
                   />
                   <input
                     type="password"
@@ -32,6 +67,8 @@ export const Login = ({setShowRegister, setCurrentPage}) => {
                     id="password"
                     className="loginInput"
                     required
+                    value={formData.password}
+                    onChange={handleChange}
                   />
 
                   <button type="submit" className="loginButton">

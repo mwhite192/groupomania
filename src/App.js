@@ -15,10 +15,12 @@ function App() {
   // declares the currentPage state variable and its corresponding setter function
   const [currentPage, setCurrentPage] = React.useState(showRegister ? 'register':'login');
 
+
   return (
     <div className="App">
       {currentPage === 'login' && <Login setShowRegister = {setShowRegister} setCurrentPage = {setCurrentPage} />}
       {currentPage === 'register' && <Register setShowRegister = {setShowRegister} setCurrentPage = {setCurrentPage} />}
+      {/* {currentPage === 'home' && <Home setHome = {setHome} setCurrentPage = {setCurrentPage}/>} */}
       {/* <Register /> */}
       {/* <Home /> */}
       {/* <Profile /> */}
