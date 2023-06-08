@@ -5,7 +5,7 @@ import DriveFolderUploadOutlinedIcon from '@mui/icons-material/DriveFolderUpload
 import { useState } from 'react';
 import './Register.scss';
 
-export const Register = () => {
+export const Register = ({setShowRegister, setCurrentPage}) => {
   const formValues = {  file: '', username: '', registerEmail: '', registerPassword: '' };
   const [formData, setFormData] = useState(formValues);
   
@@ -21,18 +21,17 @@ export const Register = () => {
     // Prevent default form submission
     event.preventDefault(); 
     // Send form data to backend
-    fetch('/signup', {
+    fetch('/api/user/signup', {
       method: 'POST',
+      headers: {  
+        'Content-Type': 'application/json'
+      },
       body: JSON.stringify(formData)
     })
     .then((response) => response.json())
     .then((data) => {
-      if(data.success){
-        console.log(data);
-      }
-      else{
-        console.log('Error: User not created');
-      }
+      console.log(data);
+      setShowRegister(false); setCurrentPage('login');
     })
     .catch((error) => {
       // Handle any errors that occurred during the request
@@ -62,8 +61,6 @@ export const Register = () => {
             </div>
             <div className="registerBoxBottom">
               <form
-                action="/signup"
-                method="POST"
                 className="registerForm"
                 onSubmit={handleSubmit}
               >
@@ -122,6 +119,5 @@ export const Register = () => {
 
 export default Register
 
-// onClick={() => {setShowRegister(false); setCurrentPage('login')}}
 
-// {setShowRegister, setCurrentPage}
+

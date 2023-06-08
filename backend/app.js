@@ -22,7 +22,6 @@ mongoose
 app.use (express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('static'));
-app.use('/', userRouter);
 app.use('/api/user', userRouter);
 
 app.use(
@@ -33,10 +32,15 @@ app.use(
   })
 );
 
+
+
 app.use((err, req, res, next) => {
-  console.error(err);
+  if(err){
   res.status(500).json({ error: 'Internal Server Error' });
+  }
+  else{
   next();
+  }
 });
 
 // app.use((req, res, next) => {

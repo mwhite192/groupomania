@@ -9,16 +9,17 @@ const User = require('../models/user');
 // exports the signup function
 exports.signup = (req, res, next) => {
   // hashes the password
-  bcrypt.hash(req.body.password, 10).then((hash) => {
+  bcrypt.hash(req.body.registerPassword, 10).then((hash) => {
     // sets the user
     console.log(hash);
     // sets the user
     const user = new User({
-      image: req.body.image,
+      file: req.body.image,
       username: req.body.username,
-      email: req.body.email,
-      password: hash,
+      registerEmail: req.body.registerEmail,
+      registerPassword: hash,
     });
+    console.log(user);
     // saves the user
     user
       .save()
@@ -30,13 +31,14 @@ exports.signup = (req, res, next) => {
         console.log(user);
       })
       .catch((error) => {
+        console.log(error);
         res.status(500).json({
-          error: error,
+          error: 'Failed to add user!'  ,
         });
       })
   }).catch((error) => {
     res.status(500).json({
-      error: error,
+      error: 'Failed to encrypt password!',
     });
   });
 }

@@ -18,8 +18,8 @@ function App() {
   return (
     <div className="App">
       {currentPage === 'login' && <Login setShowRegister = {setShowRegister} setCurrentPage = {setCurrentPage} />}
-      {/* {currentPage === 'register' && <Register setShowRegister = {setShowRegister} setCurrentPage = {setCurrentPage} />} */}
-      <Register />
+      {currentPage === 'register' && <Register setShowRegister = {setShowRegister} setCurrentPage = {setCurrentPage} />}
+      {/* <Register /> */}
       {/* <Home /> */}
       {/* <Profile /> */}
       {/* <EditProfile /> */}
