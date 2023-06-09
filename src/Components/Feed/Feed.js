@@ -1,10 +1,14 @@
+// imports the React library and the App.scss file
 import React from 'react';
+import './Feed.scss';
+// imports the Stories, Share, and Post components
 import { Stories } from '../Stories/Stories';
 import { Share } from '../Share/Share';
 import { Post } from '../Post/Post';
 import { Posts } from '../../data';
-import './Feed.scss';
 
+
+// creates the Feed component
 export const Feed = () => {
   return (
     <div className='feed'>
@@ -19,4 +23,4 @@ export const Feed = () => {
   )
 }
 
-export default Feed
+export default Feed;

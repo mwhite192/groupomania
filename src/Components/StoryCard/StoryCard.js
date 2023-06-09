@@ -1,6 +1,9 @@
+// imports the React library and the StoryCard.scss file
 import React from 'react';
 import './StoryCard.scss';
 
+
+// creates the StoryCard component
 export const StoryCard = ({user}) => {
   return (
     <div className="storyCard">

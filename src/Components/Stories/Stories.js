@@ -1,10 +1,14 @@
+// imports the React library and the Stories.scss file
 import React from 'react';
+import './Stories.scss';
+// imports the StoryCard component
 import { StoryCard } from '../StoryCard/StoryCard';
 import { Users } from '../../data';
-import User from '../../Assets/person/user.jpg';
 import Upload from '../../Assets/person/upload.png';
-import './Stories.scss';
+import User from '../../Assets/person/user.jpg';
 
+
+// creates the Stories component
 export const Stories = () => {
   return (
     <div className='stories'>
@@ -20,4 +24,4 @@ export const Stories = () => {
   )
 }
 
-export default Stories
+export default Stories;

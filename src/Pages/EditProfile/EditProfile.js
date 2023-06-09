@@ -1,16 +1,34 @@
+// imports the React library and the EditProfile.scss file
 import React from 'react';
-import User from '../../Assets/person/user.jpg';
-import ProfileCover from '../../Assets/person/profileCover.jpeg';
-import DefaultProfileCover from '../../Assets/person/DefaultProfile.jpg';
+import './EditProfile.scss';
+// imports the react router and useNavigate hook
+import { useNavigate } from 'react-router-dom';
+// imports the react bootstrap components
 import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
+// imports the Navbar, Sidebar, and images
 import { Navbar } from '../../Components/Navbar/Navbar';
 import { Sidebar } from '../../Components/Sidebar/Sidebar';
-import './EditProfile.scss';
+import User from '../../Assets/person/user.jpg';
+import ProfileCover from '../../Assets/person/profileCover.jpeg';
+import DefaultProfileCover from '../../Assets/person/DefaultProfile.jpg';
 
+
+// creates the EditProfile page
 export const EditProfile = () => {
+  // creates a navigate object
+  const navigate = useNavigate();
+
+  // creates a handleSubmit function
+  const handleSubmit = (e) => {
+    // prevents page from reloading on submit
+    e.preventDefault();
+    // navigates user to profile page
+    navigate('/profile');
+  };
+
   return (
     <div className="editProfile">
       <Navbar />
@@ -47,7 +65,7 @@ export const EditProfile = () => {
                  <Button variant="primary" className='editProfileDeleteAccountButton'>Delete Account</Button>
               </div>
               <div className="editProfileRightBottomForm">
-                <Form className="editProfileForm">
+                <Form className="editProfileForm" onSubmit={handleSubmit}>
                   <Row className="mb-3">
                     <Form.Group controlId="formFile" className="mb-3">
                       <Form.Label>Image:</Form.Label>
@@ -121,7 +139,7 @@ export const EditProfile = () => {
   );
 };
 
-export default EditProfile
+export default EditProfile;
 
 
   

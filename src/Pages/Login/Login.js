@@ -1,18 +1,34 @@
+// imports the React Library and the Login.scss file
 import React from 'react';
-import { useState } from 'react';
-import CompanyLogo from '../../Assets/Logos/logo 1.svg';
 import './Login.scss';
+// imports useState and useNavigate hook
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+// imports the company logo
+import CompanyLogo from '../../Assets/Logos/logo 1.svg';
 
-export const Login = ({setShowRegister, setCurrentPage}) => {
+
+// creates the Login page
+export const Login = () => {
+  // creates a navigate object
+  const navigate = useNavigate();
+
+  // creates a form data object
   const formValues = {  email: '', password: '' };
   const [formData, setFormData] = useState(formValues);
   
+  // creates a handleChange function
   const handleChange = (event) => {
     const { id, value } = event.target;
     setFormData({
       ...formData,
       [id]: value
     });
+  };
+
+  // creates a handleClick function
+  const handleClick = () => {
+    navigate('/register');
   };
 
   const handleSubmit = (event) => {
@@ -26,14 +42,17 @@ export const Login = ({setShowRegister, setCurrentPage}) => {
       },
       body: JSON.stringify(formData)
     })
+    // Convert response to JSON
     .then((response) => response.json())
     .then((data) => {
       console.log(data);
     })
+    // Catch errors
     .catch((error) => {
-      // Handle any errors that occurred during the request
       console.error(error);
     });
+    // navigates user to home page
+    navigate('/home');
   };
 
   return (
@@ -74,7 +93,7 @@ export const Login = ({setShowRegister, setCurrentPage}) => {
                   <button type="submit" className="loginButton">
                     Sign In
                   </button>
-                  <button className="loginRegisterButton" onClick={() => {setShowRegister(true); setCurrentPage('register')}}>
+                  <button className="loginRegisterButton" onClick={handleClick}>
                     Create a New Account
                   </button>
                 </form>
@@ -88,3 +107,6 @@ export const Login = ({setShowRegister, setCurrentPage}) => {
 };
 
 export default Login;
+
+
+

@@ -1,6 +1,9 @@
+// imports the React library and the MenuLink.scss file
 import React from 'react';
 import './MenuLink.scss';
 
+
+// creates the MenuLink component
 export const MenuLink = ({icon, text}) => {
   return (
     <div className='menuLink'>
@@ -11,4 +14,4 @@ export const MenuLink = ({icon, text}) => {
   )
 }
 
-export default MenuLink
+export default MenuLink;

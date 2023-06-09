@@ -1,15 +1,29 @@
+// imports the React library and the ProfileRightBar.scss file
 import React from 'react';
+import './ProfileRightBar.scss';
+// imports the useNavigate hook from the react-router-dom library
+import { useNavigate } from 'react-router-dom';
 import Friend from '../../Assets/person/friend1.jpg';
 import Friend2 from '../../Assets/person/friend2.jpg';
 import Friend3 from '../../Assets/person/friend3.jpg';
-import './ProfileRightBar.scss';
 
+
+// creates the ProfileRightBar component
 export const ProfileRightBar = () => {
+  // creates a navigate object
+  const navigate = useNavigate();
+
+  // creates a handleClick function
+  const handleClick = () => {
+    // navigates user to edit profile page
+    navigate('/editProfile');
+  };
+
   return (
     <div className="profileRightBar">
       <div className="profileRightBarHeading">
         <span className="profileRightBarTitle">User Information</span>
-        <span className="profileEditButton">Edit Profile</span>
+        <button className="profileEditButton" onClick={handleClick}>Edit Profile</button>
       </div>
       <div className="profileRightBarInfo">
         <div className="profileRightBarInfoItem">
@@ -71,4 +85,4 @@ export const ProfileRightBar = () => {
   );
 };
 
-export default ProfileRightBar
+export default ProfileRightBar;

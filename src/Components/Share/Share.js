@@ -1,10 +1,14 @@
+// imports the React library and the Share.scss file
 import React from 'react';
-import User from '../../Assets/person/user.jpg';
+import './Share.scss';
+// imports the icons from the material ui library
 import { VideoCameraFront } from '@mui/icons-material';
 import { PermMedia } from '@mui/icons-material';
 import { EmojiEmotions } from '@mui/icons-material';
-import './Share.scss';
+import User from '../../Assets/person/user.jpg';
 
+
+// creates the Share component
 export const Share = () => {
   return (
     <div className="share">
@@ -45,4 +49,4 @@ export const Share = () => {
   );
 };
 
-export default Share
+export default Share;

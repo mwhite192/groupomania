@@ -1,14 +1,25 @@
+// imports the React library and the Register.scss file
 import React from 'react';
+import './Register.scss';
+// imports the useState and useNavigate hooks
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+// imports the DriveFolderUploadOutlined icon, company logo, and default profile image
+import { DriveFolderUploadOutlined } from '@mui/icons-material';
 import CompanyLogo from '../../Assets/Logos/logo 1.svg';
 import DefaultProfile from '../../Assets/person/DefaultProfile.jpg';
-import DriveFolderUploadOutlinedIcon from '@mui/icons-material/DriveFolderUploadOutlined';
-import { useState } from 'react';
-import './Register.scss';
 
-export const Register = ({setShowRegister, setCurrentPage}) => {
+
+// creates the Register page
+export const Register = () => {
+  // creates a navigate object
+  const navigate = useNavigate();
+
+  // creates a form data object
   const formValues = {  file: '', username: '', registerEmail: '', registerPassword: '' };
   const [formData, setFormData] = useState(formValues);
   
+  // creates a handleChange function
   const handleChange = (event) => {
     const { id, value } = event.target;
     setFormData({
@@ -17,9 +28,12 @@ export const Register = ({setShowRegister, setCurrentPage}) => {
     });
   };
 
+  // creates a handleSubmit function
   const handleSubmit = (event) => {
     // Prevent default form submission
     event.preventDefault(); 
+    // navigates user back to login page
+    navigate('/');
     // Send form data to backend
     fetch('/api/user/signup', {
       method: 'POST',
@@ -28,13 +42,13 @@ export const Register = ({setShowRegister, setCurrentPage}) => {
       },
       body: JSON.stringify(formData)
     })
+    // Convert response to JSON
     .then((response) => response.json())
     .then((data) => {
       console.log(data);
-      setShowRegister(false); setCurrentPage('login');
     })
+    // Catch errors
     .catch((error) => {
-      // Handle any errors that occurred during the request
       console.error(error);
     });
   };
@@ -67,7 +81,7 @@ export const Register = ({setShowRegister, setCurrentPage}) => {
                 <div className="registerImgUpload">
                   <label className="registerImgUploadLabel" htmlFor="file">
                     Upload Image:{" "}
-                    <DriveFolderUploadOutlinedIcon className="icon" />
+                    <DriveFolderUploadOutlined className="icon" />
                     <input
                       type="file"
                       name="file"
@@ -117,7 +131,8 @@ export const Register = ({setShowRegister, setCurrentPage}) => {
   );
 };
 
-export default Register
+export default Register;
+
 
 
 

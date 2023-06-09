@@ -55,11 +55,6 @@
         display: flex;
         align-items: center;
         justify-content: space-around;
-        .navbarLink{
-            margin-left: 20px;
-            font-size: 15px;
-            cursor: pointer;
-        }
         .navbarIcons{
             display: flex;
             font-size: 20px;
@@ -85,7 +80,10 @@
                 }
             }
         }
-        .navbarImg{
+        .navbarProfileIcon{
+            border: none;
+            border-radius: 50%;
+            .navbarImg{
             display: flex;
             width: 32px;
             height: 32px;
@@ -93,7 +91,8 @@
             border: 2px solid white;
             object-fit: cover;
             cursor: pointer;
-        }
+          } 
+       }
     }
 }
 

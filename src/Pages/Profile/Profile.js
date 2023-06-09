@@ -1,12 +1,17 @@
+// imports the React library and the App.scss file
 import React from 'react';
-import ProfileCover from '../../Assets/person/profileCover.jpeg';
-import User from '../../Assets/person/user.jpg';
+import './Profile.scss';
+// imports the react bootstrap components
 import { Navbar } from '../../Components/Navbar/Navbar';
 import { Sidebar } from '../../Components/Sidebar/Sidebar';
 import { Feed } from '../../Components/Feed/Feed';
+// imports the ProfileRightBar, User, and ProfileCover images
 import { ProfileRightBar } from '../../Components/ProfileRightBar/ProfileRightBar';
-import './Profile.scss';
+import User from '../../Assets/person/user.jpg';
+import ProfileCover from '../../Assets/person/profileCover.jpeg';
 
+
+// creates the Profile page
 export const Profile = () => {
   return (
     <div className='profile'>
@@ -34,4 +39,4 @@ export const Profile = () => {
   )
 }
 
-export default Profile
+export default Profile;

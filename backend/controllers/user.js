@@ -19,7 +19,6 @@ exports.signup = (req, res, next) => {
       registerEmail: req.body.registerEmail,
       registerPassword: hash,
     });
-    console.log(user);
     // saves the user
     user
       .save()
@@ -28,7 +27,6 @@ exports.signup = (req, res, next) => {
         res.status(201).json({
           message: 'User added successfully!',
         });
-        console.log(user);
       })
       .catch((error) => {
         console.log(error);

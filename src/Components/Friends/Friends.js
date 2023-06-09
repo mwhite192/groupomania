@@ -1,6 +1,9 @@
+// imports the React library and the Friends.scss file
 import React from "react";
 import "./Friends.scss";
 
+
+// creates the Friends component
 export const Friends = ({ user }) => {
   return (
     <div >
