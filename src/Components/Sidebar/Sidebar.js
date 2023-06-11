@@ -10,7 +10,6 @@ import { Friends } from '../Friends/Friends';
 import { Settings } from '@mui/icons-material';
 import { Info } from '@mui/icons-material';
 import { Help } from '@mui/icons-material';
-import { Home } from '@mui/icons-material';
 import { RssFeed } from '@mui/icons-material';
 import { Chat } from '@mui/icons-material';
 import { VideoLibrary } from '@mui/icons-material';
@@ -42,8 +41,7 @@ export const Sidebar = () => {
   return (
     <div className="sidebar">
       <div className="sidebarWrapper">
-        <button className="sidebarWrapperIcon" onClick={handleHomeClick}><MenuLink icon={<Home />} text="Home" /></button>
-        <button className='sidebarWrapperIcon'><MenuLink icon={<RssFeed />} text="Feed" /></button>
+        <button className='sidebarWrapperIcon' onClick={handleHomeClick}><MenuLink icon={<RssFeed />} text="Feed" /></button>
         <button className="sidebarWrapperIcon"><MenuLink icon={<Chat />} text="Chats" /></button>
         <button className="sidebarWrapperIcon"><MenuLink icon={<VideoLibrary />} text="Videos" /></button>
         <button className="sidebarWrapperIcon"><MenuLink icon={<Groups />} text="Friends" /></button>

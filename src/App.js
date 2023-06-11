@@ -2,7 +2,7 @@
 import React from 'react';
 import './App.scss';
 // imports the react router, Login, Register, Home, Profile, and EditProfile pages
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import { Login } from './Pages/Login/Login';
 import { Register } from './Pages/Register/Register';
 import { Home } from './Pages/Home/Home';
@@ -17,7 +17,7 @@ function App() {
         <Route exact path='/' Component={Login} /> 
         <Route exact path='/register' Component={Register}/>
         <Route exact path='/home' Component={Home}/>
-        <Route exact path='/profile' Component={Profile}/>
+        <Route exact path='/profile/' Component={Profile}/>
         <Route exact path='/editProfile' Component={EditProfile}/> 
       </Routes>
     </Router>

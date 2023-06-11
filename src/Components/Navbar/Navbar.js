@@ -1,8 +1,8 @@
 // imports the React library and the Navbar.scss file
 import React from 'react';
 import './Navbar.scss';
-// imports the useNavigate hook from the react-router-dom library
-import { useNavigate } from 'react-router-dom';
+// imports link from react router
+import { Link } from 'react-router-dom';
 // imports the company logo and user image
 import CompanyLogo from '../../Assets/Logos/icon-left-font-monochrome-white.svg';
 import UserImage from '../../Assets/person/user.jpg';
@@ -15,16 +15,6 @@ import { Notifications } from '@mui/icons-material';
 
 // creates the Navbar component
 export const Navbar = () => {
-  // creates a navigate object
-  const navigate = useNavigate();
-
-  // creates a handleClick function
-  const handleClick = () => {
-    // navigates user to profile page
-    navigate('/profile');
-  };
-  
-
   return (
     <div className="navbarContainer">
       <div className="navbarLeft">
@@ -55,15 +45,11 @@ export const Navbar = () => {
             <span className="navbarIconBadge">4</span>
           </div>
         </div>
-        <div className="navbarIconItem">
-          <button className="navbarProfileIcon" onClick={handleClick}>
-            <img
-              src={UserImage}
-              alt="user"
-              className="navbarImg"
-            />
-          </button>
-        </div>
+        <Link to='/profile'>
+          <div className="navbarIconItem">
+            <img src={UserImage} alt="user" className="navbarImg" />
+          </div>
+        </Link>
       </div>
     </div>
   );

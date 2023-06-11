@@ -3,15 +3,38 @@ import React from 'react';
 import './ProfileRightBar.scss';
 // imports the useNavigate hook from the react-router-dom library
 import { useNavigate } from 'react-router-dom';
-import Friend from '../../Assets/person/friend1.jpg';
-import Friend2 from '../../Assets/person/friend2.jpg';
-import Friend3 from '../../Assets/person/friend3.jpg';
+// imports the Button component from the react-bootstrap library
+import Button from 'react-bootstrap/Button';
+
 
 
 // creates the ProfileRightBar component
 export const ProfileRightBar = () => {
   // creates a navigate object
   const navigate = useNavigate();
+
+  // populates the Profile page with registered user information
+  // retrieves the user's profile
+  const profileForm = () => {
+    fetch('/api/profile/', {
+    // gets form data from backend
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    })
+    // Convert response to JSON
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+    })
+    // // Catch errors
+    .catch((error) => {
+      console.error(error);
+    });
+  };
+  profileForm();
+
 
   // creates a handleClick function
   const handleClick = () => {
@@ -23,13 +46,12 @@ export const ProfileRightBar = () => {
     <div className="profileRightBar">
       <div className="profileRightBarHeading">
         <span className="profileRightBarTitle">User Information</span>
-        <button className="profileEditButton" onClick={handleClick}>Edit Profile</button>
       </div>
       <div className="profileRightBarInfo">
         <div className="profileRightBarInfoItem">
           <span className="profileRightBarInfoKey">Email: </span>
           <span className="profileRightBarInfoValue">
-            amber.logan@groupomania.com
+            {profileForm.formGridEmail}
           </span>
         </div>
         <div className="profileRightBarInfoItem">
@@ -38,7 +60,9 @@ export const ProfileRightBar = () => {
         </div>
         <div className="profileRightBarInfoItem">
           <span className="profileRightBarInfoKey">Position</span>
-          <span className="profileRightBarInfoValue">Senior Sales Associate</span>
+          <span className="profileRightBarInfoValue">
+            Senior Sales Associate
+          </span>
         </div>
         <div className="profileRightBarInfoItem">
           <span className="profileRightBarInfoKey">Department: </span>
@@ -65,22 +89,9 @@ export const ProfileRightBar = () => {
           <span className="profileRightBarInfoValue">38711</span>
         </div>
       </div>
-
-      <span className="profileRightBarFollowingTitle">Top Friends</span>
-      <div className="profileRightBarFollowings">
-        <div className="profileRightBarFollowing">
-          <img src={Friend} alt="" className="profileRightBarFollowingImg" />
-          <span className="profileRightBarFollowingName">Janet</span>
-        </div>
-        <div className="profileRightBarFollowing">
-          <img src={Friend2} alt="" className="profileRightBarFollowingImg" />
-          <span className="profileRightBarFollowingName">Isabella</span>
-        </div>
-        <div className="profileRightBarFollowing">
-          <img src={Friend3} alt="" className="profileRightBarFollowingImg" />
-          <span className="profileRightBarFollowingName">Beverly</span>
-        </div>
-      </div>
+      <Button variant='primary' className="profileEditButton" onClick={handleClick}>
+          Edit Profile
+      </Button>
     </div>
   );
 };

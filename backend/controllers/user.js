@@ -5,13 +5,13 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 // sets up the user model
 const User = require('../models/user');
+// sets up the profile model
+const Profile = require('../models/Profile');
 
 // exports the signup function
 exports.signup = (req, res, next) => {
   // hashes the password
   bcrypt.hash(req.body.registerPassword, 10).then((hash) => {
-    // sets the user
-    console.log(hash);
     // sets the user
     const user = new User({
       file: req.body.image,
@@ -27,6 +27,20 @@ exports.signup = (req, res, next) => {
         res.status(201).json({
           message: 'User added successfully!',
         });
+        const profile = new Profile({
+          userId: user._id,
+          formFile: user.file,
+          formGridEmail: user.registerEmail,
+          formGridPassword: user.registerPassword,
+          formGridPosition: req.body.formGridPosition,
+          formGridDepartment: req.body.formGridDepartment,
+          formGridPhone: req.body.formGridPhone,
+          formGridAddress: req.body.formGridAddress,
+          formGridCity: req.body.formGridCity,
+          formGridState: req.body.formGridState,
+          formGridZip: req.body.formGridZip,
+        });
+        return profile.save();
       })
       .catch((error) => {
         console.log(error);
@@ -79,13 +93,13 @@ exports.login = (req, res, next) => {
         })
         .catch((error) => {
           res.status(500).json({
-            error: error,
+            error: "Password does not match!",
           });
         });
     })
     .catch((error) => {
       res.status(500).json({
-        error: error,
+        error: 'User not found!',
       });
     });
 };

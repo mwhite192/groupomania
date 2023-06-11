@@ -11,6 +11,9 @@ import Button from 'react-bootstrap/Button';
 // imports the Navbar, Sidebar, and images
 import { Navbar } from '../../Components/Navbar/Navbar';
 import { Sidebar } from '../../Components/Sidebar/Sidebar';
+// imports the States array
+import { States } from '../../States';
+// imports the images
 import User from '../../Assets/person/user.jpg';
 import ProfileCover from '../../Assets/person/profileCover.jpeg';
 import DefaultProfileCover from '../../Assets/person/DefaultProfile.jpg';
@@ -20,6 +23,33 @@ import DefaultProfileCover from '../../Assets/person/DefaultProfile.jpg';
 export const EditProfile = () => {
   // creates a navigate object
   const navigate = useNavigate();
+  
+  // creates a form data object
+  const formValues = { 
+    Email: '', 
+    Password: '',
+    Position: '',
+    Department: '',
+    Phone: '',
+    Address: '',
+    City: '',
+    State: '',
+    Zip: '',
+  };
+  const [formData, setFormData] = React.useState(formValues);
+
+  // creates a handleChange function
+  const handleChange = (event) => {
+    const { id, value } = event.target;
+    setFormData({
+      ...formData,
+      [id]: value
+    });
+  };
+
+
+
+
 
   // creates a handleSubmit function
   const handleSubmit = (e) => {
@@ -27,6 +57,7 @@ export const EditProfile = () => {
     e.preventDefault();
     // navigates user to profile page
     navigate('/profile');
+    // Get form data to backend
   };
 
   return (
@@ -112,11 +143,13 @@ export const EditProfile = () => {
                       <Form.Control className='editProfileFormInput'/>
                     </Form.Group>
 
-                    <Form.Group as={Col} sm={12} md={6} controlId="formGridState">
+                    <Form.Group as={Col} sm={12} md={3} controlId="formGridState">
                       <Form.Label>State</Form.Label>
                       <Form.Select  className='editProfileFormInput' defaultValue="Choose...">
-                        <option>choose...</option>
-                        <option>...</option>
+                        <option>select state...</option>
+                          {States.map((state) => (
+                            <option key={state.id}>{state.abbr}</option>
+                          ))}
                       </Form.Select>
                     </Form.Group>
 

@@ -5,7 +5,7 @@ const express = require('express');
 // sets up the router
 const router = express.Router();
 
-// sets up the signup route
+// sets up the signup and login route
 router.post('/signup', userCtrl.signup);
 router.post('/login', userCtrl.login);
 

@@ -80,10 +80,7 @@
                 }
             }
         }
-        .navbarProfileIcon{
-            border: none;
-            border-radius: 50%;
-            .navbarImg{
+        .navbarImg{
             display: flex;
             width: 32px;
             height: 32px;
@@ -92,7 +89,6 @@
             object-fit: cover;
             cursor: pointer;
           } 
-       }
     }
 }
 
