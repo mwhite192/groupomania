@@ -7,41 +7,33 @@ import { useNavigate } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 
 
-
 // creates the ProfileRightBar component
 export const ProfileRightBar = () => {
   // creates a navigate object
   const navigate = useNavigate();
-
-  // populates the Profile page with registered user information
-  // retrieves the user's profile
-  const profileForm = () => {
-    fetch('/api/profile/', {
-    // gets form data from backend
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-    })
-    // Convert response to JSON
-    .then((response) => response.json())
-    .then((data) => {
-      console.log(data);
-    })
-    // // Catch errors
-    .catch((error) => {
-      console.error(error);
-    });
-  };
-  profileForm();
-
-
+ 
   // creates a handleClick function
   const handleClick = () => {
     // navigates user to edit profile page
     navigate('/editProfile');
   };
 
+  // // post form data to backend
+  // let updatedProfile = fetch('/api/profile/edit', {
+  //   method: 'GET',
+  //   headers: {
+  //     'Content-Type': 'application/json'
+  //   }
+  // })
+  // .then((response) => response.json())
+  // .then((data) => {
+  //   updatedProfile = data;
+  //   console.log(data);
+  // })
+  // .catch((error) => {
+  //   console.error(error);
+  // });
+  
   return (
     <div className="profileRightBar">
       <div className="profileRightBarHeading">
@@ -51,7 +43,7 @@ export const ProfileRightBar = () => {
         <div className="profileRightBarInfoItem">
           <span className="profileRightBarInfoKey">Email: </span>
           <span className="profileRightBarInfoValue">
-            {profileForm.formGridEmail}
+            test
           </span>
         </div>
         <div className="profileRightBarInfoItem">
@@ -61,7 +53,7 @@ export const ProfileRightBar = () => {
         <div className="profileRightBarInfoItem">
           <span className="profileRightBarInfoKey">Position</span>
           <span className="profileRightBarInfoValue">
-            Senior Sales Associate
+           test
           </span>
         </div>
         <div className="profileRightBarInfoItem">

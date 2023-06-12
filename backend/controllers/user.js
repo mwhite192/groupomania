@@ -103,3 +103,41 @@ exports.login = (req, res, next) => {
       });
     });
 };
+
+// updates a user's profile
+exports.updateProfile = (req, res, next) => {
+  // sets the url
+  // const url = req.protocol + '://' + req.get('host');
+  // sets the sauce
+  const profile = new Profile({
+    userId: user._id,
+    formFile: req.body.formFile,
+    formGridEmail: req.body.formGridEmail,
+    formGridPassword: req.body.formGridPassword,
+    formGridPosition: req.body.formGridPosition,
+    formGridDepartment: req.body.formGridDepartment,
+    formGridPhone: req.body.formGridPhone,
+    formGridAddress: req.body.formGridAddress,
+    formGridCity: req.body.formGridCity,
+    formGridState: req.body.formGridState,
+    formGridZip: req.body.formGridZip,
+  });
+  // checks if there is a file
+  // if (req.file) {
+  //   // sets the sauce image url
+  //   profile.imageUrl = url + '/images/' + req.file.filename;
+  // }
+  // updates the sauce
+  Profile.updateOne({ _id: user._id }, profile)
+  // returns the sauce
+    .then(() => {
+      res.status(201).json({
+        message: 'Profile updated successfully!',
+      });
+    })
+    .catch((error) => {
+      res.status(400).json({
+        error: error,
+      });
+    });
+};

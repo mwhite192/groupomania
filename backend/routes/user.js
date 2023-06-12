@@ -8,6 +8,7 @@ const router = express.Router();
 // sets up the signup and login route
 router.post('/signup', userCtrl.signup);
 router.post('/login', userCtrl.login);
+router.put('/edit', userCtrl.updateProfile);
 
 // exports the router
 module.exports = router;

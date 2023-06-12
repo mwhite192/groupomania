@@ -1,8 +1,8 @@
 // imports the React library and the EditProfile.scss file
 import React from 'react';
 import './EditProfile.scss';
-// imports the react router and useNavigate hook
-import { useNavigate } from 'react-router-dom';
+// imports useNavigate hook
+// import { useNavigate } from 'react-router-dom';
 // imports the react bootstrap components
 import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col';
@@ -21,20 +21,20 @@ import DefaultProfileCover from '../../Assets/person/DefaultProfile.jpg';
 
 // creates the EditProfile page
 export const EditProfile = () => {
-  // creates a navigate object
-  const navigate = useNavigate();
-  
+  // // creates a navigate object
+  // const navigate = useNavigate();
+
   // creates a form data object
-  const formValues = { 
-    Email: '', 
-    Password: '',
-    Position: '',
-    Department: '',
-    Phone: '',
-    Address: '',
-    City: '',
-    State: '',
-    Zip: '',
+  const formValues = {
+    formGridEmail: "",
+    formGridPassword: "",
+    formGridPosition: "",
+    formGridDepartment: "",
+    formGridPhone: "",
+    formGridAddress: "",
+    formGridCity: "",
+    formGridState: "",
+    formGridZip: "",
   };
   const [formData, setFormData] = React.useState(formValues);
 
@@ -43,21 +43,33 @@ export const EditProfile = () => {
     const { id, value } = event.target;
     setFormData({
       ...formData,
-      [id]: value
+      [id]: value,
     });
   };
-
-
-
-
 
   // creates a handleSubmit function
   const handleSubmit = (e) => {
     // prevents page from reloading on submit
     e.preventDefault();
-    // navigates user to profile page
-    navigate('/profile');
-    // Get form data to backend
+    // // navigates user to profile page
+    // navigate("/profile");
+    // Send form data to backend
+    fetch("/api/profile/edit", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    })
+      // Convert response to JSON
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+      })
+      // Catch errors
+      .catch((error) => {
+        console.error(error);
+      });
   };
 
   return (
@@ -93,69 +105,129 @@ export const EditProfile = () => {
                   className="editProfileRightBottomLeftImg"
                   alt="default user profile"
                 />
-                 <Button variant="primary" className='editProfileDeleteAccountButton'>Delete Account</Button>
+                <Button
+                  variant="primary"
+                  className="editProfileDeleteAccountButton"
+                >
+                  Delete Account
+                </Button>
               </div>
               <div className="editProfileRightBottomForm">
                 <Form className="editProfileForm" onSubmit={handleSubmit}>
                   <Row className="mb-3">
                     <Form.Group controlId="formFile" className="mb-3">
                       <Form.Label>Image:</Form.Label>
-                      <Form.Control type="file" className='editProfileFormInput' />
+                      <Form.Control
+                        type="file"
+                        className="editProfileFormInput"
+                        onChange={handleChange}
+                      />
                     </Form.Group>
                     <Form.Group as={Col} controlId="formGridEmail">
                       <Form.Label>Email:</Form.Label>
-                      <Form.Control type="email" className='editProfileFormInput' placeholder="Enter email" />
+                      <Form.Control
+                        type="email"
+                        className="editProfileFormInput"
+                        placeholder="Enter email"
+                        onChange={handleChange}
+                        value={formData.formGridEmail}
+                      />
                     </Form.Group>
 
-                    <Form.Group as={Col} sm={12} md={6} controlId="formGridPassword">
+                    <Form.Group
+                      as={Col}
+                      sm={12}
+                      md={6}
+                      controlId="formGridPassword"
+                    >
                       <Form.Label>Password:</Form.Label>
                       <Form.Control
                         type="password"
-                        className='editProfileFormInput'
+                        className="editProfileFormInput"
                         placeholder="Enter new password"
+                        onChange={handleChange}
+                        value={formData.formGridPassword}
                       />
                     </Form.Group>
                   </Row>
 
                   <Form.Group className="mb-3" controlId="formGridPosition">
                     <Form.Label>Position:</Form.Label>
-                    <Form.Control className='editProfileFormInput' placeholder="Enter position" />
+                    <Form.Control
+                      className="editProfileFormInput"
+                      placeholder="Enter position"
+                      onChange={handleChange}
+                      value={formData.formGridPosition}
+                    />
                   </Form.Group>
 
                   <Form.Group className="mb-3" controlId="formGridDepartment">
                     <Form.Label>Department:</Form.Label>
-                    <Form.Control className='editProfileFormInput' placeholder="Enter department" />
+                    <Form.Control
+                      className="editProfileFormInput"
+                      placeholder="Enter department"
+                      onChange={handleChange}
+                      value={formData.formGridDepartment}
+                    />
                   </Form.Group>
 
                   <Form.Group className="mb-3" controlId="formGridPhone">
                     <Form.Label>Phone Number:</Form.Label>
-                    <Form.Control className='editProfileFormInput' placeholder="555-555-1234" />
+                    <Form.Control
+                      className="editProfileFormInput"
+                      placeholder="555-555-1234"
+                      onChange={handleChange}
+                      value={formData.formGridPhone}
+                    />
                   </Form.Group>
 
                   <Form.Group className="mb-3" controlId="formGridAddress">
                     <Form.Label>Address</Form.Label>
-                    <Form.Control className='editProfileFormInput' placeholder="123 Main St" />
+                    <Form.Control
+                      className="editProfileFormInput"
+                      placeholder="123 Main St"
+                      onChange={handleChange}
+                      value={formData.formGridAddress}
+                    />
                   </Form.Group>
 
                   <Row className="mb-3">
                     <Form.Group as={Col} controlId="formGridCity">
                       <Form.Label>City</Form.Label>
-                      <Form.Control className='editProfileFormInput'/>
+                      <Form.Control 
+                      className="editProfileFormInput" 
+                      onChange={handleChange}
+                      value={formData.formGridCity}
+                      />
                     </Form.Group>
 
-                    <Form.Group as={Col} sm={12} md={3} controlId="formGridState">
+                    <Form.Group
+                      as={Col}
+                      sm={12}
+                      md={3}
+                      controlId="formGridState"
+                    >
                       <Form.Label>State</Form.Label>
-                      <Form.Select  className='editProfileFormInput' defaultValue="Choose...">
+                      <Form.Select
+                        className="editProfileFormInput"
+                        onChange={handleChange}
+                        value={formData.formGridState}
+                        defaultValue="Choose..."
+                      >
                         <option>select state...</option>
-                          {States.map((state) => (
-                            <option key={state.id}>{state.abbr}</option>
-                          ))}
+                        {States.map((state) => (
+                          <option key={state.id}>{state.abbr}</option>
+                        ))}
                       </Form.Select>
                     </Form.Group>
 
                     <Form.Group as={Col} controlId="formGridZip">
                       <Form.Label>Zip</Form.Label>
-                      <Form.Control className='editProfileFormInput'/>
+                      <Form.Control 
+                      className="editProfileFormInput" 
+                      onChange={handleChange}
+                      value={formData.formGridZip}
+                      />
                     </Form.Group>
                   </Row>
 

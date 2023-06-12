@@ -14,7 +14,6 @@ import DefaultProfile from '../../Assets/person/DefaultProfile.jpg';
 export const Register = () => {
   // creates a navigate object
   const navigate = useNavigate();
-
   // creates a form data object
   const formValues = {  file: '', username: '', registerEmail: '', registerPassword: '' };
   const [formData, setFormData] = useState(formValues);
@@ -122,6 +121,9 @@ export const Register = () => {
                 <button type="submit" className="registerButton">
                   Sign Up
                 </button>
+                {/* <button className="loginRegisterButton">
+                  Log into Account
+                </button> */}
               </form>
             </div>
           </div>
