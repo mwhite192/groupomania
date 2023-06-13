@@ -75,14 +75,18 @@ export const Login = () => {
     // Convert response to JSON
     .then((response) => response.json())
     .then((data) => {
+      // // checks if login is successful
+      // const loginSuccessful = formData.password === data.token;
+      // if (loginSuccessful) {
+      //   // navigates user to home page
+      //   navigate('/home');
+      // }
       console.log(data);
     })
     // Catch errors
     .catch((error) => {
       console.error(error);
     });
-    // navigates user to home page
-    navigate('/home');
   };
 
   return (
