@@ -1,9 +1,9 @@
-.storyCard{
+.OnlineCard{
     display: flex;
     position: relative;
     flex-basis: 20%;
     margin: 5px;
-    .storyCardOverlay{
+    .OnlineCardOverlay{
         position: absolute;
         top: 0;
         left: 0;
@@ -11,28 +11,29 @@
         height: 100%;
         background: black;
         opacity: 0.5;
-        border-radius: 10px;
+        border-radius: 50%;
     }
-    .storyProfile{
+    .OnlineProfile{
         display: flex;
         position: absolute;
-        width: 45px;
-        height: 45px;
+        width: 38px;
+        height: 38px;
         border-radius: 50%;
-        border: 3px solid #d2042d;
-        top: 10px;
-        left: 10px;
-        object-fit: cover;
+        background-color: limegreen;
+        top: 5px;
+        right: 15px;
         cursor: pointer;
     }
-    .storyBackground{
+    .OnlineBackground{
         width: 100%;
         height: 220px;
-        border-radius: 10px;
+        border-radius: 50%;
         object-fit: cover;
         cursor: pointer;
+        -webkit-box-shadow: 2px 4px 10px 1px rgba(0,0,0,0.47);
+        box-shadow: 2px 4px 10px 1px rgba(0,0,0,0.47);
     }
-    .storyAdd{
+    .OnlineAdd{
         position: absolute;
         left: 50%;
         width: 30px;
@@ -40,7 +41,7 @@
         transform: translateX(-50%);
         cursor: pointer;
     }
-    .storyUser{
+    .OnlineUser{
         position: absolute;
         width: 100%;
         font-size: 15px;

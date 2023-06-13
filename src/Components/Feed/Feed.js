@@ -2,7 +2,7 @@
 import React from 'react';
 import './Feed.scss';
 // imports the Stories, Share, and Post components
-import { Stories } from '../Stories/Stories';
+import { Online } from '../Online/Online';
 import { Share } from '../Share/Share';
 import { Post } from '../Post/Post';
 import { Posts } from '../../data';
@@ -13,7 +13,7 @@ export const Feed = () => {
   return (
     <div className='feed'>
       <div className="feedWrapper">
-        <Stories />
+        <Online />
         <Share />
         {Posts.map((post) => (
           <Post key={post.id} post={post} />

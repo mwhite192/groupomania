@@ -7,15 +7,12 @@ import { useNavigate } from 'react-router-dom';
 import { MenuLink } from '../MenuLink/MenuLink';
 import { Friends } from '../Friends/Friends';
 // imports the icons from the material ui library
-import { Settings } from '@mui/icons-material';
 import { Info } from '@mui/icons-material';
 import { Help } from '@mui/icons-material';
 import { RssFeed } from '@mui/icons-material';
 import { Chat } from '@mui/icons-material';
 import { VideoLibrary } from '@mui/icons-material';
 import { Groups } from '@mui/icons-material';
-import { Newspaper } from '@mui/icons-material';
-import { Event } from '@mui/icons-material';
 import { Brightness4 } from '@mui/icons-material';
 import { ExitToApp } from '@mui/icons-material';
 import { Users } from '../../data';
@@ -49,9 +46,6 @@ export const Sidebar = () => {
         <button className="sidebarWrapperIcon"><MenuLink icon={<Info />} text="About" /></button>
         <button className="sidebarWrapperIcon"><MenuLink icon={<Help />} text="Help" /></button>
         <button className="sidebarWrapperIcon" onClick={handleClick}><MenuLink icon={<ExitToApp />} text="Logout" /></button>
-        <button className="sidebarWrapperIcon"><MenuLink icon={<Newspaper />} text="NewsLetter" /></button>
-        <button className="sidebarWrapperIcon"><MenuLink icon={<Event />} text="Events" /></button>
-        <button className="sidebarWrapperIcon"><MenuLink icon={<Settings />} text="Settings" /></button>
 
         <hr className="sidebarHr" />
 

@@ -3,7 +3,7 @@ import React from 'react';
 import './Post.scss';
 // imports the icons from the material ui library
 import { IconButton } from '@mui/material';
-import { ChatBubbleOutline, MoreVert, ShareOutlined, ThumbDown, ThumbDownAltOutlined, ThumbUp, ThumbUpAltOutlined } from '@mui/icons-material';
+import { ChatBubbleOutline, MoreVert, ThumbDown, ThumbDownAltOutlined, ThumbUp, ThumbUpAltOutlined } from '@mui/icons-material';
 import { Users } from '../../data';
 
 
@@ -46,7 +46,7 @@ export const Post = ({ post }) => {
           </div>
           <div className="postBottomRight">
             <span className="postCommentText">
-              {post.comment} &#x2022; comments &#x2022; share{" "}
+              {post.comment} &#x2022; comments
             </span>
           </div>
         </div>
@@ -63,10 +63,6 @@ export const Post = ({ post }) => {
           <button className="postFooterBottomItem">
             <ChatBubbleOutline className="postFooterIcon" />
             <span className="postFooterIconText">Comment</span>
-          </button>
-          <button className="postFooterBottomItem">
-            <ShareOutlined className="postFooterIcon" />
-            <span className="postFooterIconText">Share</span>
           </button>
         </div>
       </div>
