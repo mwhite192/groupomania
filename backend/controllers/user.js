@@ -58,7 +58,7 @@ exports.signup = (req, res, next) => {
 // exports the login function
 exports.login = (req, res, next) => {
   // finds the user by email
-  User.findOne({ email: req.body.email })
+  User.findOne({ registerEmail: req.body.email })
     // returns the user
     .then((user) => {
       // checks if the user exists
@@ -69,7 +69,7 @@ exports.login = (req, res, next) => {
       }
       // compares the password
       bcrypt
-        .compare(req.body.password, user.password)
+        .compare(req.body.password, user.registerPassword)
         // returns the password
         .then((valid) => {
           // checks if the password is valid

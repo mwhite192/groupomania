@@ -12,6 +12,10 @@ import CompanyLogo from '../../Assets/Logos/logo 1.svg';
 export const Login = () => {
   // creates a navigate object
   const navigate = useNavigate();
+  // creates a handleClick function
+  const handleClick = () => {
+    navigate('/register');
+  };
 
   // creates a form data object
   const formValues = {  email: '', password: '' };
@@ -26,14 +30,40 @@ export const Login = () => {
     });
   };
 
-  // creates a handleClick function
-  const handleClick = () => {
-    navigate('/register');
+  // handles form validation
+  const validateForm = () => {
+    let isValid = true;
+    // checks if email is empty
+    if (formData.email === '') {
+      document.getElementById('emailErrorMsg').innerHTML =
+        'Email cannot be empty';
+      isValid = false;
+    }
+    if (formData.email.match(/([A-Za-z0-9]+(_[A-Za-z0-9]+)+)!/)) {
+      document.getElementById('emailErrorMsg').innerHTML =
+        'Email must be in the correct format';
+      isValid = false;
+    } else {
+      document.getElementById('emailErrorMsg').innerHTML = '';
+    }
+    // checks if password is empty
+    if (formData.password === '') {
+      document.getElementById('passwordErrorMsg').innerHTML =
+        'Password cannot be empty';
+      isValid = false;
+    } else {
+      document.getElementById('passwordErrorMsg').innerHTML = '';
+    }
+    return isValid;
   };
 
   const handleSubmit = (event) => {
     // Prevent default form submission
     event.preventDefault(); 
+    // Validate form data
+    if (!validateForm()) {
+      return;
+    }
     // Send form data to backend
     fetch('/api/user/login', {
       method: 'POST',
@@ -80,6 +110,7 @@ export const Login = () => {
                     value={formData.email}
                     onChange={handleChange}
                   />
+                  <p id="emailErrorMsg" className='loginErrorMsg'></p>
                   <input
                     type="password"
                     placeholder="Password"
@@ -89,11 +120,11 @@ export const Login = () => {
                     value={formData.password}
                     onChange={handleChange}
                   />
-
+                  <p id="passwordErrorMsg" className='loginErrorMsg'></p>
                   <button type="submit" className="loginButton">
                     Sign In
                   </button>
-                  <button className="loginRegisterButton" onClick={handleClick}>
+                  <button className="loginRegisterButton"  onClick={handleClick}>
                     Create a New Account
                   </button>
                 </form>

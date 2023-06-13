@@ -27,10 +27,83 @@ export const Register = () => {
     });
   };
 
+  // handles form validation
+  const validateForm = () => {
+    let isValid = true;
+    // checks if username is empty
+    if (formData.username === '') {
+      document.getElementById('usernameErrorMsg').innerHTML =
+        'Username cannot be empty';
+      isValid = false;
+    } 
+    if (formData.username.length < 3) {
+      document.getElementById('usernameErrorMsg').innerHTML =
+        'Username must be at least 3 characters';
+      isValid = false;
+    }
+    if (formData.username.match(/([A-Za-z0-9]+(_[A-Za-z0-9]+)+)!/)) {
+      document.getElementById('usernameErrorMsg').innerHTML =
+        'Username cannot contain special characters';
+      isValid = false;
+    } else {
+      document.getElementById('usernameErrorMsg').innerHTML = '';
+    }
+    // checks if email is empty
+    if (formData.registerEmail === '') {
+      document.getElementById('emailErrorMsg').innerHTML =
+        'Email cannot be empty';
+      isValid = false;
+    } 
+    if (formData.registerEmail.match(/([A-Za-z0-9]+(_[A-Za-z0-9]+)+)!/)) {
+      document.getElementById('emailErrorMsg').innerHTML =
+        'Email must be in the correct format';
+      isValid = false;
+    } else {
+      document.getElementById('emailErrorMsg').innerHTML = '';
+    }
+    // checks if password is empty
+    if (formData.registerPassword === '') {
+      document.getElementById('passwordErrorMsg').innerHTML =
+        'Password cannot be empty';
+      isValid = false;
+    } 
+    if (formData.registerPassword.length < 8) {
+      document.getElementById('passwordErrorMsg').innerHTML =
+        'Password must be at least 8 characters';
+      isValid = false;
+    }
+    if (formData.registerPassword.match(/([A-Za-z0-9]+(_[A-Za-z0-9]+)+)!/)) {
+      document.getElementById('passwordErrorMsg').innerHTML =
+        'Password cannot contain special characters';
+      isValid = false;
+    } else {
+      document.getElementById('passwordErrorMsg').innerHTML = '';
+    }
+    // checks if image is empty
+    if (formData.file === '') {
+      document.getElementById('uploadImageErrorMsg').innerHTML =  
+        'Image cannot be empty';
+      isValid = false;
+    } 
+    if (formData.file.type !== 'image/png' && formData.file.type !== 'image/jpeg' && formData.file.type !== 'image/jpg') {
+      document.getElementById('uploadImageErrorMsg').innerHTML =
+        'Image must be in the correct format';
+      isValid = false;
+    } else {
+      document.getElementById('uploadImageErrorMsg').innerHTML = '';
+    }
+    return isValid;
+  };
+
+
   // creates a handleSubmit function
   const handleSubmit = (event) => {
     // Prevent default form submission
     event.preventDefault(); 
+    // checks if form is valid
+    if (!validateForm()) {
+      return;
+    }
     // navigates user back to login page
     navigate('/');
     // Send form data to backend
@@ -51,7 +124,7 @@ export const Register = () => {
       console.error(error);
     });
   };
-
+  
   return (
     <div className="register">
       <div className="registerWrapper">
@@ -90,6 +163,7 @@ export const Register = () => {
                       style={{ display: "none" }}
                     />
                   </label>
+                  <p id="uploadImageErrorMsg" className='registerErrorMsg'></p>
                 </div>
                 <input
                   type="text"
@@ -100,6 +174,7 @@ export const Register = () => {
                   value={formData.username}
                   onChange={handleChange}
                 />
+                <p id="usernameErrorMsg" className='registerErrorMsg'></p>
                 <input
                   type="email"
                   placeholder="Email"
@@ -109,6 +184,7 @@ export const Register = () => {
                   value={formData.registerEmail}
                   onChange={handleChange}
                 />
+                <p id="emailErrorMsg" className='registerErrorMsg'></p>
                 <input
                   type="password"
                   placeholder="Password"
@@ -118,6 +194,7 @@ export const Register = () => {
                   value={formData.registerPassword}
                   onChange={handleChange}
                 />
+                <p id="passwordErrorMsg" className='registerErrorMsg'></p>
                 <button type="submit" className="registerButton">
                   Sign Up
                 </button>
