@@ -73,14 +73,15 @@ export const Login = () => {
       body: JSON.stringify(formData)
     })
     // Convert response to JSON
-    .then((response) => response.json())
+    .then((response) => {
+      if (response.status === 401 || !response.ok) {
+        throw new Error('Sign in failed!');
+      } 
+      return response.json();
+    })
     .then((data) => {
-      // // checks if login is successful
-      // const loginSuccessful = formData.password === data.token;
-      // if (loginSuccessful) {
-      //   // navigates user to home page
-      //   navigate('/home');
-      // }
+        // navigates user to home page
+        navigate('/home');    
       console.log(data);
     })
     // Catch errors
