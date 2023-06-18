@@ -15,7 +15,7 @@ export const Register = () => {
   // creates a navigate object
   const navigate = useNavigate();
   // creates a form data object
-  const formValues = {  file: '', username: '', registerEmail: '', registerPassword: '' };
+  const formValues = {  file: '',fullName: '', registerEmail: '', registerPassword: '' };
   const [formData, setFormData] = useState(formValues);
   
   // creates a handleChange function
@@ -28,72 +28,72 @@ export const Register = () => {
   };
 
   // handles form validation
-  const validateForm = () => {
-    let isValid = true;
-    // checks if username is empty
-    if (formData.username === '') {
-      document.getElementById('usernameErrorMsg').innerHTML =
-        'Username cannot be empty';
-      isValid = false;
-    } 
-    if (formData.username.length < 3) {
-      document.getElementById('usernameErrorMsg').innerHTML =
-        'Username must be at least 3 characters';
-      isValid = false;
-    }
-    if (formData.username.match(/([A-Za-z0-9]+(_[A-Za-z0-9]+)+)!/)) {
-      document.getElementById('usernameErrorMsg').innerHTML =
-        'Username cannot contain special characters';
-      isValid = false;
-    } else {
-      document.getElementById('usernameErrorMsg').innerHTML = '';
-    }
-    // checks if email is empty
-    if (formData.registerEmail === '') {
-      document.getElementById('emailErrorMsg').innerHTML =
-        'Email cannot be empty';
-      isValid = false;
-    } 
-    if (formData.registerEmail.match(/([A-Za-z0-9]+(_[A-Za-z0-9]+)+)!/)) {
-      document.getElementById('emailErrorMsg').innerHTML =
-        'Email must be in the correct format';
-      isValid = false;
-    } else {
-      document.getElementById('emailErrorMsg').innerHTML = '';
-    }
-    // checks if password is empty
-    if (formData.registerPassword === '') {
-      document.getElementById('passwordErrorMsg').innerHTML =
-        'Password cannot be empty';
-      isValid = false;
-    } 
-    if (formData.registerPassword.length < 8) {
-      document.getElementById('passwordErrorMsg').innerHTML =
-        'Password must be at least 8 characters';
-      isValid = false;
-    }
-    if (formData.registerPassword.match(/([A-Za-z0-9]+(_[A-Za-z0-9]+)+)!/)) {
-      document.getElementById('passwordErrorMsg').innerHTML =
-        'Password cannot contain special characters';
-      isValid = false;
-    } else {
-      document.getElementById('passwordErrorMsg').innerHTML = '';
-    }
-    // checks if image is empty
-    if (formData.file === '') {
-      document.getElementById('uploadImageErrorMsg').innerHTML =  
-        'Image cannot be empty';
-      isValid = false;
-    } 
-    if (formData.file.type !== 'image/png' && formData.file.type !== 'image/jpeg' && formData.file.type !== 'image/jpg') {
-      document.getElementById('uploadImageErrorMsg').innerHTML =
-        'Image must be in the correct format';
-      isValid = false;
-    } else {
-      document.getElementById('uploadImageErrorMsg').innerHTML = '';
-    }
-    return isValid;
-  };
+  // const validateForm = () => {
+  //   let isValid = true;
+  //   // checks if username is empty
+  //   if (formData.username === '') {
+  //     document.getElementById('usernameErrorMsg').innerHTML =
+  //       'Username cannot be empty';
+  //     isValid = false;
+  //   } 
+  //   if (formData.username.length < 3) {
+  //     document.getElementById('usernameErrorMsg').innerHTML =
+  //       'Username must be at least 3 characters';
+  //     isValid = false;
+  //   }
+  //   if (formData.username.match(/([A-Za-z0-9]+(_[A-Za-z0-9]+)+)!/)) {
+  //     document.getElementById('usernameErrorMsg').innerHTML =
+  //       'Username cannot contain special characters';
+  //     isValid = false;
+  //   } else {
+  //     document.getElementById('usernameErrorMsg').innerHTML = '';
+  //   }
+  //   // checks if email is empty
+  //   if (formData.registerEmail === '') {
+  //     document.getElementById('emailErrorMsg').innerHTML =
+  //       'Email cannot be empty';
+  //     isValid = false;
+  //   } 
+  //   if (formData.registerEmail.match(/([A-Za-z0-9]+(_[A-Za-z0-9]+)+)!/)) {
+  //     document.getElementById('emailErrorMsg').innerHTML =
+  //       'Email must be in the correct format';
+  //     isValid = false;
+  //   } else {
+  //     document.getElementById('emailErrorMsg').innerHTML = '';
+  //   }
+  //   // checks if password is empty
+  //   if (formData.registerPassword === '') {
+  //     document.getElementById('passwordErrorMsg').innerHTML =
+  //       'Password cannot be empty';
+  //     isValid = false;
+  //   } 
+  //   if (formData.registerPassword.length < 8) {
+  //     document.getElementById('passwordErrorMsg').innerHTML =
+  //       'Password must be at least 8 characters';
+  //     isValid = false;
+  //   }
+  //   if (formData.registerPassword.match(/([A-Za-z0-9]+(_[A-Za-z0-9]+)+)!/)) {
+  //     document.getElementById('passwordErrorMsg').innerHTML =
+  //       'Password cannot contain special characters';
+  //     isValid = false;
+  //   } else {
+  //     document.getElementById('passwordErrorMsg').innerHTML = '';
+  //   }
+    // // checks if image is empty
+    // if (formData.file === '') {
+    //   document.getElementById('uploadImageErrorMsg').innerHTML =  
+    //     'Image cannot be empty';
+    //   isValid = false;
+    // } 
+    // if (formData.file.type !== 'image/png' && formData.file.type !== 'image/jpeg' && formData.file.type !== 'image/jpg') {
+    //   document.getElementById('uploadImageErrorMsg').innerHTML =
+    //     'Image must be in the correct format';
+    //   isValid = false;
+    // } else {
+    //   document.getElementById('uploadImageErrorMsg').innerHTML = '';
+    // }
+  //   return isValid;
+  // };
 
 
   // creates a handleSubmit function
@@ -101,9 +101,9 @@ export const Register = () => {
     // Prevent default form submission
     event.preventDefault(); 
     // checks if form is valid
-    if (!validateForm()) {
-      return;
-    }
+    // if (!validateForm()) {
+    //   return;
+    // }
     // navigates user back to login page
     navigate('/');
     // Send form data to backend
@@ -167,11 +167,11 @@ export const Register = () => {
                 </div>
                 <input
                   type="text"
-                  placeholder="Username"
-                  id="username"
+                  placeholder="Full Name"
+                  id="fullName"
                   className="registerInput"
                   required
-                  value={formData.username}
+                  value={formData.fullName}
                   onChange={handleChange}
                 />
                 <p id="usernameErrorMsg" className='registerErrorMsg'></p>

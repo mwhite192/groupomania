@@ -94,6 +94,11 @@
                     font-size: 12px;
                     margin-top: 5px;
                 }
+                .editProfileButtons{
+                    width: 75%;
+                    display: flex;
+                    justify-content: space-between;
+                }
                 .editProfileFormInput::placeholder{
                     font-family: 'Arimo', sans-serif;
                 }

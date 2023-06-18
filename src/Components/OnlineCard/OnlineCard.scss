@@ -7,7 +7,7 @@
         position: absolute;
         top: 0;
         left: 0;
-        width: 100%;
+        width: 80%;
         height: 100%;
         background: black;
         opacity: 0.5;
@@ -16,38 +16,38 @@
     .OnlineProfile{
         display: flex;
         position: absolute;
-        width: 38px;
-        height: 38px;
+        width: 27px;
+        height: 27px;
         border-radius: 50%;
-        background-color: limegreen;
-        top: 5px;
-        right: 15px;
+        background-color: #00b300;
+        bottom: 20px;
+        right: 52px;
         cursor: pointer;
     }
     .OnlineBackground{
-        width: 100%;
-        height: 220px;
+        width: 80%;
+        height: 175px;
         border-radius: 50%;
         object-fit: cover;
         cursor: pointer;
         -webkit-box-shadow: 2px 4px 10px 1px rgba(0,0,0,0.47);
         box-shadow: 2px 4px 10px 1px rgba(0,0,0,0.47);
     }
-    .OnlineAdd{
-        position: absolute;
-        left: 50%;
-        width: 30px;
-        bottom: 35px;
-        transform: translateX(-50%);
-        cursor: pointer;
-    }
+    // .OnlineAdd{
+    //     position: absolute;
+    //     left: 50%;
+    //     width: 30px;
+    //     bottom: 35px;
+    //     transform: translateX(-50%);
+    //     cursor: pointer;
+    // }
     .OnlineUser{
         position: absolute;
         width: 100%;
         font-size: 15px;
-        font-weight: 500;
         bottom: 7px;
         text-align: center;
+        padding-right: 50px;
         cursor: pointer;
         color: white;
     }

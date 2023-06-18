@@ -52,14 +52,15 @@
                     font-size: 18px;
                     border: 1px solid #444a51;
                 }
+                .loginErrorMsg {
+                    color: #d2042d;
+                    font-family: 'Arimo', sans-serif;
+                    font-size: 12px;
+                    margin-top: 3px;
+                }
                 .loginInput::placeholder {
                     font-family: 'Arimo', sans-serif;
                     color: #444a51;
-                }
-                .loginErrorMsg {
-                    color: #d2042d;
-                    font-size: 12px;
-                    margin-top: 3px;
                 }
                 .loginButton {
                     height: 50px;

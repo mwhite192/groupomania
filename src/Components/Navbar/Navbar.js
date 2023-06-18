@@ -34,15 +34,12 @@ export const Navbar = () => {
         <div className="navbarIcons">
           <div className="navbarIconItem">
             <AccountCircle className="navbarIcon" />
-            <span className="navbarIconBadge">2</span>
           </div>
           <div className="navbarIconItem">
             <ChatBubble className="navbarIcon" />
-            <span className="navbarIconBadge">10</span>
           </div>
           <div className="navbarIconItem">
             <Notifications className="navbarIcon" />
-            <span className="navbarIconBadge">4</span>
           </div>
         </div>
         <Link to='/profile'>

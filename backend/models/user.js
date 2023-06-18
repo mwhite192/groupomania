@@ -5,7 +5,7 @@ const uniqueValidator = require('mongoose-unique-validator');
 // sets the schema for the user
 const userSchema = mongoose.Schema({
     file: { type: String, required: false },
-    username: { type: String, required: true, unique: true },
+    fullName: { type: String, required: true, unique: true },
     registerEmail: { type: String, required: true, unique: true },
     registerPassword: { type: String, required: true },
 });

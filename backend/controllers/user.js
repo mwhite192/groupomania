@@ -14,8 +14,7 @@ exports.signup = (req, res, next) => {
   bcrypt.hash(req.body.registerPassword, 10).then((hash) => {
     // sets the user
     const user = new User({
-      file: req.body.image,
-      username: req.body.username,
+      fullName: req.body.fullName,
       registerEmail: req.body.registerEmail,
       registerPassword: hash,
     });
@@ -27,15 +26,19 @@ exports.signup = (req, res, next) => {
         res.status(201).json({
           message: 'User added successfully!',
         });
+        // sets the url
+        const url = req.protocol + '://' + req.get('host');
+        // sets the profile
         const profile = new Profile({
           userId: user._id,
-          formFile: user.file,
+          name: user.fullName,
+          formFile: url + '/images/' + req.body.file,
           formGridEmail: user.registerEmail,
           formGridPassword: user.registerPassword,
           formGridPosition: req.body.formGridPosition,
-          formGridDepartment: req.body.formGridDepartment,
+          // formGridDepartment: req.body.formGridDepartment,
           formGridPhone: req.body.formGridPhone,
-          formGridAddress: req.body.formGridAddress,
+          formGridWorkOffice: req.body.formGridWorkOffice,
           formGridCity: req.body.formGridCity,
           formGridState: req.body.formGridState,
           formGridZip: req.body.formGridZip,
@@ -107,11 +110,11 @@ exports.login = (req, res, next) => {
 // updates a user's profile
 exports.updateProfile = (req, res, next) => {
   // sets the url
-  // const url = req.protocol + '://' + req.get('host');
-  // sets the sauce
+  const url = req.protocol + '://' + req.get('host');
+  // sets the updated profile
   const profile = new Profile({
     userId: user._id,
-    formFile: req.body.formFile,
+    formFile: url + '/images/' + req.file.file,
     formGridEmail: req.body.formGridEmail,
     formGridPassword: req.body.formGridPassword,
     formGridPosition: req.body.formGridPosition,

@@ -46,26 +46,22 @@ export const ProfileRightBar = () => {
             test
           </span>
         </div>
-        <div className="profileRightBarInfoItem">
-          <span className="profileRightBarInfoKey">Username</span>
-          <span className="profileRightBarInfoValue">amber_logan</span>
-        </div>
-        <div className="profileRightBarInfoItem">
-          <span className="profileRightBarInfoKey">Position</span>
+        {/* <div className="profileRightBarInfoItem">
+          <span className="profileRightBarInfoKey">Position: </span>
           <span className="profileRightBarInfoValue">
            test
           </span>
-        </div>
-        <div className="profileRightBarInfoItem">
+        </div> */}
+        {/* <div className="profileRightBarInfoItem">
           <span className="profileRightBarInfoKey">Department: </span>
           <span className="profileRightBarInfoValue">Corporate Sales</span>
-        </div>
+        </div> */}
         <div className="profileRightBarInfoItem">
           <span className="profileRightBarInfoKey">Phone#: </span>
           <span className="profileRightBarInfoValue">901-555-4841</span>
         </div>
         <div className="profileRightBarInfoItem">
-          <span className="profileRightBarInfoKey">Address: </span>
+          <span className="profileRightBarInfoKey">Work Office: </span>
           <span className="profileRightBarInfoValue">755 Crossover Lane</span>
         </div>
         <div className="profileRightBarInfoItem">

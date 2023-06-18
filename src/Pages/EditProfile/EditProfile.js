@@ -13,6 +13,8 @@ import { Navbar } from '../../Components/Navbar/Navbar';
 import { Sidebar } from '../../Components/Sidebar/Sidebar';
 // imports the States array
 import { States } from '../../States';
+// imports the WorkOffices array
+import { WorkOffice } from '../../WorkOffice';
 // imports the images
 import User from '../../Assets/person/user.jpg';
 import ProfileCover from '../../Assets/person/profileCover.jpeg';
@@ -26,12 +28,13 @@ export const EditProfile = () => {
 
   // creates a form data object
   const formValues = {
-    formGridEmail: "",
+    // formGridEmail: "",
     formGridPassword: "",
+    formGridConfirmPassword: "",
     formGridPosition: "",
-    formGridDepartment: "",
+    // formGridDepartment: "",
     formGridPhone: "",
-    formGridAddress: "",
+    formGridWorkOffice: "",
     formGridCity: "",
     formGridState: "",
     formGridZip: "",
@@ -51,18 +54,18 @@ export const EditProfile = () => {
   const validateForm = () => {
     let isValid = true;
     // checks if email is empty
-    if (formData.formGridEmail === "") {
-      document.getElementById("editProfileEmailErrorMsg").innerHTML =
-        "Email cannot be empty";
-      isValid = false;
-    }
-    if (!formData.formGridEmail.match(/([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,63})$/)) {
-      document.getElementById("editProfileEmailErrorMsg").innerHTML =
-        "Email must be in the correct format";
-      isValid = false;
-    } else {
-      document.getElementById("editProfileEmailErrorMsg").innerHTML = "";
-    }
+    // if (formData.formGridEmail === "") {
+    //   document.getElementById("editProfileEmailErrorMsg").innerHTML =
+    //     "Email cannot be empty";
+    //   isValid = false;
+    // }
+    // if (!formData.formGridEmail.match(/([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,63})$/)) {
+    //   document.getElementById("editProfileEmailErrorMsg").innerHTML =
+    //     "Email must be in the correct format";
+    //   isValid = false;
+    // } else {
+    //   document.getElementById("editProfileEmailErrorMsg").innerHTML = "";
+    // }
     // checks if password is empty
     if (formData.formGridPassword === "") {
       document.getElementById("editProfilePasswordErrorMsg").innerHTML =
@@ -81,22 +84,30 @@ export const EditProfile = () => {
     } else {
       document.getElementById("editProfilePasswordErrorMsg").innerHTML = "";
     }
-    // checks if position is empty
-    if (formData.formGridPosition === "") {
-      document.getElementById("editProfilePositionErrorMsg").innerHTML =
-        "Position cannot be empty";
+    // checks if confirm password matches password
+    if (formData.formGridConfirmPassword !== formData.formGridPassword) {
+      document.getElementById("editProfilePasswordErrorMsg").innerHTML =
+        "Passwords do not match";
       isValid = false;
     } else {
-      document.getElementById("editProfilePositionErrorMsg").innerHTML = "";
+      document.getElementById("editProfilePasswordErrorMsg").innerHTML = "";
     }
-    // checks if department is empty
-    if (formData.formGridDepartment === "") {
-      document.getElementById("editProfileDepartmentErrorMsg").innerHTML =
-        "Department cannot be empty";
-      isValid = false;
-    } else {
-      document.getElementById("editProfileDepartmentErrorMsg").innerHTML = "";
-    }
+    // // checks if position is empty
+    // if (formData.formGridPosition === "") {
+    //   document.getElementById("editProfilePositionErrorMsg").innerHTML =
+    //     "Position cannot be empty";
+    //   isValid = false;
+    // } else {
+    //   document.getElementById("editProfilePositionErrorMsg").innerHTML = "";
+    // }
+    // // checks if department is empty
+    // if (formData.formGridDepartment === "") {
+    //   document.getElementById("editProfileDepartmentErrorMsg").innerHTML =
+    //     "Department cannot be empty";
+    //   isValid = false;
+    // } else {
+    //   document.getElementById("editProfileDepartmentErrorMsg").innerHTML = "";
+    // }
     // checks if phone number is empty
     if (formData.formGridPhone === "") {
       document.getElementById("editProfilePhoneErrorMsg").innerHTML =
@@ -116,7 +127,7 @@ export const EditProfile = () => {
       document.getElementById("editProfilePhoneErrorMsg").innerHTML = "";
     }
     // checks if address is empty
-    if (formData.formGridAddress === "") {
+    if (formData.formGridWorkOffice === "") {
       document.getElementById("editProfileAddressErrorMsg").innerHTML =
         "Address cannot be empty";
       isValid = false;
@@ -226,12 +237,6 @@ export const EditProfile = () => {
                   className="editProfileRightBottomLeftImg"
                   alt="default user profile"
                 />
-                <Button
-                  variant="primary"
-                  className="editProfileDeleteAccountButton"
-                >
-                  Delete Account
-                </Button>
               </div>
               <div className="editProfileRightBottomForm">
                 <Form className="editProfileForm" onSubmit={handleSubmit}>
@@ -244,18 +249,10 @@ export const EditProfile = () => {
                         onChange={handleChange}
                       />
                     </Form.Group>
-                    <p id="editProfileFileErrorMsg" className='editProfileErrorMsg'></p>
-                    <Form.Group as={Col} controlId="formGridEmail">
-                      <Form.Label>Email:</Form.Label>
-                      <Form.Control
-                        type="email"
-                        className="editProfileFormInput"
-                        placeholder="Enter email"
-                        onChange={handleChange}
-                        value={formData.formGridEmail}
-                      />
-                    </Form.Group>
-                    <p id="editProfileEmailErrorMsg" className='editProfileErrorMsg'></p>
+                    <p
+                      id="editProfileFileErrorMsg"
+                      className="editProfileErrorMsg"
+                    ></p>
                     <Form.Group
                       as={Col}
                       sm={12}
@@ -271,30 +268,37 @@ export const EditProfile = () => {
                         value={formData.formGridPassword}
                       />
                     </Form.Group>
-                    <p id="editProfilePasswordErrorMsg" className='editProfileErrorMsg'></p>
+                    <Form.Group
+                      as={Col}
+                      sm={12}
+                      md={6}
+                      controlId="formGridConfirmPassword"
+                    >
+                      <Form.Label>Confirm Password:</Form.Label>
+                      <Form.Control
+                        type="password"
+                        className="editProfileFormInput"
+                        placeholder="Confirm password"
+                        onChange={handleChange}
+                        value={formData.formGridPassword}
+                      />
+                    </Form.Group>
+                    <p
+                      id="editProfilePasswordErrorMsg"
+                      className="editProfileErrorMsg"
+                    ></p>
                   </Row>
 
-                  <Form.Group className="mb-3" controlId="formGridPosition">
-                    <Form.Label>Position:</Form.Label>
-                    <Form.Control
-                      className="editProfileFormInput"
-                      placeholder="Enter position"
-                      onChange={handleChange}
-                      value={formData.formGridPosition}
-                    />
-                  </Form.Group>
-                  <p id="editProfilePositionErrorMsg" className='editProfileErrorMsg'></p>
-                  <Form.Group className="mb-3" controlId="formGridDepartment">
-                    <Form.Label>Department:</Form.Label>
-                    <Form.Control
-                      className="editProfileFormInput"
-                      placeholder="Enter department"
-                      onChange={handleChange}
-                      value={formData.formGridDepartment}
-                    />
-                  </Form.Group>
-                  <p id="editProfileDepartmentErrorMsg" className='editProfileErrorMsg'></p>
-                  <Form.Group className="mb-3" controlId="formGridPhone">
+                  <Form.Group
+                    className="mb-3"
+                    controlId="formGridPosition"
+                  ></Form.Group>
+                  <Form.Group
+                    className="mb-3"
+                    as={Col}
+                    md={3}
+                    controlId="formGridPhone"
+                  >
                     <Form.Label>Phone Number:</Form.Label>
                     <Form.Control
                       className="editProfileFormInput"
@@ -303,61 +307,111 @@ export const EditProfile = () => {
                       value={formData.formGridPhone}
                     />
                   </Form.Group>
-                  <p id="editProfilePhoneErrorMsg" className='editProfileErrorMsg'></p>
-                  <Form.Group className="mb-3" controlId="formGridAddress">
-                    <Form.Label>Address</Form.Label>
-                    <Form.Control
+                  <p
+                    id="editProfilePhoneErrorMsg"
+                    className="editProfileErrorMsg"
+                  ></p>
+                  <Form.Group
+                    as={Col}
+                    sm={12}
+                    md={3}
+                    className="mb-3"
+                    controlId="formGridWorkOffice"
+                    >
+                    <Form.Label>Work Office: </Form.Label>
+                    <Form.Select
                       className="editProfileFormInput"
-                      placeholder="123 Main St"
                       onChange={handleChange}
-                      value={formData.formGridAddress}
-                    />
+                      value={formData.formGridWorkOffice}
+                      defaultValue="Choose..."
+                    >
+                      <option>Work Office...</option>
+                      {WorkOffice.map((office) => (
+                        <option key={office.id}>{office.office}</option>
+                      ))}
+                    </Form.Select>
                   </Form.Group>
-                  <p id="editProfileAddressErrorMsg" className='editProfileErrorMsg'></p>
-                  <Row className="mb-3">
-                    <Form.Group as={Col} controlId="formGridCity">
-                      <Form.Label>City</Form.Label>
-                      <Form.Control 
-                      className="editProfileFormInput" 
-                      onChange={handleChange}
-                      value={formData.formGridCity}
-                      />
-                    </Form.Group>
-                    <p id="editProfileCityErrorMsg" className='editProfileErrorMsg'></p>
+                    <p
+                      id="editProfileAddressErrorMsg"
+                      className="editProfileErrorMsg"
+                    ></p>
                     <Form.Group
                       as={Col}
                       sm={12}
-                      md={3}
-                      controlId="formGridState"
+                      md={6}
+                      controlId="formGridPosition"
                     >
-                      <Form.Label>State</Form.Label>
-                      <Form.Select
+                      <Form.Label>Position:</Form.Label>
+                      <Form.Control
+                        type="password"
                         className="editProfileFormInput"
+                        placeholder="Enter Title"
                         onChange={handleChange}
-                        value={formData.formGridState}
-                        defaultValue="Choose..."
-                      >
-                        <option>select state...</option>
-                        {States.map((state) => (
-                          <option key={state.id}>{state.abbr}</option>
-                        ))}
-                      </Form.Select>
-                    </Form.Group>
-                    <p id="editProfileStateErrorMsg" className='editProfileErrorMsg'></p>
-                    <Form.Group as={Col} controlId="formGridZip">
-                      <Form.Label>Zip</Form.Label>
-                      <Form.Control 
-                      className="editProfileFormInput" 
-                      onChange={handleChange}
-                      value={formData.formGridZip}
+                        value={formData.formGridPosition}
                       />
                     </Form.Group>
-                    <p id="editProfileZipErrorMsg" className='editProfileErrorMsg'></p>
-                  </Row>
-
-                  <Button variant="primary" type="submit">
-                    Update Profile
-                  </Button>
+                    <Row className="mb-3">
+                      <Form.Group
+                        as={Col}
+                        sm={12}
+                        md={3}
+                        controlId="formGridCity"
+                      >
+                        <Form.Label>City</Form.Label>
+                        <Form.Control
+                          className="editProfileFormInput"
+                          onChange={handleChange}
+                          value={formData.formGridCity}
+                        />
+                      </Form.Group>
+                      <p
+                        id="editProfileCityErrorMsg"
+                        className="editProfileErrorMsg"
+                      ></p>
+                      <Form.Group
+                        as={Col}
+                        sm={12}
+                        md={3}
+                        controlId="formGridState"
+                      >
+                        <Form.Label>State</Form.Label>
+                        <Form.Select
+                          className="editProfileFormInput"
+                          onChange={handleChange}
+                          value={formData.formGridState}
+                          defaultValue="Choose..."
+                        >
+                          <option>select state...</option>
+                          {States.map((state) => (
+                            <option key={state.id}>{state.abbr}</option>
+                          ))}
+                        </Form.Select>
+                      </Form.Group>
+                      <p
+                        id="editProfileStateErrorMsg"
+                        className="editProfileErrorMsg"
+                      ></p>
+                      <Form.Group as={Col} md={3} controlId="formGridZip">
+                        <Form.Label>Zip Code</Form.Label>
+                        <Form.Control
+                          className="editProfileFormInput"
+                          onChange={handleChange}
+                          value={formData.formGridZip}
+                        />
+                      </Form.Group>
+                      <p
+                        id="editProfileZipErrorMsg"
+                        className="editProfileErrorMsg"
+                      ></p>
+                    </Row>
+                  <div className="editProfileButtons">
+                    <Button variant="primary" type="submit">
+                      Update Profile
+                    </Button>
+                    <Button variant="primary" type="submit">
+                      Delete Account
+                    </Button>
+                  </div>
                 </Form>
               </div>
             </div>

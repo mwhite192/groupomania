@@ -33,26 +33,13 @@ export const Login = () => {
   // handles form validation
   const validateForm = () => {
     let isValid = true;
-    // checks if email is empty
-    if (formData.email === '') {
-      document.getElementById('emailErrorMsg').innerHTML =
-        'Email cannot be empty';
-      isValid = false;
-    }
-    if (formData.email.match(/([A-Za-z0-9]+(_[A-Za-z0-9]+)+)!/)) {
+    // checks to see if email field matches the correct format
+    if (!formData.email.match(/^[a-zA-Z0-9._%+]+@[a-zA-Z0-9.]+\.[a-zA-Z]{2,}$/)) {
       document.getElementById('emailErrorMsg').innerHTML =
         'Email must be in the correct format';
-      isValid = false;
+        isValid = false;
     } else {
       document.getElementById('emailErrorMsg').innerHTML = '';
-    }
-    // checks if password is empty
-    if (formData.password === '') {
-      document.getElementById('passwordErrorMsg').innerHTML =
-        'Password cannot be empty';
-      isValid = false;
-    } else {
-      document.getElementById('passwordErrorMsg').innerHTML = '';
     }
     return isValid;
   };
@@ -79,10 +66,11 @@ export const Login = () => {
       } 
       return response.json();
     })
+    // Handle response
     .then((data) => {
         // navigates user to home page
-        navigate('/home');    
-      console.log(data);
+        navigate('/home'); 
+        console.log(data);
     })
     // Catch errors
     .catch((error) => {
@@ -115,7 +103,7 @@ export const Login = () => {
                     value={formData.email}
                     onChange={handleChange}
                   />
-                  <p id="emailErrorMsg" className='loginErrorMsg'></p>
+                  <span id="emailErrorMsg" className='loginErrorMsg'></span>
                   <input
                     type="password"
                     placeholder="Password"
@@ -125,12 +113,13 @@ export const Login = () => {
                     value={formData.password}
                     onChange={handleChange}
                   />
-                  <p id="passwordErrorMsg" className='loginErrorMsg'></p>
+                  <span id="passwordErrorMsg" className='loginErrorMsg'></span>
+
                   <button type="submit" className="loginButton">
-                    Sign In
+                    Log In
                   </button>
                   <button className="loginRegisterButton"  onClick={handleClick}>
-                    Create a New Account
+                    Create Account
                   </button>
                 </form>
               </div>
