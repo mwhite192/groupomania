@@ -3,6 +3,10 @@ import React from 'react';
 import './EditProfile.scss';
 // imports useNavigate hook
 // import { useNavigate } from 'react-router-dom';
+// imports the store
+import { store } from '../../App/store';
+// imports the getUser selector
+import { getUser } from '../../App/Features/profileSlice';
 // imports the react bootstrap components
 import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col';
@@ -23,6 +27,8 @@ import DefaultProfileCover from '../../Assets/person/DefaultProfile.jpg';
 
 // creates the EditProfile page
 export const EditProfile = () => {
+  // gets the user from the store
+  const { formFile } = getUser(store.getState());
   // // creates a navigate object
   // const navigate = useNavigate();
 
@@ -214,7 +220,7 @@ export const EditProfile = () => {
                 alt="company logo"
                 className="profileCoverImg"
               />
-              <img src={User} alt="user" className="profileUserImg" />
+              <img src={formFile} alt="user" className="profileUserImg" />
             </div>
             <div className="profileInfo">
               <h4 className="profileInfoName">Amber Logan</h4>

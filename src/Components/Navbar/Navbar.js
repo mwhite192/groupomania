@@ -9,7 +9,6 @@ import { store } from '../../App/store';
 import { getUser } from '../../App/Features/profileSlice';
 // imports the company logo and user image
 import CompanyLogo from '../../Assets/Logos/icon-left-font-monochrome-white.svg';
-import UserImage from '../../Assets/person/user.jpg';
 // imports the icons from the material ui library
 import { Search } from '@mui/icons-material';
 import { ChatBubble } from '@mui/icons-material';

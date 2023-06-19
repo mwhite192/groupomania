@@ -9,14 +9,13 @@ import { Navbar } from '../../Components/Navbar/Navbar';
 import { Sidebar } from '../../Components/Sidebar/Sidebar';
 import { Feed } from '../../Components/Feed/Feed';
 // imports the ProfileRightBar, User, and ProfileCover images
-import { ProfileRightBar } from '../../Components/ProfileRightBar/ProfileRightBar';
-import User from '../../Assets/person/user.jpg';
+import { ProfileRightBar } from '../../Components/ProfileRightBar/ProfileRightBar'; 
 import ProfileCover from '../../Assets/person/profileCover.jpeg';
 
 
 // creates the Profile page
 export const Profile = () => {
-  const { name } = getUser(store.getState());
+  const { name, formFile } = getUser(store.getState());
   // returns the profile page
   return (
     <div className='profile'>
@@ -27,7 +26,7 @@ export const Profile = () => {
             <div className="profileRightTop">
                 <div className="profileCover">
                     <img src={ProfileCover} alt="company logo" className="profileCoverImg" />
-                    <img src={User} alt="user" className="profileUserImg" />
+                    <img src={formFile} alt="user" className="profileUserImg" />
                 </div>
                 <div className="profileInfo">
                     <h4 className="profileInfoName">{name}</h4>

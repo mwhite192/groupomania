@@ -9,7 +9,7 @@ import { getUser } from '../../App/Features/profileSlice';
 import { VideoCameraFront } from '@mui/icons-material';
 import { PermMedia } from '@mui/icons-material';
 import { EmojiEmotions } from '@mui/icons-material';
-import User from '../../Assets/person/user.jpg';
+
 
 
 // creates the Share component

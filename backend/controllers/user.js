@@ -32,7 +32,7 @@ exports.signup = (req, res, next) => {
         const profile = new Profile({
           userId: user._id,
           name: user.fullName,
-          formFile: req.file ? url + '/images/' + req.file.filename : null,
+          formFile: url + '/images/' + req.file.filename,
           formGridEmail: user.registerEmail,
           formGridPassword: user.registerPassword,
           formGridPosition: req.body.formGridPosition,
