@@ -1,6 +1,9 @@
 // imports the React library and the App.scss file
 import React from 'react';
 import './Profile.scss';
+// imports the store
+import { store } from '../../App/store';
+import { getUser } from '../../App/Features/profileSlice';
 // imports the react bootstrap components
 import { Navbar } from '../../Components/Navbar/Navbar';
 import { Sidebar } from '../../Components/Sidebar/Sidebar';
@@ -13,6 +16,7 @@ import ProfileCover from '../../Assets/person/profileCover.jpeg';
 
 // creates the Profile page
 export const Profile = () => {
+  const { name } = getUser(store.getState());
   // returns the profile page
   return (
     <div className='profile'>
@@ -26,7 +30,7 @@ export const Profile = () => {
                     <img src={User} alt="user" className="profileUserImg" />
                 </div>
                 <div className="profileInfo">
-                    <h4 className="profileInfoName">Amber Logan</h4>
+                    <h4 className="profileInfoName">{name}</h4>
                     <span className="profileInfoDesc">Hi Team!</span>
                 </div>
             </div>

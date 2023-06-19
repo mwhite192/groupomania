@@ -1,6 +1,8 @@
 // imports the React Library and the Login.scss file
 import React from 'react';
 import './Login.scss';
+import { authenticate } from '../../App/Features/profileSlice';
+import { store } from '../../App/store';
 // imports useState and useNavigate hook
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -68,6 +70,8 @@ export const Login = () => {
     })
     // Handle response
     .then((data) => {
+        // Dispatch action to update state
+        store.dispatch(authenticate(data));
         // navigates user to home page
         navigate('/home'); 
         console.log(data);

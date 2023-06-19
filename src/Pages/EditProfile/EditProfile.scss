@@ -71,9 +71,6 @@
                         border-radius: 50%;
                         margin: 40px 0 40px 0;
                     }
-                    .editProfileDeleteAccountButton{
-                        width: 50%;
-                    }
                 }
                 .editProfileRightBottomForm{
                     flex: 2;
@@ -94,13 +91,13 @@
                     font-size: 12px;
                     margin-top: 5px;
                 }
-                .editProfileButtons{
-                    width: 75%;
-                    display: flex;
-                    justify-content: space-between;
-                }
                 .editProfileFormInput::placeholder{
                     font-family: 'Arimo', sans-serif;
+                }
+                .editProfileButtons{
+                    display: flex;
+                    justify-content: space-between;
+                    padding-top: 20px;
                 }
             }
         }

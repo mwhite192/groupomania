@@ -1,6 +1,10 @@
 // imports the React library and the ProfileRightBar.scss file
 import React from 'react';
 import './ProfileRightBar.scss';
+// imports redux store
+import store from '../../App/store';
+// imports getUser selector
+import { getUser } from '../../App/Features/profileSlice';
 // imports the useNavigate hook from the react-router-dom library
 import { useNavigate } from 'react-router-dom';
 // imports the Button component from the react-bootstrap library
@@ -9,6 +13,7 @@ import Button from 'react-bootstrap/Button';
 
 // creates the ProfileRightBar component
 export const ProfileRightBar = () => {
+  const { formGridEmail } = getUser(store.getState());
   // creates a navigate object
   const navigate = useNavigate();
  
@@ -43,7 +48,7 @@ export const ProfileRightBar = () => {
         <div className="profileRightBarInfoItem">
           <span className="profileRightBarInfoKey">Email: </span>
           <span className="profileRightBarInfoValue">
-            test
+            {formGridEmail}
           </span>
         </div>
         {/* <div className="profileRightBarInfoItem">

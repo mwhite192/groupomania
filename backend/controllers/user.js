@@ -32,7 +32,7 @@ exports.signup = (req, res, next) => {
         const profile = new Profile({
           userId: user._id,
           name: user.fullName,
-          formFile: url + '/images/' + req.body.file,
+          formFile: url + '/images/' + req.body.registerFile,
           formGridEmail: user.registerEmail,
           formGridPassword: user.registerPassword,
           formGridPosition: req.body.formGridPosition,
@@ -59,7 +59,7 @@ exports.signup = (req, res, next) => {
 }
 
 // exports the login function
-exports.login = (req, res, next) => {
+exports.login = async (req, res, next) => {
   // finds the user by email
   User.findOne({ registerEmail: req.body.email })
     // returns the user
@@ -74,7 +74,7 @@ exports.login = (req, res, next) => {
       bcrypt
         .compare(req.body.password, user.registerPassword)
         // returns the password
-        .then((valid) => {
+        .then(async (valid) => {
           // checks if the password is valid
           if (!valid) {
             // returns the error
@@ -82,6 +82,7 @@ exports.login = (req, res, next) => {
               error: new Error("Incorrect password!"),
             });
           }
+          const profile = await Profile.findOne({ userId: user._id });
           // sets the token
           const token = jwt.sign(
             // sets the payload
@@ -90,8 +91,9 @@ exports.login = (req, res, next) => {
             {expiresIn: '24h'});
           // returns the token
           res.status(200).json({
+            ...profile._doc,
             userId: user._id,
-            token: token
+            token: token,
           });
         })
         .catch((error) => {
@@ -139,7 +141,7 @@ exports.login = (req, res, next) => {
 //     });
 // };
 
-// // retrieves the user's profile 
+// retrieves the user's profile 
 // exports.getProfile = (req, res, next) => {
 //   // saves the user's id to a variable
 //   const userId = req.user._id;
@@ -160,7 +162,7 @@ exports.login = (req, res, next) => {
 // updates a user's profile
 exports.updateProfile = (req, res, next) => {
   // sets the url
-  const url = req.protocol + '://' + req.get('host');
+  // const url = req.protocol + '://' + req.get('host');
   // sets the updated profile
   const profile = new Profile({
     userId: user._id,
@@ -176,10 +178,10 @@ exports.updateProfile = (req, res, next) => {
     formGridZip: req.body.formGridZip,
   });
   // checks if there is a file
-  // if (req.file) {
-  //   // sets the sauce image url
-  //   profile.imageUrl = url + '/images/' + req.file.filename;
-  // }
+  if (req.file) {
+    // sets the sauce image url
+    profile.imageUrl = url + '/images/' + req.file.filename;
+  }
   // updates the sauce
   Profile.updateOne({ _id: user._id }, profile)
   // returns the sauce
