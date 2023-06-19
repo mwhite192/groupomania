@@ -2,7 +2,7 @@
 import React from 'react';
 import './ProfileRightBar.scss';
 // imports redux store
-import store from '../../App/store';
+import { store } from '../../App/store';
 // imports getUser selector
 import { getUser } from '../../App/Features/profileSlice';
 // imports the useNavigate hook from the react-router-dom library
@@ -63,23 +63,23 @@ export const ProfileRightBar = () => {
         </div> */}
         <div className="profileRightBarInfoItem">
           <span className="profileRightBarInfoKey">Phone#: </span>
-          <span className="profileRightBarInfoValue">901-555-4841</span>
+          <span className="profileRightBarInfoValue"></span>
         </div>
         <div className="profileRightBarInfoItem">
           <span className="profileRightBarInfoKey">Work Office: </span>
-          <span className="profileRightBarInfoValue">755 Crossover Lane</span>
+          <span className="profileRightBarInfoValue"></span>
         </div>
         <div className="profileRightBarInfoItem">
           <span className="profileRightBarInfoKey">City: </span>
-          <span className="profileRightBarInfoValue">Memphis</span>
+          <span className="profileRightBarInfoValue"></span>
         </div>
         <div className="profileRightBarInfoItem">
           <span className="profileRightBarInfoKey">State: </span>
-          <span className="profileRightBarInfoValue">TN</span>
+          <span className="profileRightBarInfoValue"></span>
         </div>
         <div className="profileRightBarInfoItem">
           <span className="profileRightBarInfoKey">Zip</span>
-          <span className="profileRightBarInfoValue">38711</span>
+          <span className="profileRightBarInfoValue"></span>
         </div>
       </div>
       <Button variant='primary' className="profileEditButton" onClick={handleClick}>

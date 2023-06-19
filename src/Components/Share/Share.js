@@ -1,6 +1,10 @@
 // imports the React library and the Share.scss file
 import React from 'react';
 import './Share.scss';
+// imports store
+import { store } from '../../App/store';
+//imports getUser selector
+import { getUser } from '../../App/Features/profileSlice';
 // imports the icons from the material ui library
 import { VideoCameraFront } from '@mui/icons-material';
 import { PermMedia } from '@mui/icons-material';
@@ -10,11 +14,12 @@ import User from '../../Assets/person/user.jpg';
 
 // creates the Share component
 export const Share = () => {
+  const { formFile } = getUser(store.getState());
   return (
     <div className="share">
       <div className="shareWrapper">
         <div className="shareTop">
-          <img src={User} alt="user profile" className="shareProfileImg" />
+          <img src={formFile} alt="user profile" className="shareProfileImg" />
           <input
             type="text"
             className="shareInput"

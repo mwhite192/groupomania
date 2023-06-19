@@ -32,11 +32,10 @@ exports.signup = (req, res, next) => {
         const profile = new Profile({
           userId: user._id,
           name: user.fullName,
-          formFile: url + '/images/' + req.body.registerFile,
+          formFile: req.file ? url + '/images/' + req.file.filename : null,
           formGridEmail: user.registerEmail,
           formGridPassword: user.registerPassword,
           formGridPosition: req.body.formGridPosition,
-          // formGridDepartment: req.body.formGridDepartment,
           formGridPhone: req.body.formGridPhone,
           formGridWorkOffice: req.body.formGridWorkOffice,
           formGridCity: req.body.formGridCity,
@@ -74,7 +73,7 @@ exports.login = async (req, res, next) => {
       bcrypt
         .compare(req.body.password, user.registerPassword)
         // returns the password
-        .then(async (valid) => {
+        .then( async (valid) => {
           // checks if the password is valid
           if (!valid) {
             // returns the error

@@ -2,8 +2,9 @@
 import React from 'react';
 import './Register.scss';
 // imports the useState and useNavigate hooks
-import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+// imports the useState hook
+import { useState } from 'react';
 // imports the DriveFolderUploadOutlined icon, company logo, and default profile image
 import { DriveFolderUploadOutlined } from '@mui/icons-material';
 import CompanyLogo from '../../Assets/Logos/logo 1.svg';
@@ -14,20 +15,18 @@ import DefaultProfile from '../../Assets/person/DefaultProfile.jpg';
 export const Register = () => {
   // creates a navigate object
   const navigate = useNavigate();
-  // creates a form data object
-  const formValues = {  file: '', fullName: '', registerEmail: '', registerPassword: '' };
-  const [formData, setFormData] = useState(formValues);
-  // creates imgSrc and setImgSrc variables
-  const [img, setImg] = useState(null);
   
-  // creates a handleChange function
-  const handleChange = (event) => {
-    const { id, value } = event.target;
-    setFormData({
-      ...formData,
-      [id]: value
-    });
-  };
+  // creates a form data object and sets the initial state
+  const [fullName, setFullName] = useState('');
+  const [registerEmail, setRegisterEmail] = useState('');
+  const [registerPassword, setRegisterPassword] = useState('');
+  const [file, setFile] = useState(null);
+  // creates a form data object
+  const formData = new FormData();
+  formData.append('fullName', fullName);
+  formData.append('registerEmail', registerEmail);
+  formData.append('registerPassword', registerPassword);
+  formData.append('file', file);
 
   // handles form validation
   // const validateForm = () => {
@@ -77,10 +76,7 @@ export const Register = () => {
     // Send form data to backend
     fetch('/api/user/signup', {
       method: 'POST',
-      headers: {  
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(formData)
+      body: formData,
     })
     // Convert response to JSON
     .then((response) => response.json())
@@ -108,7 +104,7 @@ export const Register = () => {
           <div className="registerBox">
             <div className="registerBoxTop">
               <img
-                src={img ? URL.createObjectURL(img) : DefaultProfile}
+                src={file ? URL.createObjectURL(file):DefaultProfile}
                 alt="default user"
                 className="registerImg"
               />
@@ -126,9 +122,10 @@ export const Register = () => {
                       type="file"
                       name="file"
                       id="file"
+                      required
                       accept=".png,.jpeg,.jpg"
                       style={{ display: "none" }}
-                      onChange={(e) => setImg(e.target.files[0])}
+                      onChange={(e) => setFile(e.target.files[0])}
                     />
                   </label>
                   <p id="uploadImageErrorMsg" className='registerErrorMsg'></p>
@@ -139,8 +136,8 @@ export const Register = () => {
                   id="fullName"
                   className="registerInput"
                   required
-                  value={formData.fullName}
-                  onChange={handleChange}
+                  value={fullName}
+                  onChange={(e) => setFullName(e.target.value)}
                 />
                 <p id="fullNameErrorMsg" className='registerErrorMsg'></p>
                 <input
@@ -149,8 +146,8 @@ export const Register = () => {
                   id="registerEmail"
                   className="registerInput"
                   required
-                  value={formData.registerEmail}
-                  onChange={handleChange}
+                  value={registerEmail}
+                  onChange={(e) => setRegisterEmail(e.target.value)}
                 />
                 <p id="emailErrorMsg" className='registerErrorMsg'></p>
                 <input
@@ -159,8 +156,8 @@ export const Register = () => {
                   id="registerPassword"
                   className="registerInput"
                   required
-                  value={formData.registerPassword}
-                  onChange={handleChange}
+                  value={registerPassword}
+                  onChange={(e) => setRegisterPassword(e.target.value)}
                 />
                 <p id="passwordErrorMsg" className='registerErrorMsg'></p>
                 <button type="submit" className="registerButton">
