@@ -13,6 +13,7 @@ import { AccountCircle } from '@mui/icons-material';
 import { Notifications } from '@mui/icons-material';
 
 
+
 // creates the Navbar component
 export const Navbar = () => {
   return (

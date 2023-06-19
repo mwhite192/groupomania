@@ -10,7 +10,7 @@ const profileCtrl = require('../controllers/profile');
 
 
 // sets up the routes
-// router.get('/', profileCtrl.getProfile); // multer,
+router.get('/profile', profileCtrl.getProfile); // multer,
 // router.put('/user', profileCtrl.updateProfile); // auth, multer,
 // router.delete('/:userId', profileCtrl.deleteProfile); // auth,
   

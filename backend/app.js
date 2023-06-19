@@ -4,9 +4,11 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const userRouter = require('./routes/user');
 const profileRouter = require('./routes/profile');
+// const userPostRouter = require('./routes/userPost');
 const app = express();
 const path = require('path');
 const { createProxyMiddleware } = require('http-proxy-middleware');
+const userPost = require('./models/userPost');
 require('dotenv').config({path: path.resolve(__dirname, './.env')});
 
 // Connect to MongoDB Atlas
@@ -31,6 +33,7 @@ app.use(express.static('static'));
 app.use('/images/', express.static(path.join(__dirname, 'images')));
 app.use('/api/user', userRouter);
 app.use('/api/profile', profileRouter);
+// app.use('/api/userPost', userPostRouter);
 app.use( '/', createProxyMiddleware({target: 'http://localhost:3000', changeOrigin: true,}));
 
 // Error handling

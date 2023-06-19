@@ -10,7 +10,6 @@ const profileSchema = mongoose.Schema({
     formGridEmail: { type: String, required: false },
     formGridPassword: { type: String, required: false },
     formGridPosition: { type: String, required: false },
-    // formGridDepartment: { type: String, required: false },
     formGridPhone: { type: String, required: false },
     formGridWorkOffice: { type: String, required: false },
     formGridCity: { type: String, required: false },

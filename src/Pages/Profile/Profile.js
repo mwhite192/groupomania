@@ -13,6 +13,7 @@ import ProfileCover from '../../Assets/person/profileCover.jpeg';
 
 // creates the Profile page
 export const Profile = () => {
+  // returns the profile page
   return (
     <div className='profile'>
       <Navbar />
