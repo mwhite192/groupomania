@@ -5,23 +5,22 @@ import './ProfileRightBar.scss';
 import { store } from '../../App/store';
 // imports getUser selector
 import { getUser } from '../../App/Features/profileSlice';
-// imports the useNavigate hook from the react-router-dom library
-import { useNavigate } from 'react-router-dom';
+// imports the link hook from the react-router-dom library
+import { Link } from 'react-router-dom';
 // imports the Button component from the react-bootstrap library
-import Button from 'react-bootstrap/Button';
 
 
 // creates the ProfileRightBar component
 export const ProfileRightBar = () => {
-  const { formGridEmail } = getUser(store.getState());
-  // creates a navigate object
-  const navigate = useNavigate();
+  const { formGridEmail, _id } = getUser(store.getState());
+  
  
-  // creates a handleClick function
-  const handleClick = () => {
-    // navigates user to edit profile page
-    navigate('/editProfile');
-  };
+  // // creates a handleClick function
+  // const handleClick = () => {
+  //   const profileUrl = `/update/${_id}`;
+  //   // navigates user to edit profile page
+  //   navigate({profileUrl});
+  // };
 
   // // post form data to backend
   // let updatedProfile = fetch('/api/profile/edit', {
@@ -47,9 +46,7 @@ export const ProfileRightBar = () => {
       <div className="profileRightBarInfo">
         <div className="profileRightBarInfoItem">
           <span className="profileRightBarInfoKey">Email: </span>
-          <span className="profileRightBarInfoValue">
-            {formGridEmail}
-          </span>
+          <span className="profileRightBarInfoValue">{formGridEmail}</span>
         </div>
         {/* <div className="profileRightBarInfoItem">
           <span className="profileRightBarInfoKey">Position: </span>
@@ -82,9 +79,9 @@ export const ProfileRightBar = () => {
           <span className="profileRightBarInfoValue"></span>
         </div>
       </div>
-      <Button variant='primary' className="profileEditButton" onClick={handleClick}>
-          Edit Profile
-      </Button>
+      <Link to={`/update/${_id}`} className="profileEditButton">
+        <span className="profileEditButton">Edit Profile</span>
+      </Link>
     </div>
   );
 };

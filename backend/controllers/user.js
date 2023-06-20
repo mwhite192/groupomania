@@ -108,90 +108,38 @@ exports.login = async (req, res, next) => {
     });
 };
 
-// // retrieves the user's profile
-// exports.getProfile = (req, res, next) => {
-//   // saves the user's id to a variable
-//   const userId = req.user._id;
-//   // finds the profile by id
-//   Profile.findOne({ userId: userId })
-//   // returns the profile
-//     .then((profile) => {
-//       const profileData = {
-//         id: userId,
-//         name: profile.name,
-//         image: profile.formFile,
-//         email: profile.formGridEmail,
-//         password: profile.formGridPassword,
-//         position: profile.formGridPosition,
-//         // department: profile.formGridDepartment,
-//         phone: profile.formGridPhone,
-//         workOffice: profile.formGridWorkOffice,
-//         city: profile.formGridCity,
-//         state: profile.formGridState,
-//         zip: profile.formGridZip,
-//       };
-//       res.status(200).json(profileData);
-//     })
-//     // returns an error if the profile is not found
-//     .catch((error) => {
-//       res.status(404).json({
-//         error: "Unable to locate profile!",
-//       });
-//     });
-// };
-
-// retrieves the user's profile 
-// exports.getProfile = (req, res, next) => {
-//   // saves the user's id to a variable
-//   const userId = req.user._id;
-//   // finds the profile by id
-//   Profile.findOne({ userId: userId })
-//     // returns the profile
-//     .then((profile) => {
-//       res.status(200).json(profile);
-//     })
-//     // returns an error if the profile is not found
-//     .catch((error) => {
-//       res.status(404).json({
-//         error: "Unable to locate profile!",
-//       });
-//     });
-// };
-
-// updates a user's profile
-exports.updateProfile = (req, res, next) => {
+// exports the update profile function
+exports.update = (req, res, next) => {
   // sets the url
-  // const url = req.protocol + '://' + req.get('host');
-  // sets the updated profile
+  const url = req.protocol + '://' + req.get('host');
+  // sets the profile
   const profile = new Profile({
-    userId: user._id,
-    formFile: url + '/images/' + req.file.file,
-    formGridEmail: req.body.formGridEmail,
+    _id: req.body._id,
+    formFile: url + '/images/' + req.file.filename,
     formGridPassword: req.body.formGridPassword,
-    formGridPosition: req.body.formGridPosition,
-    formGridDepartment: req.body.formGridDepartment,
     formGridPhone: req.body.formGridPhone,
-    formGridAddress: req.body.formGridAddress,
+    formGridWorkOffice: req.body.formGridWorkOffice,
+    formGridPosition: req.body.formGridPosition,
     formGridCity: req.body.formGridCity,
     formGridState: req.body.formGridState,
-    formGridZip: req.body.formGridZip,
+    formGridZip: req.body.formGridZip,  
   });
-  // checks if there is a file
+  // checks if the is an image
   if (req.file) {
-    // sets the sauce image url
-    profile.imageUrl = url + '/images/' + req.file.filename;
+    // sets the profile image url
+    profile.formFile = url + '/images/' + req.file.filename;
   }
-  // updates the sauce
-  Profile.updateOne({ _id: user._id }, profile)
-  // returns the sauce
+  // updates the profile
+  profile.updateOne({ _id: req.body._id }, profile)
+    // returns the profile
     .then(() => {
       res.status(201).json({
         message: 'Profile updated successfully!',
       });
     })
     .catch((error) => {
-      res.status(400).json({
-        error: error,
+      res.status(500).json({
+        error: 'Failed to update profile!',
       });
     });
 };

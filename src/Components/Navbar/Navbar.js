@@ -19,7 +19,8 @@ import { Notifications } from '@mui/icons-material';
 
 // creates the Navbar component
 export const Navbar = () => {
-  const { formFile } = getUser(store.getState());
+  const { formFile, _id } = getUser(store.getState());
+  const profileUrl = `/profile/${_id}`;
   return (
     <div className="navbarContainer">
       <div className="navbarLeft">
@@ -47,7 +48,7 @@ export const Navbar = () => {
             <Notifications className="navbarIcon" />
           </div>
         </div>
-        <Link to='/profile'>
+        <Link to={profileUrl}>
           <div className="navbarIconItem">
             <img src={formFile} alt="user" className="navbarImg" />
           </div>

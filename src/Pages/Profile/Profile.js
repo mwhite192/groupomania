@@ -3,6 +3,7 @@ import React from 'react';
 import './Profile.scss';
 // imports the store
 import { store } from '../../App/store';
+// imports the getUser selector
 import { getUser } from '../../App/Features/profileSlice';
 // imports the react bootstrap components
 import { Navbar } from '../../Components/Navbar/Navbar';

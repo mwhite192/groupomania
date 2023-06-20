@@ -7,12 +7,13 @@ const router = express.Router();
 
 // sets up multer middleware
 const multer = require('../middleware/multer-config');
+const auth = require('../middleware/auth');
 
 
 // sets up the routes
 router.post('/signup', multer,  userCtrl.signup);
 router.post('/login', userCtrl.login);
-router.put('/edit', userCtrl.updateProfile);
+router.put('/:id', multer, userCtrl.update);
 // router.get('/userProfile', userCtrl.getProfile);
 
 // exports the router
