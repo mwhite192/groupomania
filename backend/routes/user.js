@@ -13,7 +13,7 @@ const auth = require('../middleware/auth');
 // sets up the routes
 router.post('/signup', multer,  userCtrl.signup);
 router.post('/login', userCtrl.login);
-router.put('/:id', multer, userCtrl.update);
+router.put('/_id', multer, userCtrl.update);
 // router.get('/userProfile', userCtrl.getProfile);
 
 // exports the router

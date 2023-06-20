@@ -11,8 +11,8 @@ export const initialState = {
 export const AUTHENTICATE = 'AUTHENTICATE';
 
 // create profile slice
-export const profileSlice = createSlice({
-    name: 'profile',
+export const userSlice = createSlice({
+    name: 'user',
     initialState,
     reducers: {
         [AUTHENTICATE]: (state, action) => {
@@ -23,12 +23,12 @@ export const profileSlice = createSlice({
 })
 
 // export selectors
-export const getAuthenticated = (state) => state.profile.authenticated;
-export const getUser = (state) => state.profile.user;
+export const getAuthenticated = (state) => state.user.authenticated;
+export const getUser = (state) => state.user.user;
 export const getUserId = (state) => getUser(state).id;
 
 // export actions and selectors
-export const authenticate = profileSlice.actions[AUTHENTICATE];
+export const authenticate = userSlice.actions[AUTHENTICATE];
 
 
 

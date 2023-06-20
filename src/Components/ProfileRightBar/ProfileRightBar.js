@@ -4,23 +4,24 @@ import './ProfileRightBar.scss';
 // imports redux store
 import { store } from '../../App/store';
 // imports getUser selector
-import { getUser } from '../../App/Features/profileSlice';
-// imports the link hook from the react-router-dom library
-import { Link } from 'react-router-dom';
+import { getUser } from '../../App/Features/User/userSlice';
+// imports the Navigate hook from the react-router-dom library
+import { useNavigate } from 'react-router-dom';
 // imports the Button component from the react-bootstrap library
+import { Button } from 'react-bootstrap';
 
 
 // creates the ProfileRightBar component
 export const ProfileRightBar = () => {
-  const { formGridEmail, _id } = getUser(store.getState());
+  const { formGridEmail } = getUser(store.getState());
   
- 
-  // // creates a handleClick function
-  // const handleClick = () => {
-  //   const profileUrl = `/update/${_id}`;
-  //   // navigates user to edit profile page
-  //   navigate({profileUrl});
-  // };
+ // creates the navigate hook
+  const navigate = useNavigate();
+  // creates the handleClick function
+  const handleClick = () => {
+    // navigates to the edit profile page
+    navigate('/update');
+  };
 
   // // post form data to backend
   // let updatedProfile = fetch('/api/profile/edit', {
@@ -79,9 +80,9 @@ export const ProfileRightBar = () => {
           <span className="profileRightBarInfoValue"></span>
         </div>
       </div>
-      <Link to={`/update/${_id}`} className="profileEditButton">
-        <span className="profileEditButton">Edit Profile</span>
-      </Link>
+      <Button variant="primary" onClick={handleClick}>
+        Edit Profile
+      </Button>
     </div>
   );
 };

@@ -4,7 +4,7 @@ import './Share.scss';
 // imports store
 import { store } from '../../App/store';
 //imports getUser selector
-import { getUser } from '../../App/Features/profileSlice';
+import { getUser } from '../../App/Features/User/userSlice';
 // imports the icons from the material ui library
 import { VideoCameraFront } from '@mui/icons-material';
 import { PermMedia } from '@mui/icons-material';

@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { combineReducers } from "@reduxjs/toolkit";
-import { profileSlice } from "./Features/profileSlice";
+import { userSlice } from "./Features/User/userSlice";
 import { setupListeners } from '@reduxjs/toolkit/query'
 import storage from 'redux-persist/lib/storage';
 import { persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER,} from "redux-persist";
@@ -11,7 +11,7 @@ export const persistConfig = {
 };
 
 export const reducers = combineReducers({
-  profile: profileSlice.reducer,
+  user: userSlice.reducer,
 });
 
 export const persistedReducer = persistReducer(persistConfig, reducers);

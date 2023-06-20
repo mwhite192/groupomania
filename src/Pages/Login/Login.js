@@ -1,7 +1,7 @@
 // imports the React Library and the Login.scss file
 import React from 'react';
 import './Login.scss';
-import { authenticate } from '../../App/Features/profileSlice';
+import { authenticate } from '../../App/Features/User/userSlice';
 import { store } from '../../App/store';
 // imports useState and useNavigate hook
 import { useState } from 'react';

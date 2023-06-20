@@ -2,13 +2,13 @@
 import React from 'react';
 import './EditProfile.scss';
 // imports useNavigate hook
-// imports { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 // imports the useState hook
 import { useState } from 'react';
 // imports the store
 import { store } from '../../App/store';
 // imports the getUser selector
-import { getUser } from '../../App/Features/profileSlice';
+import { getUser } from '../../App/Features/User/userSlice';
 // imports the react bootstrap components
 import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col';
@@ -30,9 +30,10 @@ import DefaultProfileCover from '../../Assets/person/DefaultProfile.jpg';
 // creates the EditProfile page
 export const EditProfile = () => {
   // gets the user from the store
-  const { formFile, name, _id } = getUser(store.getState());
-  // // creates a navigate object
-  // const navigate = useNavigate();
+  const { formFile, name, _id  } = getUser(store.getState());
+
+  // creates a navigate object
+  const navigate = useNavigate();
 
   // creates a form data object and sets the initial state
   const [formGridEmail, setFormGridEmail] = useState('');
@@ -43,28 +44,6 @@ export const EditProfile = () => {
   const [formGridCity, setFormGridCity] = useState('');
   const [formGridState, setFormGridState] = useState('');
   const [formGridZip, setFormGridZip] = useState('');
-  // creates a form data object
-  const formData = new FormData();
-  formData.append('_id', _id);
-  formData.append('formGridEmail', formGridEmail)
-  formData.append('formFile', formFile);
-  formData.append('formGridPassword', formGridPassword);
-  formData.append('formGridPhone', formGridPhone);
-  formData.append('formGridWorkOffice', formGridWorkOffice);
-  formData.append('formGridPosition', formGridPosition);
-  formData.append('formGridCity', formGridCity);
-  formData.append('formGridState', formGridState);
-  formData.append('formGridZip', formGridZip);
-
-
-
-
-
-
-
-
-
-
 
   // handles form validation
   // const validateForm = () => {
@@ -193,14 +172,25 @@ export const EditProfile = () => {
   const handleSubmit = (e) => {
     // prevents page from reloading on submit
     e.preventDefault();
+  // creates a form data object
+  const formData = new FormData();
+  formData.append('_id', _id);
+  formData.append('formGridEmail', formGridEmail)
+  formData.append('formFile', formFile);
+  formData.append('formGridPassword', formGridPassword);
+  formData.append('formGridPhone', formGridPhone);
+  formData.append('formGridWorkOffice', formGridWorkOffice);
+  formData.append('formGridPosition', formGridPosition);
+  formData.append('formGridCity', formGridCity);
+  formData.append('formGridState', formGridState);
+  formData.append('formGridZip', formGridZip);
+
     // checks if form is valid
     // if (!validateForm()) {
     //   return;
     // }
-    // // navigates user to profile page
-    // navigate("/profile");
     // Send form data to backend
-    fetch(`/api/user/${_id}`, {
+    fetch("/api/user/_id", {
       method: "PUT",
       body: formData,
     })
@@ -208,6 +198,8 @@ export const EditProfile = () => {
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
+        // navigates user to profile page
+        navigate("/profile");
       })
       // Catch errors
       .catch((error) => {

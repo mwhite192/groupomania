@@ -4,7 +4,7 @@ import './Online.scss';
 // imports the store
 import { store } from '../../App/store';
 // imports the getUsers selector
-import { getUser } from '../../App/Features/profileSlice';
+import { getUser } from '../../App/Features/User/userSlice';
 // imports the OnlineCard component
 import { OnlineCard } from '../OnlineCard/OnlineCard';
 import { Users } from '../../data';

@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 // imports the store  
 import { store } from '../../App/store';
 // imports the getUser selector
-import { getUser } from '../../App/Features/profileSlice';
+import { getUser } from '../../App/Features/User/userSlice';
 // imports the company logo and user image
 import CompanyLogo from '../../Assets/Logos/icon-left-font-monochrome-white.svg';
 // imports the icons from the material ui library
@@ -19,8 +19,9 @@ import { Notifications } from '@mui/icons-material';
 
 // creates the Navbar component
 export const Navbar = () => {
-  const { formFile, _id } = getUser(store.getState());
-  const profileUrl = `/profile/${_id}`;
+  // gets the user from the store
+  const { formFile } = getUser(store.getState());
+
   return (
     <div className="navbarContainer">
       <div className="navbarLeft">
@@ -48,7 +49,7 @@ export const Navbar = () => {
             <Notifications className="navbarIcon" />
           </div>
         </div>
-        <Link to={profileUrl}>
+        <Link to='/profile'>
           <div className="navbarIconItem">
             <img src={formFile} alt="user" className="navbarImg" />
           </div>

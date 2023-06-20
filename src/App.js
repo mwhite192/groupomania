@@ -16,9 +16,9 @@ function App() {
       <Routes>
         <Route exact path='/' Component={Login} /> 
         <Route exact path='/register' Component={Register}/>
-        <Route exact path='/home/' Component={Home}/>
-        <Route exact path='/profile/:id' Component={Profile}/>
-        <Route exact path='/update/:id' Component={EditProfile}/> 
+        <Route exact path='/home' Component={Home}/>
+        <Route exact path='/profile' Component={Profile}/>
+        <Route exact path='/update' Component={EditProfile}/> 
       </Routes>
     </Router>
   );

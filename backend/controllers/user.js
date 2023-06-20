@@ -113,24 +113,15 @@ exports.update = (req, res, next) => {
   // sets the url
   const url = req.protocol + '://' + req.get('host');
   // sets the profile
-  const profile = new Profile({
-    _id: req.body._id,
-    formFile: url + '/images/' + req.file.filename,
-    formGridPassword: req.body.formGridPassword,
-    formGridPhone: req.body.formGridPhone,
-    formGridWorkOffice: req.body.formGridWorkOffice,
-    formGridPosition: req.body.formGridPosition,
-    formGridCity: req.body.formGridCity,
-    formGridState: req.body.formGridState,
-    formGridZip: req.body.formGridZip,  
-  });
+  const updateProfile = { ...req.body};
   // checks if the is an image
   if (req.file) {
-    // sets the profile image url
-    profile.formFile = url + '/images/' + req.file.filename;
+    // sets the image path
+    updateProfile.formFile = url + '/images/' + req.file.filename;
   }
+  
   // updates the profile
-  profile.updateOne({ _id: req.body._id }, profile)
+  Profile.updateOne({ _id: req.body._id }, updateProfile)
     // returns the profile
     .then(() => {
       res.status(201).json({

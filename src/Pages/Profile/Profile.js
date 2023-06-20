@@ -4,7 +4,7 @@ import './Profile.scss';
 // imports the store
 import { store } from '../../App/store';
 // imports the getUser selector
-import { getUser } from '../../App/Features/profileSlice';
+import { getUser } from '../../App/Features/User/userSlice';
 // imports the react bootstrap components
 import { Navbar } from '../../Components/Navbar/Navbar';
 import { Sidebar } from '../../Components/Sidebar/Sidebar';
