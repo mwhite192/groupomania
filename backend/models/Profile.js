@@ -1,8 +1,8 @@
-// sets up mongoose
+// Purpose: Defines the user model for MongoDB Atlas
+// sets up mongoose for MongoDB Atlas
 const mongoose = require('mongoose');
 
-
-// sets the schema for the user's profile
+// sets schema for user profile in MongoDB Atlas
 const profileSchema = mongoose.Schema({
     userId: { type: String, required: false },
     name: { type: String, required: false },

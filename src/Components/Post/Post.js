@@ -1,6 +1,10 @@
 // imports the React library and the Post.scss file
 import React from 'react';
 import './Post.scss';
+// imports the store
+//import { store } from '../../App/store';
+// imports the getPosts selector
+//import { getPosts } from '../../App/Features/Post/postSlice';
 // imports the icons from the material ui library
 import { IconButton } from '@mui/material';
 import { ChatBubbleOutline, MoreVert, ThumbDown, ThumbDownAltOutlined, ThumbUp, ThumbUpAltOutlined } from '@mui/icons-material';
@@ -9,6 +13,7 @@ import { Users } from '../../data';
 
 // creates the Post component
 export const Post = ({ post }) => {
+  // returns the Post component
   return (
     <div className="post">
       <div className="postWrapper">

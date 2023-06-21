@@ -2,9 +2,9 @@
 import React from "react";
 import "./Friends.scss";
 
-
 // creates the Friends component
 export const Friends = ({ user }) => {
+  // returns the Friends component
   return (
     <div >
       <li className="sidebarFriend">

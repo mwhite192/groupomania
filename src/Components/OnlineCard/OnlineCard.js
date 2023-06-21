@@ -5,6 +5,7 @@ import './OnlineCard.scss';
 
 // creates the OnlineCard component
 export const OnlineCard = ({user}) => {
+  // returns the OnlineCard component
   return (
     <div className="OnlineCard">
       <div className="OnlineCardOverlay"></div>

@@ -1,7 +1,7 @@
 // imports the React library and the Share.scss file
 import React from 'react';
 import './Share.scss';
-// imports store
+// imports the store
 import { store } from '../../App/store';
 //imports getUser selector
 import { getUser } from '../../App/Features/User/userSlice';
@@ -11,10 +11,11 @@ import { PermMedia } from '@mui/icons-material';
 import { EmojiEmotions } from '@mui/icons-material';
 
 
-
 // creates the Share component
 export const Share = () => {
+  // gets the user from the store
   const { formFile } = getUser(store.getState());
+  // returns the Share component
   return (
     <div className="share">
       <div className="shareWrapper">

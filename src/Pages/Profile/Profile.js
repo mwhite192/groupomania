@@ -3,9 +3,11 @@ import React from 'react';
 import './Profile.scss';
 // imports the store
 import { store } from '../../App/store';
-// imports the getUser selector
-import { getUser } from '../../App/Features/User/userSlice';
-
+// imports the getUser and getAuthenticated selectors
+import { getUser, getAuthenticated } from '../../App/Features/User/userSlice';
+import { useEffect } from 'react';
+// imports useNavigate hook
+import { useNavigate } from 'react-router-dom';
 // imports the react bootstrap components
 import { Navbar } from '../../Components/Navbar/Navbar';
 import { Sidebar } from '../../Components/Sidebar/Sidebar';
@@ -17,6 +19,18 @@ import ProfileCover from '../../Assets/person/profileCover.jpeg';
 
 // creates the Profile page
 export const Profile = () => {
+  // creates a navigate variable and sets it to the useNavigate hook
+  const navigate = useNavigate();
+  // creates an authenticated variable and sets it to the getAuthenticated selector
+  const authenticated = getAuthenticated(store.getState());
+  // checks if the user is authenticated
+  useEffect (() => {
+    // if the user is not authenticated, navigate to the home page
+    if (!authenticated) {
+      navigate('/');
+      // if the user is authenticated, do nothing
+  }}, [authenticated]);
+  
   // gets the user and profile from the store
   const { name, formFile } = getUser(store.getState());
   

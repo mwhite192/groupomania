@@ -10,9 +10,11 @@ import { OnlineCard } from '../OnlineCard/OnlineCard';
 import { Users } from '../../data';
 
 
-// creates the Stories component
+// creates the Online component
 export const Online = () => {
+  // gets the user from the store
   const { formFile } = getUser(store.getState());
+  // returns the Online component
   return (
     <div className='online'>
       <div className="OnlineCard">

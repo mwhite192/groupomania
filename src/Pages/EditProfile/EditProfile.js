@@ -1,14 +1,14 @@
- // imports the React library and the EditProfile.scss file
+// imports the React library and the EditProfile.scss file
 import React from 'react';
 import './EditProfile.scss';
 // imports useNavigate hook
 import { useNavigate } from 'react-router-dom';
 // imports the useState hook
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 // imports the store
 import { store } from '../../App/store';
-// imports the getUser selector
-import { getUser } from '../../App/Features/User/userSlice';
+// imports the getUser, deauthenticate, and getAuthenticated actions and selectors
+import { getUser, deauthenticate, getAuthenticated } from '../../App/Features/User/userSlice';
 // imports the update action from the profileSlice
 import { update } from '../../App/Features/Profile/profileSlice';
 // imports the react bootstrap components
@@ -30,13 +30,21 @@ import DefaultProfileCover from '../../Assets/person/DefaultProfile.jpg';
 
 // creates the EditProfile page
 export const EditProfile = () => {
-  // gets the user from the store
-  const { formFile, name, userId } = getUser(store.getState());
-
-  // creates a navigate object
+  // creates a navigate variable and sets it to the useNavigate hook
   const navigate = useNavigate();
+  // creates an authenticated variable and sets it to the getAuthenticated function
+  const authenticated = getAuthenticated(store.getState());
+  // checks if the user is authenticated
+  useEffect (() => {
+    // if the user is not authenticated, navigate to the login page
+    if (!authenticated) {
+      navigate('/');
+      // if the user is authenticated, navigate to the edit profile page
+  }}, [authenticated]);
 
-  // creates a form data object and sets the initial state
+  // gets the user from the store
+  const { formFile, name, userId, token, formGridEmail: email } = getUser(store.getState());
+  // sets the initial state of the form data
   const [formGridEmail, setFormGridEmail] = useState("");
   const [formGridPassword, setFormGridPassword] = useState("");
   const [formGridPhone, setFormGridPhone] = useState("");
@@ -48,9 +56,9 @@ export const EditProfile = () => {
 
   // creates a handleSubmit function
   const handleSubmit = (e) => {
-    // prevents page from reloading on submit
+    // prevents default form submission
     e.preventDefault();
-    // creates a form data object
+    // Creates a form data object and appends the form data to it
     const formData = new FormData();
     formData.append("userId", userId);
     formData.append("formGridEmail", formGridEmail);
@@ -62,29 +70,29 @@ export const EditProfile = () => {
     formData.append("formGridCity", formGridCity);
     formData.append("formGridState", formGridState);
     formData.append("formGridZip", formGridZip);
-    // Send form data to backend
+    // PUTS form data to backend
     fetch("/api/user/userId", {
       method: "PUT",
       body: formData,
     })
-      // Convert response to JSON
+      // converts response to JSON
       .then((response) => {
-        // Check for errors
+        // checks for errors
         if (response.status === 404 || !response.ok) {
           throw new Error("Unable to update profile!");
         }
-        // Return response body as JSON
+        // returns response body as JSON
         return response.json();
       })
-      // Update store
+      // handles JSON response
       .then((data) => {
-        // Update store
+        // dispatches UPDATE action profile to store
         store.dispatch(update(data));
         // navigates user to profile page
         navigate("/profile");
         console.log(data);
       })
-      // Catch errors
+      // catches errors
       .catch((error) => {
         console.error(error);
       });
@@ -94,30 +102,32 @@ export const EditProfile = () => {
   const handleDelete = (e) => {
     // prevents page from reloading on submit
     e.preventDefault();
-    // creates a form data object
-    const formData = new FormData();
-    formData.append("userId", userId);
-    // Send form data to backend
-    fetch("/api/user/userId", {
+    // DELETES form data to backend
+    fetch("/api/user/" + email, {
       method: "DELETE",
-      body: formData,
+      header: {
+        "Content-Type": "application/json",
+        'Authorization': 'Bearer ' + token,
+      }
     })
-      // Convert response to JSON
+      // converts response to JSON
       .then((response) => {
-        // Check for errors
+        // checks for errors
         if (response.status === 404 || !response.ok) {
           throw new Error("Unable to delete profile!");
         }
-        // Return response body as JSON
+        // returns response body as JSON
         return response.json();
       })
-      // Update store
+      // handles JSON response
       .then((data) => {
-        // navigates user to profile page
-        navigate("/profile");
+        // dispatches DEAUTHENTICATE action to store
+        store.dispatch(deauthenticate());
+        // deletes user from local storage
+        localStorage.removeItem("persist:root");
         console.log(data);
       })
-      // Catch errors
+      // catches errors
       .catch((error) => {
         console.error(error);
       });

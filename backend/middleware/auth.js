@@ -17,9 +17,11 @@ module.exports = (req, res, next) => {
       res.status(403).json({
         error: 'Invalid user ID!'
       });
+      // otherwise, the request is allowed to continue
     } else {
       next();
     }
+    // if the token is not valid, an error is thrown
   } catch {
     res.status(401).json({
       error: new Error("Invalid request!"),

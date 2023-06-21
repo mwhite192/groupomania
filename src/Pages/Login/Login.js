@@ -1,8 +1,9 @@
 // imports the React Library and the Login.scss file
 import React from 'react';
 import './Login.scss';
-import { authenticate } from '../../App/Features/User/userSlice';
+// imports the store and authenticate function
 import { store } from '../../App/store';
+import { authenticate } from '../../App/Features/User/userSlice';
 // imports useState and useNavigate hook
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -12,10 +13,11 @@ import CompanyLogo from '../../Assets/Logos/logo 1.svg';
 
 // creates the Login page
 export const Login = () => {
-  // creates a navigate object
+  // creates a navigate variable and sets it to the useNavigate hook
   const navigate = useNavigate();
   // creates a handleClick function
   const handleClick = () => {
+    // navigates user to register page
     navigate('/register');
   };
 
@@ -43,17 +45,24 @@ export const Login = () => {
     } else {
       document.getElementById('emailErrorMsg').innerHTML = '';
     }
+    // checks to see if password field is empty
+    if (formData.password === '') {
+      document.getElementById('passwordErrorMsg').innerHTML =
+        'Password cannot be empty';
+        isValid = false;
+    }
     return isValid;
   };
 
+  // creates a handleSubmit function
   const handleSubmit = (event) => {
-    // Prevent default form submission
+    // prevents default form submission
     event.preventDefault(); 
-    // Validate form data
+    // validates form data
     if (!validateForm()) {
       return;
     }
-    // Send form data to backend
+    // POST form data to backend
     fetch('/api/user/login', {
       method: 'POST',
       headers: {  
@@ -61,27 +70,29 @@ export const Login = () => {
       },
       body: JSON.stringify(formData)
     })
-    // Convert response to JSON
+    // converts response to JSON
     .then((response) => {
       if (response.status === 401 || !response.ok) {
         throw new Error('Sign in failed!');
       } 
+      // returns response body as JSON
       return response.json();
     })
-    // Handle response
+    // handles JSON response
     .then((data) => {
-        // Dispatch action to update state
+        // dispatches AUTHENTICATE action to update state
         store.dispatch(authenticate(data));
         // navigates user to home page
         navigate('/home'); 
         console.log(data);
     })
-    // Catch errors
+    // Catches errors
     .catch((error) => {
       console.error(error);
     });
   };
 
+  // returns the Login page
   return (
     <div className="login">
       <div className="login">

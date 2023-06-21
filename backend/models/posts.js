@@ -1,17 +1,17 @@
-// sets up mongoose
+// sets up mongoose for MongoDB Atlas
 const mongoose = require('mongoose');
 
-// sets the schema for the user's post
-const userPostSchema = mongoose.Schema({
+// sets schema for posts in MongoDB Atlas
+const postsSchema = mongoose.Schema({
     userId: { type: String, required: true },
     name: { type: String, required: true },
+    image: { type: String, required: false },
     message: { type: String, max:500, required: true },
     timestamp: { type: String, required: true },
-    image: { type: String, required: false },
     likes: { type: Array, required: false },
     dislikes: { type: Array, required: false },
     comments: { type: Array, required: false },
 });
 
 // exports the post model
-module.exports = mongoose.model('UserPost', userPostSchema);
+module.exports = mongoose.model('UserPost', postsSchema);

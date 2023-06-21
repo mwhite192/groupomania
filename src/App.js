@@ -10,6 +10,7 @@ import { Profile } from './Pages/Profile/Profile';
 import { EditProfile } from './Pages/EditProfile/EditProfile';
 
 function App() {
+  // returns the App component
   return (
     // sets up the frontend router and routers for each page
     <Router>
@@ -18,7 +19,7 @@ function App() {
         <Route exact path='/register' Component={Register}/>
         <Route exact path='/home' Component={Home}/>
         <Route exact path='/profile' Component={Profile}/>
-        <Route exact path='/update' Component={EditProfile}/> 
+        <Route exact path='/profile/update' Component={EditProfile}/> 
       </Routes>
     </Router>
   );

@@ -1,7 +1,7 @@
 // imports the React library and the Register.scss file
 import React from 'react';
 import './Register.scss';
-// imports the useState and useNavigate hooks
+// imports the useNavigate hook
 import { useNavigate } from 'react-router-dom';
 // imports the useState hook
 import { useState } from 'react';
@@ -13,82 +13,44 @@ import DefaultProfile from '../../Assets/person/DefaultProfile.jpg';
 
 // creates the Register page
 export const Register = () => {
-  // creates a navigate object
+  // creates a navigate variable and sets it to the useNavigate hook
   const navigate = useNavigate();
   
-  // creates a form data object and sets the initial state
+  // sets the initial state of the form data
   const [fullName, setFullName] = useState('');
   const [registerEmail, setRegisterEmail] = useState('');
   const [registerPassword, setRegisterPassword] = useState('');
   const [file, setFile] = useState(null);
-  // creates a form data object
+  // creates a form data object and appends the form data to it
   const formData = new FormData();
   formData.append('fullName', fullName);
   formData.append('registerEmail', registerEmail);
   formData.append('registerPassword', registerPassword);
   formData.append('file', file);
 
-  // handles form validation
-  // const validateForm = () => {
-  //   let isValid = true;
-  //   // checks if email matches the correct format
-  //   if (formData.registerEmail.match(/([A-Za-z0-9]+(_[A-Za-z0-9]+)+)!/)) {
-  //     document.getElementById('emailErrorMsg').innerHTML =
-  //       'Email must be in the correct format';
-  //     isValid = false;
-  //   } else {
-  //     document.getElementById('emailErrorMsg').innerHTML = '';
-  //   }
-  //   // checks if password is at least 8 characters
-  //   if (formData.registerPassword.length < 8) {
-  //     document.getElementById('passwordErrorMsg').innerHTML =
-  //       'Password must be at least 8 characters';
-  //     isValid = false;
-  //   }
-  //   // checks if password contains special characters
-  //   if (!formData.registerPassword.match(/([A-Za-z0-9]+(_[A-Za-z0-9]+)+)!/)) {
-  //     document.getElementById('passwordErrorMsg').innerHTML =
-  //       'Password cannot contain special characters';
-  //     isValid = false;
-  //   } else {
-  //     document.getElementById('passwordErrorMsg').innerHTML = '';
-  //   }
-  //   // checks if image is in the correct format
-  //   if (!formData.file) {
-  //     document.getElementById('uploadImageErrorMsg').innerHTML =
-  //       'Image must be in the correct format';
-  //     isValid = false;
-  //   }
-  //   return isValid;
-  // };
-
-
   // creates a handleSubmit function
   const handleSubmit = (event) => {
-    // Prevent default form submission
+    // prevents default form submission
     event.preventDefault(); 
-    // // checks if form is valid
-    // if (!validateForm()) {
-    //   return;
-    // }
-    // navigates user back to login page
+    // navigates user to login page
     navigate('/');
-    // Send form data to backend
+    // POST form data to backend
     fetch('/api/user/signup', {
       method: 'POST',
       body: formData,
     })
-    // Convert response to JSON
+    // convert response to JSON
     .then((response) => response.json())
     .then((data) => {
       console.log(data);
     })
-    // Catch errors
+    // catches errors
     .catch((error) => {
       console.error(error);
     });
   };
   
+  // returns the Register page
   return (
     <div className="register">
       <div className="registerWrapper">

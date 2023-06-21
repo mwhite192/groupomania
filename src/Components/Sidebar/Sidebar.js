@@ -1,7 +1,7 @@
 // imports the React library and the Sidebar.scss file
 import React from 'react';
 import './Sidebar.scss';
-// imports the useNavigate hook from react router dom
+// imports the useNavigate hook 
 import { useNavigate } from 'react-router-dom';
 // imports the MenuLink and Friends components
 import { MenuLink } from '../MenuLink/MenuLink';
@@ -20,7 +20,7 @@ import { Users } from '../../data';
 
 // creates the Sidebar component
 export const Sidebar = () => {
-  // creates a navigate object
+  // creates a navigate variable and sets it to the useNavigate hook
   const navigate = useNavigate();
 
   // creates a handleClick function
@@ -29,16 +29,17 @@ export const Sidebar = () => {
     navigate('/');
   };
 
-  // creates a handleHomeClick function
-  const handleHomeClick = () => {
+  // creates a handleFeed function
+  const handleFeed = () => {
     // navigates user to home page
     navigate('/home');
   };
 
+  // returns the Sidebar component
   return (
     <div className="sidebar">
       <div className="sidebarWrapper">
-        <button className='sidebarWrapperIcon' onClick={handleHomeClick}><MenuLink icon={<RssFeed />} text="Feed" /></button>
+        <button className='sidebarWrapperIcon' onClick={handleFeed}><MenuLink icon={<RssFeed />} text="Feed" /></button>
         <button className="sidebarWrapperIcon"><MenuLink icon={<Chat />} text="Chats" /></button>
         <button className="sidebarWrapperIcon"><MenuLink icon={<VideoLibrary />} text="Videos" /></button>
         <button className="sidebarWrapperIcon"><MenuLink icon={<Groups />} text="Friends" /></button>

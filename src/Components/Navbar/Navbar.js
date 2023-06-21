@@ -16,12 +16,11 @@ import { AccountCircle } from '@mui/icons-material';
 import { Notifications } from '@mui/icons-material';
 
 
-
 // creates the Navbar component
 export const Navbar = () => {
   // gets the user from the store
   const { formFile } = getUser(store.getState());
-
+  // returns the Navbar component
   return (
     <div className="navbarContainer">
       <div className="navbarLeft">
