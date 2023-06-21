@@ -119,18 +119,49 @@ exports.update = (req, res, next) => {
     // sets the image path
     updateProfile.formFile = url + '/images/' + req.file.filename;
   }
-  
   // updates the profile
-  Profile.updateOne({ _id: req.body._id }, updateProfile)
+  Profile.updateOne({ userId: req.body.userId }, updateProfile)
     // returns the profile
     .then(() => {
-      res.status(201).json({
-        message: 'Profile updated successfully!',
-      });
+      res.status(201).json(updateProfile);
     })
     .catch((error) => {
       res.status(500).json({
         error: 'Failed to update profile!',
       });
     });
+};
+
+// exports the delete profile function
+exports.delete = (req, res, next) => {
+  // finds the profile by user id
+  Profile.findOne({ userId: req.body.userId })
+  .then((Profile) => {
+      //checks if the profile exists
+      if(!Profile){
+        // returns the error
+        return res.status(401).json({
+          error: new Error("Profile not found!"),
+        });
+      }
+    });
+  // checks if the user is authorized to delete profile
+  if (Profile.userId !== req.body.userId) {
+    return res.status(401).json({
+      error: new Error('User not authorized!')
+    });
+  }
+  // deletes the profile
+  Profile.deleteOne({ userId: req.body.userId })
+    // returns the success message
+    .then(() => {
+      res.status(200).json({
+        message: 'Profile deleted successfully!'
+      });
+    })
+    .catch((error) => {
+      res.status(400).json({
+        error: 'Failed to delete profile!'
+      });
+    })
 };

@@ -37,6 +37,7 @@
                 .profileInfoDesc{
                     font-family: 'Arimo', sans-serif;
                     font-size: 15px;
+                    padding-bottom: 25px;
                 }
             }
         }
@@ -70,6 +71,7 @@
                         height: 200px;
                         border-radius: 50%;
                         margin: 40px 0 40px 0;
+                        object-fit: cover;
                     }
                 }
                 .editProfileRightBottomForm{

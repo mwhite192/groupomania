@@ -5,6 +5,7 @@ import './Profile.scss';
 import { store } from '../../App/store';
 // imports the getUser selector
 import { getUser } from '../../App/Features/User/userSlice';
+
 // imports the react bootstrap components
 import { Navbar } from '../../Components/Navbar/Navbar';
 import { Sidebar } from '../../Components/Sidebar/Sidebar';
@@ -16,7 +17,9 @@ import ProfileCover from '../../Assets/person/profileCover.jpeg';
 
 // creates the Profile page
 export const Profile = () => {
+  // gets the user and profile from the store
   const { name, formFile } = getUser(store.getState());
+  
   // returns the profile page
   return (
     <div className='profile'>

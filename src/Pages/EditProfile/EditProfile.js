@@ -1,4 +1,4 @@
-// imports the React library and the EditProfile.scss file
+ // imports the React library and the EditProfile.scss file
 import React from 'react';
 import './EditProfile.scss';
 // imports useNavigate hook
@@ -9,6 +9,8 @@ import { useState } from 'react';
 import { store } from '../../App/store';
 // imports the getUser selector
 import { getUser } from '../../App/Features/User/userSlice';
+// imports the update action from the profileSlice
+import { update } from '../../App/Features/Profile/profileSlice';
 // imports the react bootstrap components
 import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col';
@@ -26,180 +28,61 @@ import ProfileCover from '../../Assets/person/profileCover.jpeg';
 import DefaultProfileCover from '../../Assets/person/DefaultProfile.jpg';
 
 
-
 // creates the EditProfile page
 export const EditProfile = () => {
   // gets the user from the store
-  const { formFile, name, _id  } = getUser(store.getState());
+  const { formFile, name, userId } = getUser(store.getState());
 
   // creates a navigate object
   const navigate = useNavigate();
 
   // creates a form data object and sets the initial state
-  const [formGridEmail, setFormGridEmail] = useState('');
-  const [formGridPassword, setFormGridPassword] = useState('');
-  const [formGridPhone, setFormGridPhone] = useState('');
-  const [formGridWorkOffice, setFormGridWorkOffice] = useState('');
-  const [formGridPosition, setFormGridPosition] = useState('');
-  const [formGridCity, setFormGridCity] = useState('');
-  const [formGridState, setFormGridState] = useState('');
-  const [formGridZip, setFormGridZip] = useState('');
-
-  // handles form validation
-  // const validateForm = () => {
-  //   let isValid = true;
-  // checks if email is empty
-  // if (formData.formGridEmail === "") {
-  //   document.getElementById("editProfileEmailErrorMsg").innerHTML =
-  //     "Email cannot be empty";
-  //   isValid = false;
-  // }
-  // if (!formData.formGridEmail.match(/([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,63})$/)) {
-  //   document.getElementById("editProfileEmailErrorMsg").innerHTML =
-  //     "Email must be in the correct format";
-  //   isValid = false;
-  // } else {
-  //   document.getElementById("editProfileEmailErrorMsg").innerHTML = "";
-  // }
-  // checks if password is empty
-  //   if (formData.formGridPassword === "") {
-  //     document.getElementById("editProfilePasswordErrorMsg").innerHTML =
-  //       "Password cannot be empty";
-  //     isValid = false;
-  //   }
-  //   if (formData.formGridPassword.length < 8) {
-  //     document.getElementById("editProfilePasswordErrorMsg").innerHTML =
-  //       "Password must be at least 8 characters";
-  //     isValid = false;
-  //   }
-  //   if (formData.formGridPassword.match(/([A-Za-z0-9]+(_[A-Za-z0-9]+)+)!/)) {
-  //     document.getElementById("editProfilePasswordErrorMsg").innerHTML =
-  //       "Password cannot contain special characters";
-  //     isValid = false;
-  //   } else {
-  //     document.getElementById("editProfilePasswordErrorMsg").innerHTML = "";
-  //   }
-  //   // checks if confirm password matches password
-  //   if (formData.formGridConfirmPassword !== formData.formGridPassword) {
-  //     document.getElementById("editProfilePasswordErrorMsg").innerHTML =
-  //       "Passwords do not match";
-  //     isValid = false;
-  //   } else {
-  //     document.getElementById("editProfilePasswordErrorMsg").innerHTML = "";
-  //   }
-  //   // // checks if position is empty
-  //   // if (formData.formGridPosition === "") {
-  //   //   document.getElementById("editProfilePositionErrorMsg").innerHTML =
-  //   //     "Position cannot be empty";
-  //   //   isValid = false;
-  //   // } else {
-  //   //   document.getElementById("editProfilePositionErrorMsg").innerHTML = "";
-  //   // }
-  //   // // checks if department is empty
-  //   // if (formData.formGridDepartment === "") {
-  //   //   document.getElementById("editProfileDepartmentErrorMsg").innerHTML =
-  //   //     "Department cannot be empty";
-  //   //   isValid = false;
-  //   // } else {
-  //   //   document.getElementById("editProfileDepartmentErrorMsg").innerHTML = "";
-  //   // }
-  //   // checks if phone number is empty
-  //   if (formData.formGridPhone === "") {
-  //     document.getElementById("editProfilePhoneErrorMsg").innerHTML =
-  //       "Phone number cannot be empty";
-  //     isValid = false;
-  //   }
-  //   if (formData.formGridPhone.length < 10) {
-  //     document.getElementById("editProfilePhoneErrorMsg").innerHTML =
-  //       "Phone number must be at least 10 characters";
-  //     isValid = false;
-  //   }
-  //   if (formData.formGridPhone.match(/([A-Za-z0-9]+(_[A-Za-z0-9]+)+)!/)) {
-  //     document.getElementById("editProfilePhoneErrorMsg").innerHTML =
-  //       "Phone number cannot contain special characters";
-  //     isValid = false;
-  //   } else {
-  //     document.getElementById("editProfilePhoneErrorMsg").innerHTML = "";
-  //   }
-  //   // checks if address is empty
-  //   if (formData.formGridWorkOffice === "") {
-  //     document.getElementById("editProfileAddressErrorMsg").innerHTML =
-  //       "Address cannot be empty";
-  //     isValid = false;
-  //   } else {
-  //     document.getElementById("editProfileAddressErrorMsg").innerHTML = "";
-  //   }
-  //   // checks if city is empty
-  //   if (formData.formGridCity === "") {
-  //     document.getElementById("editProfileCityErrorMsg").innerHTML =
-  //       "City cannot be empty";
-  //     isValid = false;
-  //   } else {
-  //     document.getElementById("editProfileCityErrorMsg").innerHTML = "";
-  //   }
-  //   // checks if state is empty
-  //   if (formData.formGridState === "") {
-  //     document.getElementById("editProfileStateErrorMsg").innerHTML =
-  //       "State cannot be empty";
-  //     isValid = false;
-  //   } else {
-  //     document.getElementById("editProfileStateErrorMsg").innerHTML = "";
-  //   }
-  //   // checks if zip is empty
-  //   if (formData.formGridZip === "") {
-  //     document.getElementById("editProfileZipErrorMsg").innerHTML =
-  //       "Zip cannot be empty";
-  //     isValid = false;
-  //   }
-  //   if (formData.formGridZip.length < 5) {
-  //     document.getElementById("editProfileZipErrorMsg").innerHTML =
-  //       "Zip must be at least 5 characters";
-  //     isValid = false;
-  //   }
-  //   if (formData.formGridZip.match(/([A-Za-z0-9]+(_[A-Za-z0-9]+)+)!/)) {
-  //     document.getElementById("editProfileZipErrorMsg").innerHTML =
-  //       "Zip cannot contain special characters";
-  //     isValid = false;
-  //   } else {
-  //     document.getElementById("editProfileZipErrorMsg").innerHTML = "";
-  //   }
-  //   return isValid;
-  // };
-
-  // checks if position is empty
+  const [formGridEmail, setFormGridEmail] = useState("");
+  const [formGridPassword, setFormGridPassword] = useState("");
+  const [formGridPhone, setFormGridPhone] = useState("");
+  const [formGridWorkOffice, setFormGridWorkOffice] = useState("");
+  const [formGridPosition, setFormGridPosition] = useState("");
+  const [formGridCity, setFormGridCity] = useState("");
+  const [formGridState, setFormGridState] = useState("");
+  const [formGridZip, setFormGridZip] = useState("");
 
   // creates a handleSubmit function
   const handleSubmit = (e) => {
     // prevents page from reloading on submit
     e.preventDefault();
-  // creates a form data object
-  const formData = new FormData();
-  formData.append('_id', _id);
-  formData.append('formGridEmail', formGridEmail)
-  formData.append('formFile', formFile);
-  formData.append('formGridPassword', formGridPassword);
-  formData.append('formGridPhone', formGridPhone);
-  formData.append('formGridWorkOffice', formGridWorkOffice);
-  formData.append('formGridPosition', formGridPosition);
-  formData.append('formGridCity', formGridCity);
-  formData.append('formGridState', formGridState);
-  formData.append('formGridZip', formGridZip);
-
-    // checks if form is valid
-    // if (!validateForm()) {
-    //   return;
-    // }
+    // creates a form data object
+    const formData = new FormData();
+    formData.append("userId", userId);
+    formData.append("formGridEmail", formGridEmail);
+    formData.append("formFile", formFile);
+    formData.append("formGridPassword", formGridPassword);
+    formData.append("formGridPhone", formGridPhone);
+    formData.append("formGridWorkOffice", formGridWorkOffice);
+    formData.append("formGridPosition", formGridPosition);
+    formData.append("formGridCity", formGridCity);
+    formData.append("formGridState", formGridState);
+    formData.append("formGridZip", formGridZip);
     // Send form data to backend
-    fetch("/api/user/_id", {
+    fetch("/api/user/userId", {
       method: "PUT",
       body: formData,
     })
       // Convert response to JSON
-      .then((response) => response.json())
+      .then((response) => {
+        // Check for errors
+        if (response.status === 404 || !response.ok) {
+          throw new Error("Unable to update profile!");
+        }
+        // Return response body as JSON
+        return response.json();
+      })
+      // Update store
       .then((data) => {
-        console.log(data);
+        // Update store
+        store.dispatch(update(data));
         // navigates user to profile page
         navigate("/profile");
+        console.log(data);
       })
       // Catch errors
       .catch((error) => {
@@ -207,6 +90,41 @@ export const EditProfile = () => {
       });
   };
 
+  // creates a handleDelete function
+  const handleDelete = (e) => {
+    // prevents page from reloading on submit
+    e.preventDefault();
+    // creates a form data object
+    const formData = new FormData();
+    formData.append("userId", userId);
+    // Send form data to backend
+    fetch("/api/user/userId", {
+      method: "DELETE",
+      body: formData,
+    })
+      // Convert response to JSON
+      .then((response) => {
+        // Check for errors
+        if (response.status === 404 || !response.ok) {
+          throw new Error("Unable to delete profile!");
+        }
+        // Return response body as JSON
+        return response.json();
+      })
+      // Update store
+      .then((data) => {
+        // navigates user to profile page
+        navigate("/profile");
+        console.log(data);
+      })
+      // Catch errors
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
+
+  // returns the EditProfile page
   return (
     <div className="editProfile">
       <Navbar />
@@ -236,7 +154,7 @@ export const EditProfile = () => {
             <div className="editProfileRightBottomBottom">
               <div className="editProfileRightBottomLeft">
                 <img
-                  src={DefaultProfileCover}
+                  src={formFile ? formFile : DefaultProfileCover}
                   className="editProfileRightBottomLeftImg"
                   alt="default user profile"
                 />
@@ -244,12 +162,11 @@ export const EditProfile = () => {
               <div className="editProfileRightBottomForm">
                 <Form className="editProfileForm" onSubmit={handleSubmit}>
                   <Row className="mb-3">
-                    <Form.Group  controlId="formFile" className="mb-3">
+                    <Form.Group controlId="formFile" className="mb-3">
                       <Form.Label>Image:</Form.Label>
                       <Form.Control
                         type="file"
                         className="editProfileFormInput"
-                        // onChange={(e) => setFormFile(e.target.files[0])}
                       />
                       <p
                         id="editProfileFileErrorMsg"
@@ -393,7 +310,7 @@ export const EditProfile = () => {
                     </Form.Group>
                   </Row>
                   <div className="editProfileButtons">
-                    <Button variant="primary" type="submit">
+                    <Button variant="primary" onClick={handleDelete}>
                       Delete Profile
                     </Button>
                     <Button variant="primary" type="submit">
