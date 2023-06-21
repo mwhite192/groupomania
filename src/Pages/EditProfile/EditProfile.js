@@ -103,7 +103,7 @@ export const EditProfile = () => {
     // prevents page from reloading on submit
     e.preventDefault();
     // DELETES form data to backend
-    fetch("/api/user/" + email, {
+    fetch("/api/user/userId" + email, {
       method: "DELETE",
       header: {
         "Content-Type": "application/json",
@@ -164,7 +164,7 @@ export const EditProfile = () => {
             <div className="editProfileRightBottomBottom">
               <div className="editProfileRightBottomLeft">
                 <img
-                  src={formFile ? formFile : DefaultProfileCover}
+                  src={formFile ? formFile: DefaultProfileCover}
                   className="editProfileRightBottomLeftImg"
                   alt="default user profile"
                 />
