@@ -3,14 +3,50 @@
     margin-bottom: 30px;
     justify-content: space-between;
     border-radius: 10px;
-}
-.onlineCardOverlay{
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: black;
-    opacity: 0.5;
-    border-radius: 10px;
+    -webkit-box-shadow: 2px 4px 10px 1px rgba(0,0,0,0.47);
+    box-shadow: 2px 4px 10px 1px rgba(0,0,0,0.47);
+    .onlineCard{
+        display: flex;
+        flex-basis: 20%;
+        margin: 5px;
+        position: relative;
+        .onlineCardOverlay{
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: black;
+            opacity: 0.2;
+            border-radius: 10px;
+        }
+        .onlineProfile{
+            display: flex;
+            position: absolute;
+            height: 27px;
+            width: 27px;
+            border-radius: 50%;
+            top: -5px;
+            right: 0px;
+            background-color: #d2042d;
+            object-fit: cover;
+        }
+        .onlineBackground{
+            width: 100%;
+            height: 220px;
+            border-radius: 10px;
+            object-fit: cover;
+            cursor: pointer;
+        }
+        .onlineUser{
+            position: absolute;
+            width: 100%;
+            font-size: 14px;
+            font-weight: 500;
+            bottom: 10px;
+            text-align: center;
+            cursor: pointer;
+            color: #fff;
+        }
+    }
 }

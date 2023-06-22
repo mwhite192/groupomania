@@ -1,54 +1,46 @@
-.OnlineCard{
+.online{
     display: flex;
-    position: relative;
-    flex-basis: 20%;
-    margin: 5px;
-    .OnlineCardOverlay{
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 80%;
-        height: 100%;
-        background: black;
-        opacity: 0.5;
-        border-radius: 50%;
-    }
-    .OnlineProfile{
+    margin-bottom: 30px;
+    justify-content: space-between;
+    border-radius: 10px;
+    -webkit-box-shadow: 2px 4px 10px 1px rgba(0,0,0,0.47);
+    box-shadow: 2px 4px 10px 1px rgba(0,0,0,0.47);
+    .onlineCard{
         display: flex;
-        position: absolute;
-        width: 27px;
-        height: 27px;
-        border-radius: 50%;
-        background-color: #00b300;
-        bottom: 20px;
-        right: 52px;
-        cursor: pointer;
-    }
-    .OnlineBackground{
-        width: 80%;
-        height: 175px;
-        border-radius: 50%;
-        object-fit: cover;
-        cursor: pointer;
-        -webkit-box-shadow: 2px 4px 10px 1px rgba(0,0,0,0.47);
-        box-shadow: 2px 4px 10px 1px rgba(0,0,0,0.47);
-    }
-    // .OnlineAdd{
-    //     position: absolute;
-    //     left: 50%;
-    //     width: 30px;
-    //     bottom: 35px;
-    //     transform: translateX(-50%);
-    //     cursor: pointer;
-    // }
-    .OnlineUser{
-        position: absolute;
-        width: 100%;
-        font-size: 15px;
-        bottom: 7px;
-        text-align: center;
-        padding-right: 50px;
-        cursor: pointer;
-        color: white;
+        flex-basis: 20%;
+        margin: 5px;
+        position: relative;
+        .onlineProfile{
+            display: flex;
+            position: absolute;
+            height: 27px;
+            width: 27px;
+            border-radius: 50%;
+            top: -5px;
+            right: -5px;
+            background-color: #d2042d;
+            object-fit: cover;
+        }
+        .onlineBackground{
+            width: 100%;
+            height: 220px;
+            border-radius: 10px;
+            object-fit: cover;
+            cursor: pointer;
+        }
+        .onlineUser{
+            position: absolute;
+            width: 100%;
+            font-size: 14px;
+            font-weight: 500;
+            bottom: 10px;
+            text-align: center;
+            cursor: pointer;
+            color: #fff;
+        }
     }
 }
+
+    
+
+   

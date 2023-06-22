@@ -65,7 +65,7 @@ export const ProfileRightBar = () => {
           <span className="profileRightBarInfoValue">{formGridState}</span>
         </div>
         <div className="profileRightBarInfoItem">
-          <span className="profileRightBarInfoKey">Zip</span>
+          <span className="profileRightBarInfoKey">Zip: </span>
           <span className="profileRightBarInfoValue">{formGridZip}</span>
         </div>
       </div>

@@ -13,15 +13,14 @@ import { Users } from '../../data';
 // creates the Online component
 export const Online = () => {
   // gets the user from the store
-  const { formFile } = getUser(store.getState());
+  const { formFile, name } = getUser(store.getState());
   // returns the Online component
   return (
     <div className='online'>
-      <div className="OnlineCard">
-        <div className="OnlineCardOverlay"></div>
-        <span className="OnlineProfile"></span> 
-        <img src={formFile} alt="user Online background" className="OnlineBackground" />
-        <span className="OnlineUser">Amber</span>
+      <div className="onlineCard">
+        <span className="onlineProfile"></span> 
+        <img src={formFile} alt="user Online background" className="onlineBackground" />
+        <span className="onlineUser">{name}</span>
       </div>
       {Users.map((user) => (<OnlineCard key={user.id} user={user} />))}
     </div>
