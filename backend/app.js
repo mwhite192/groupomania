@@ -33,7 +33,7 @@ mongoose
   });
 
 // middleware
-app.use(cors());
+app.use(cors({allowedHeaders: ['Authorization', 'Content-Type']}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('static'));

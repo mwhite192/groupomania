@@ -73,6 +73,9 @@ export const EditProfile = () => {
     // PUTS form data to backend
     fetch("/api/user/userId", {
       method: "PUT",
+      headers: { 
+        'Authorization': 'Bearer ' + token,
+      },
       body: formData,
     })
       // converts response to JSON
@@ -103,10 +106,9 @@ export const EditProfile = () => {
     // prevents page from reloading on submit
     e.preventDefault();
     // DELETES form data to backend
-    fetch("/api/user/userId" + email, {
+    fetch("/api/user/" + email, {
       method: "DELETE",
-      header: {
-        "Content-Type": "application/json",
+      headers: {
         'Authorization': 'Bearer ' + token,
       }
     })
@@ -125,6 +127,8 @@ export const EditProfile = () => {
         store.dispatch(deauthenticate());
         // deletes user from local storage
         localStorage.removeItem("persist:root");
+        // navigates user to login page
+        navigate("/");
         console.log(data);
       })
       // catches errors

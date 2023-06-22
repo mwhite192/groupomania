@@ -159,7 +159,7 @@ exports.delete = async (req, res, next) => {
   // returns the error if the user is not found
   .catch((error) => {
     console.log('ERROR getting user to delete', error)
-  })
+  });
   // checks if the user exists
   if (!user) {
     // returns the error if the user does not exist
