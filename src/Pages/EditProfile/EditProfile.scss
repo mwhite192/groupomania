@@ -33,6 +33,7 @@
                 align-items: center;
                 .profileInfoName{
                     font-size: 24px;
+                    color: #fcffe7;
                 }
                 .profileInfoDesc{
                     font-family: 'Arimo', sans-serif;
@@ -51,7 +52,7 @@
                 padding: 10px;
                 display: flex;
                 .editProfileRightBottomTopTitle{
-                    color: #b0bac5;
+                    color: #BAD7E9;
                     font-size: 20px;
                 }
             }
@@ -70,6 +71,7 @@
                         width: 200px;
                         height: 200px;
                         border-radius: 50%;
+                        border: 3px solid #fcffe7;
                         margin: 40px 0 40px 0;
                         object-fit: cover;
                     }
@@ -79,7 +81,7 @@
                     padding: 20px 20px 20px 0;
                 }
                 .editProfileFormInput{
-                    color: #7b8490;
+                    color: #444a51;
                     border: none;
                     cursor: pointer;
                     -webkit-box-shadow: 2px 4px 10px 1px rgba(0,0,0,0.47);

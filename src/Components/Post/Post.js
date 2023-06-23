@@ -9,6 +9,9 @@ import './Post.scss';
 import { IconButton } from '@mui/material';
 import { ChatBubbleOutline, MoreVert, ThumbDown, ThumbDownAltOutlined, ThumbUp, ThumbUpAltOutlined } from '@mui/icons-material';
 import { Users } from '../../data';
+// imports Icon.png
+import Icon from '../../Assets/Logos/icon.png';
+
 
 
 // creates the Post component
@@ -21,10 +24,7 @@ export const Post = ({ post }) => {
           <div className="postTopLeft">
             <img
               className="postProfileImg"
-              src={
-                Users.filter((user) => user.id === post.userId)[0]
-                  .profilePicture
-              }
+              src={Icon}
               alt="user profile"
             />
             <span className="postUsername">

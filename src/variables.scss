@@ -3,11 +3,22 @@ $primary: #d2042d;
 $secondary: #7b8490;
 $light: #b0bac5;
 $btn-hover-bg-shade-amount: 50%;
+$btn-font-family: 'Arimo', sans-serif;
 
 // Form color themes
-$input-color: #b0bac5;
-$input-bg: #03396c;
-$input-placeholder-color: #b0bac5;
-$input-focus-border-color: #d2042d;
-$form-file-button-color: white;
-$form-file-button-bg: #7b8490;
+$input-color: #444a51;
+$input-bg: white;
+$input-font-family: 'Arimo', sans-serif;
+$input-placeholder-color: #444a51;
+$input-border-color: #fcfcfc;
+$form-file-button-color: #fcfcfc;
+$form-file-button-bg: #d2042d;
+$form-label-color: #bad7e9;
+$form-label-font-family: 'Arimo', sans-serif;
+$form-select-font-family: 'Arimo', sans-serif;
+$form-select-color: #444a51;
+$form-select-border-color: #d2042d;
+
+// Modal color theme
+$modal-content-bg: #03396c;
+$modal-header-border-color: #d2042d;

@@ -5,6 +5,8 @@ import './Share.scss';
 import { store } from '../../App/store';
 //imports getUser selector
 import { getUser } from '../../App/Features/User/userSlice';
+// imports PostForm component
+import { PostForm } from '../PostForm/PostForm';
 // imports the icons from the material ui library
 import { VideoCameraFront } from '@mui/icons-material';
 import { PermMedia } from '@mui/icons-material';
@@ -14,21 +16,18 @@ import { EmojiEmotions } from '@mui/icons-material';
 // creates the Share component
 export const Share = () => {
   // gets the user from the store
-  const { formFile } = getUser(store.getState());
+  const { formFile, name } = getUser(store.getState());
   // returns the Share component
   return (
     <div className="share">
       <div className="shareWrapper">
         <div className="shareTop">
           <img src={formFile} alt="user profile" className="shareProfileImg" />
-          <input
-            type="text"
-            className="shareInput"
-            placeholder="what's on your mind ?"
-          />
+          <span className="shareProfileHeader">What's on your mind {name}</span>
+          <span className="shareProfilePostForm"><PostForm /></span>
         </div>
         <hr className="shareHr" />
-        <div className="shareBottom">
+        {/* <div className="shareBottom"> 
           <div className="shareOptions">
             <button className="shareOption">
               <VideoCameraFront
@@ -49,7 +48,7 @@ export const Share = () => {
               <span className="shareIconText">Feelings</span>
             </button>
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );

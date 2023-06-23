@@ -18,16 +18,19 @@
                     height: 40px;
                     border-radius: 50%;
                     object-fit: cover;
+                    border: 2px solid #EB455F;
                     cursor: pointer;
                 }
                 .postUsername{
                     font-size: 15px;
+                    color: #fcffe7;
                     margin: 0px 10px;
                     cursor: pointer;
                 }
                 .postDate{
                     font-family: 'Arimo', sans-serif;
                     font-size: 13px;
+                    color:#BAD7E9;
                 }
             }
             .postTopRight{
@@ -70,6 +73,7 @@
                 }
                 .postDislikeButton{
                     font-size: 30px;
+                    color: #fcffe7;
                     cursor: pointer;
                 }
                 .postDislikeCounter{
@@ -81,6 +85,7 @@
         .postBottomRight{
             .postCommentText{
                 font-size: 15px;
+                color: #FCFFE7;
                 cursor: pointer;
             }
         }
@@ -102,6 +107,9 @@
                     fill: #d2042d;
                     font-size: 30px;
                     margin-right: 10px;
+                }
+                .postFooterIconText{
+                    color: #BAD7E9;
                 }
             }
         }

@@ -162,7 +162,7 @@ export const EditProfile = () => {
           <div className="editProfileRightBottom">
             <div className="editProfileRightBottomTop">
               <span className="editProfileRightBottomTopTitle">
-                Edit User Profile
+                Update Team Member Profile
               </span>
             </div>
             <div className="editProfileRightBottomBottom">
@@ -226,7 +226,6 @@ export const EditProfile = () => {
                       <Form.Label>Phone Number:</Form.Label>
                       <Form.Control
                         className="editProfileFormInput"
-                        placeholder="555-555-1234"
                         onChange={(e) => setFormGridPhone(e.target.value)}
                         value={formGridPhone}
                       />
@@ -247,9 +246,9 @@ export const EditProfile = () => {
                         className="editProfileFormInput"
                         onChange={(e) => setFormGridWorkOffice(e.target.value)}
                         value={formGridWorkOffice}
-                        defaultValue="Choose..."
+                        //defaultValue="Choose..."
                       >
-                        <option>Work Office...</option>
+                        <option>select Office...</option>
                         {WorkOffice.map((office) => (
                           <option key={office.id}>{office.office}</option>
                         ))}
@@ -298,7 +297,7 @@ export const EditProfile = () => {
                         className="editProfileFormInput"
                         onChange={(e) => setFormGridState(e.target.value)}
                         value={formGridState}
-                        defaultValue="Choose..."
+                        //defaultValue="Choose..."
                       >
                         <option>select state...</option>
                         {States.map((state) => (
@@ -325,7 +324,7 @@ export const EditProfile = () => {
                   </Row>
                   <div className="editProfileButtons">
                     <Button variant="primary" onClick={handleDelete}>
-                      Delete Profile
+                      Delete Account
                     </Button>
                     <Button variant="primary" type="submit">
                       Update Account

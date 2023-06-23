@@ -1,4 +1,4 @@
-// import create slice from redux toolkit
+// imports create slice from redux toolkit
 import { createSlice } from '@reduxjs/toolkit'
 
 // define initial state

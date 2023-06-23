@@ -37,13 +37,9 @@ export const ProfileRightBar = () => {
   return (
     <div className="profileRightBar">
       <div className="profileRightBarHeading">
-        <span className="profileRightBarTitle">Employee Profile</span>
+        <span className="profileRightBarTitle">{formGridPosition}</span>
       </div>
       <div className="profileRightBarInfo">
-        <div className="profileRightBarInfoItem">
-          <span className="profileRightBarInfoKey">Title: </span>
-          <span className="profileRightBarInfoValue">{formGridPosition}</span>
-        </div>
         <div className="profileRightBarInfoItem">
           <span className="profileRightBarInfoKey">Email: </span>
           <span className="profileRightBarInfoValue">{formGridEmail}</span>
@@ -70,7 +66,7 @@ export const ProfileRightBar = () => {
         </div>
       </div>
       <Button variant="primary" onClick={handleClick}>
-        Edit Profile
+        Update Account
       </Button>
     </div>
   );

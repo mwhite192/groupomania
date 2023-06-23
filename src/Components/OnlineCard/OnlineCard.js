@@ -2,7 +2,10 @@
 import React from 'react';
 import './OnlineCard.scss';
 // imports the DefaultProfilePicture
-import DefaultProfilePicture from '../../Assets/person/DefaultProfile.jpg';
+// import DefaultProfilePicture from '../../Assets/person/DefaultProfile.jpg';
+import Icon from '../../Assets/Logos/icon.png';
+
+
 
 
 // creates the OnlineCard component
@@ -12,7 +15,7 @@ export const OnlineCard = ({user}) => {
     <div className="onlineCard">
       <div className="onlineCardOverlay"></div>
       <span className="onlineProfile"></span> 
-      <img src={DefaultProfilePicture} alt="user Online background" className="onlineBackground" />
+      <img src={Icon} alt="user Online background" className="onlineBackground" />
       <span className="onlineUser"></span>
     </div>
   );
