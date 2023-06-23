@@ -7,8 +7,13 @@ import { store } from './App/store';
 import { Provider } from 'react-redux';
 import { persistStore } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
+import TimeAgo from 'javascript-time-ago';
+import en from 'javascript-time-ago/locale/en.json';
+
 
 let persistor = persistStore(store);
+TimeAgo.addDefaultLocale(en);
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

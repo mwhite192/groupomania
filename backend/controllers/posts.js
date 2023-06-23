@@ -2,14 +2,15 @@
 const Posts = require('../models/posts');
 
 // sets up the create post function
-exports.createPost = async (req, res, next) => {
+exports.createPost = (req, res, next) => {
     // sets the url
     const url = req.protocol + '://' + req.get('host');
     // sets the post object
-    req.body.post = JSON.parse(req.body.post);
     const post = new Posts({
-      ...req.body.post, 
+      userId: req.body.userId,    
       image: url + '/images/' + req.file.filename,
+      message: req.body.message,
+      timestamp: req.body.timestamp,
       likes: 0, 
       dislikes: 0, 
       usersLiked: [],
@@ -17,17 +18,16 @@ exports.createPost = async (req, res, next) => {
       comments: [],
     });
     // saves the sauce
-    console.log(post);
     post
     .save()
     .then(() => {
       res.status(201).json({
-        message: 'Sauce added successfully!',
+        ...post._doc,
       });
     })
     .catch((error) => {
       res.status(400).json({
-        error: 'Unable to add sauce!',
+        error: 'Unable to create post!',
       });
     });
   };

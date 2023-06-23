@@ -1,15 +1,16 @@
-.postIcon{
+.postShareIcon{
     margin-right: 6px;
 }
-.postOption{
+.postShareOption{
     background-color: white;
 }
+.postSubmitButton,
 .postCloseButton{
     height: 40px;
     width: 17%;
     font-size: 17px;
     font-family: 'Arimo', sans-serif;
-    color: white;
+    color: #FCFFE7;;
     background-color: #d2042d;
     border-radius: 8px;
     border: 1px solid #FCFFE7;
@@ -29,4 +30,12 @@
     -webkit-box-shadow: 2px 4px 10px 1px rgba(0,0,0,0.47);
     box-shadow: 2px 4px 10px 1px rgba(0,0,0,0.47);
     cursor: pointer;
+}
+.postFormShareTime{
+    .postFormShareTimeIcon{
+        margin-right: 5px;
+    }
+    .postFormShareTimeDate{
+        color: #BAD7E9;
+    }
 }
