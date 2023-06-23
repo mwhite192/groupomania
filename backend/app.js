@@ -5,10 +5,9 @@ const express = require('express');
 const cors = require('cors');
 // imports mongoose for MongoDB
 const mongoose = require('mongoose');
-// imports the user, profile, and post routers
+// imports the user and post routers
 const userRouter = require('./routes/user');
-// const profileRouter = require('./routes/profile');
-// const postRouter = require('./routes/posts');
+const postsRouter = require('./routes/posts');
 // creates an express app
 const app = express();
 // imports path for working with file and directory paths
@@ -39,8 +38,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static('static'));
 app.use('/images/', express.static(path.join(__dirname, 'images')));
 app.use('/api/user', userRouter);
-// app.use('/api/profile', profileRouter);
-// app.use('/api/posts', postsRouter);
+app.use('/api/posts', postsRouter);
 app.use( '/', createProxyMiddleware({target: 'http://localhost:3000', changeOrigin: true,}));
 
 // Error handling

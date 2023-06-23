@@ -1,5 +1,5 @@
 .register {
-    background-color: #03396c;
+    background-color: #2B3467;
     width: 100vw;
     height: 100vh;
     display: flex;
@@ -21,11 +21,13 @@
             }
             .registerLogoName {
                 font-size: 60px;
+                color: #FCFFE7;
                 margin-bottom: 10px;
             }
             .registerDesc {
                 font-family: 'Arimo', sans-serif;
                 font-size: 20px;
+                color: #FCFFE7;
                 text-align: center;
             }
         }
@@ -115,8 +117,8 @@
                 // .loginRegisterButton {
                 //     height: 50px;
                 //     width: 100%;
-                //     background-color: #03396c;
-                //     color: white;
+                //     background-color: #2B3467;
+                //     color: #BAD7E9;
                 //     font-weight: 500;
                 //     font-size: 23px;
                 //     border-radius: 10px;

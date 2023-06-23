@@ -1,17 +1,34 @@
 // sets up the post model
-const posts = require('../models/posts');
+const Posts = require('../models/posts');
 
 // sets up the create post function
 exports.createPost = async (req, res, next) => {
-    const { userId, name, message } = req.body;
-    const imageURL = req.file ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}` : null;
-    await posts.create({
-        userId: userId,
-        name: name,
-        message: message,
-        imageURL: imageURL,
+    // sets the url
+    const url = req.protocol + '://' + req.get('host');
+    // sets the post object
+    req.body.post = JSON.parse(req.body.post);
+    const post = new Posts({
+      ...req.body.post, 
+      image: url + '/images/' + req.file.filename,
+      likes: 0, 
+      dislikes: 0, 
+      usersLiked: [],
+      usersDisliked: [],
+      comments: [],
+    });
+    // saves the sauce
+    console.log(post);
+    post
+    .save()
+    .then(() => {
+      res.status(201).json({
+        message: 'Sauce added successfully!',
+      });
     })
-    .then(() => res.status(201).json({ message: 'Post created successfully!' }))
-    .catch(error => res.status(400).json({ error }));
-};
+    .catch((error) => {
+      res.status(400).json({
+        error: 'Unable to add sauce!',
+      });
+    });
+  };
 

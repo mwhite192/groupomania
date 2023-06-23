@@ -19,13 +19,13 @@
             top: -5px;
             right: -5px;
             background-color: #d2042d;
-            object-fit: cover;
+            object-fit: contain;
         }
         .onlineBackground{
             width: 100%;
             height: 220px;
             border-radius: 10px;
-            border-left: 2px solid #fcffe7;
+            border-right: 2px solid #FCFFE7;
             object-fit: cover;
             cursor: pointer;
         }

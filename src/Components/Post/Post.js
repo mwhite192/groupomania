@@ -9,8 +9,10 @@ import './Post.scss';
 import { IconButton } from '@mui/material';
 import { ChatBubbleOutline, MoreVert, ThumbDown, ThumbDownAltOutlined, ThumbUp, ThumbUpAltOutlined } from '@mui/icons-material';
 import { Users } from '../../data';
-// imports Icon.png
-import Icon from '../../Assets/Logos/icon.png';
+// imports DefaultOnlineProfileImage.jpeg
+import DefaultOnlineProfileImage from '../../Assets/person/DefaultOnlineImage.jpeg'
+// imports Business.jpeg
+import Business from '../../Assets/person/Business.jpeg';
 
 
 
@@ -22,11 +24,7 @@ export const Post = ({ post }) => {
       <div className="postWrapper">
         <div className="postTop">
           <div className="postTopLeft">
-            <img
-              className="postProfileImg"
-              src={Icon}
-              alt="user profile"
-            />
+            <img className="postProfileImg" src={DefaultOnlineProfileImage} alt="user profile" />
             <span className="postUsername">
               {Users.filter((user) => user.id === post.userId)[0].username}
             </span>
@@ -40,7 +38,9 @@ export const Post = ({ post }) => {
         </div>
         <div className="postCenter">
           <span className="postText">{post.body}</span>
-          <img className="postImg" src={post.photo} alt="post" />
+          <div className="postCenterImg">
+            <img className="postImg" src={Business} alt="post" />
+          </div>
         </div>
         <div className="postBottom">
           <div className="postBottomLeft">

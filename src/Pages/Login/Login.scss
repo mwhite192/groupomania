@@ -1,5 +1,5 @@
 .login {
-    background-color: #03396c;
+    background-color: #2B3467;
     width: 100vw;
     height: 100vh;
     display: flex;
@@ -21,13 +21,14 @@
             }
             .loginLogoName {
                 font-size: 60px;
+                color: #FCFFE7;
                 margin-bottom: 10px;
             }
             .loginDesc {
                 font-family: 'Arimo', sans-serif;
                 font-size: 20px;
                 text-align: center;
-                // color: #b0bac5;
+                color: #FCFFE7;
             }
         }
         .loginWrapperRight {
@@ -76,8 +77,8 @@
                 .loginRegisterButton {
                     height: 50px;
                     width: 100%;
-                    background-color: #03396c;
-                    color: white;
+                    background-color: #2B3467;
+                    color: #BAD7E9;
                     font-size: 23px;
                     border: none;
                     border-radius: 10px;

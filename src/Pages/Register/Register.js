@@ -94,7 +94,7 @@ export const Register = () => {
                 </div>
                 <input
                   type="text"
-                  placeholder="Full Name"
+                  placeholder="Name"
                   id="fullName"
                   className="registerInput"
                   required

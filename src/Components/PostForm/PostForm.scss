@@ -5,13 +5,28 @@
     background-color: white;
 }
 .postCloseButton{
-    background-color: #d2042d;
-    font-family: 'Arimo', sans-serif;
-    color: white;
-    border-radius: 8px;
-    border: 1px solid #FCFFE7;
     height: 40px;
     width: 17%;
     font-size: 17px;
+    font-family: 'Arimo', sans-serif;
+    color: white;
+    background-color: #d2042d;
+    border-radius: 8px;
+    border: 1px solid #FCFFE7;
+    cursor: pointer;
+}
+.postFormShareButton{
+    height: 40px;
+    width: 100%;
+    padding: 0 10px;
+    font-size: 17px;
+    font-weight: bold;
+    font-family: 'Arimo', sans-serif;
+    color: #FCFFE7;
+    background-color: #EB455F;
+    border: 2px solid #EB455F;
+    border-radius: 5px;
+    -webkit-box-shadow: 2px 4px 10px 1px rgba(0,0,0,0.47);
+    box-shadow: 2px 4px 10px 1px rgba(0,0,0,0.47);
     cursor: pointer;
 }

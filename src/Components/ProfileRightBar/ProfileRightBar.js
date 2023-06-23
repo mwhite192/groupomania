@@ -65,7 +65,7 @@ export const ProfileRightBar = () => {
           <span className="profileRightBarInfoValue">{formGridZip}</span>
         </div>
       </div>
-      <Button variant="primary" onClick={handleClick}>
+      <Button variant='primary' onClick={handleClick}>
         Update Account
       </Button>
     </div>

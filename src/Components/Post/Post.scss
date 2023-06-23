@@ -46,12 +46,17 @@
             .postText{
                 font-family: 'Arimo', sans-serif;
             }
-            .postImg{
+            .postCenterImg
+            {
                 width: 100%;
                 max-height: 500px;
-                object-fit: contain;
                 margin-top: 20px;
                 cursor: pointer;
+                .postImg{
+                    width: 50%;
+                    object-fit: contain;
+                    border-radius: 2%;
+                }
             }
         }
         .postBottom{
@@ -98,7 +103,7 @@
             justify-content: space-around;
             .postFooterBottomItem{
                 border: none;
-                background-color: #03396c;
+                background-color: #2B3467;
                 display: flex;
                 align-items: center;
                 padding: 7px;
