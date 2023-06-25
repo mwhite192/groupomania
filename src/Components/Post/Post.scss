@@ -1,122 +1,139 @@
 .post{
-    width: 100%;
+    width: 70%;
     margin: 30px 0px;
+    margin-left: 170px;
     border-radius: 10px;
     -webkit-box-shadow: 2px 4px 10px 1px rgba(0,0,0,0.47);
     box-shadow: 2px 4px 10px 1px rgba(0,0,0,0.47);
-    .postWrapper{
-        padding: 20px;
-        .postTop{
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            .postTopLeft{
+    .postCard{
+        .postWrapper{
+            padding: 20px;
+            .postTop{
                 display: flex;
                 align-items: center;
-                .postProfileImg{
-                    width: 40px;
-                    height: 40px;
-                    border-radius: 50%;
-                    object-fit: cover;
-                    border: 2px solid #EB455F;
-                    cursor: pointer;
+                justify-content: space-between;
+                .postTopLeft{
+                    display: flex;
+                    align-items: center;
+                    padding: 5px;
+                    .postProfileImg{
+                        width: 40px;
+                        height: 40px;
+                        border-radius: 50%;
+                        object-fit: cover;
+                        border: 2px solid #EB455F;
+                        cursor: pointer;
+                    }
+                    .postUsername{
+                        font-size: 15px;
+                        color: #fcffe7;
+                        margin: 0px 10px;
+                        cursor: pointer;
+                    }
+                    .postDate{
+                        font-family: 'Arimo', sans-serif;
+                        font-size: 13px;
+                        color:#BAD7E9;
+                    }
                 }
-                .postUsername{
-                    font-size: 15px;
-                    color: #fcffe7;
-                    margin: 0px 10px;
-                    cursor: pointer;
-                }
-                .postDate{
-                    font-family: 'Arimo', sans-serif;
-                    font-size: 13px;
-                    color:#BAD7E9;
+                .postTopRight{
+                    .postVertButton{
+                        font-size: 30px;
+                        fill: #b0bac5;
+                        cursor: pointer;
+                    }
                 }
             }
-            .postTopRight{
-                .postVertButton{
-                    font-size: 30px;
-                    fill: #b0bac5;
-                    cursor: pointer;
-                }
-            }
-        }
-        .postCenter{
-            margin: 20px 0px;
-            .postText{
-                font-family: 'Arimo', sans-serif;
-            }
-            .postCenterImg
-            {
+            .postCenter{
                 width: 100%;
                 max-height: 500px;
-                margin-top: 20px;
+                margin-top: 10px;   
                 cursor: pointer;
-                .postImg{
-                    width: 50%;
-                    object-fit: contain;
-                    border-radius: 2%;
-                }
-            }
-        }
-        .postBottom{
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding-bottom: 20px;
-            .postBottomLeft{
                 display: flex;
-                align-items: center;
+                flex-direction: column;
                 gap: 10px;
-                .postLikeButton{
-                    font-size: 30px;
-                    cursor: pointer;
+                .postImg{
+                    width: 100%;
+                    object-fit: contain;
+                    border-radius: 12px;
                 }
-                .postLikeCounter{
-                    font-family: 'Arimo', sans-serif;
-                    font-size: 15px;
-                }
-                .postDislikeButton{
-                    font-size: 30px;
-                    color: #fcffe7;
-                    cursor: pointer;
-                }
-                .postDislikeCounter{
-                    font-family: 'Arimo', sans-serif;
-                    font-size: 15px;
+                .postFooter{
+                    padding-bottom: 8px;
+                    .postFooterBottomItem{
+                        border: none;
+                        background-color: #2B3467;
+                        display: flex;
+                        align-items: center;
+                        //padding: 7px;
+                        cursor: pointer;
+                        .postFooterIcon{
+                            fill: #FCFFE7;
+                            font-size: 30px;
+                            margin-right: 10px;
+                        }
+                    }
                 }
             }
-        }
-        .postBottomRight{
-            .postCommentText{
-                font-size: 15px;
-                color: #FCFFE7;
-                cursor: pointer;
-            }
-        }
-        .postFooterHr{
-            margin: 10px 0px;
-        }
-        .postFooter{
-            display: flex;
-            align-items: center;
-            justify-content: space-around;
-            .postFooterBottomItem{
-                border: none;
-                background-color: #2B3467;
+            .postBottom{
                 display: flex;
                 align-items: center;
-                padding: 7px;
-                cursor: pointer;
-                .postFooterIcon{
-                    fill: #d2042d;
-                    font-size: 30px;
-                    margin-right: 10px;
+                justify-content: space-between;
+                padding-bottom: 15px;
+                .postBottomLeft{
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                    .postLikeButton{
+                        font-size: 30px;
+                        cursor: pointer;
+                    }
+                    .postLikeCounter{
+                        font-size: 15px;
+                        color: #FCFFE7;
+                    }   
                 }
-                .postFooterIconText{
+            }
+            .postBottomRight{
+                .postCommentText{
+                    font-size: 15px;
+                    color: #FCFFE7;
+                    cursor: pointer;
+                }
+            }
+            .postContent{
+                width: 100%;
+                margin-bottom: 12px;
+                .postName{
+                    margin-right: 5px;
+                    font-size: 20px;
+                    color: #FCFFE7;
+                }
+                .postText{
+                    font-family: 'Arimo', sans-serif;
+                    font-size: 15px;    
                     color: #BAD7E9;
                 }
             }
+            .postComment{
+                .postCommentImg{
+                    width: 28px;
+                    height: 28px;
+                    border-radius: 50%;
+                    object-fit: contain;
+                    cursor: pointer;
+                }
+                .postAddComment{
+                    border: none;
+                    background-color: transparent;
+                }
+                // .postAddComment::placeholder{
+                //     //font-family: 'Arimo', sans-serif;
+                //     font-size: 15px;
+                //     color: #BAD7E9;
+                // }
+            }
         }
+            
+            
     }
-}
+    }

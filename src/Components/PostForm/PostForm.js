@@ -9,15 +9,13 @@ import { getUser } from '../../App/Features/User/userSlice';
 import { createPost } from '../../App/Features/Post/postSlice';
 // imports the useState hook 
 import { useState } from 'react';
-// imports TimeAgo from react-timeago
-import ReactTimeAgo from 'react-time-ago';
-// imports the react bootstrap components
+// imports the TimeAgo component from the react-time-ago library
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 // imports the icons from the material ui library
 import { PermMedia } from '@mui/icons-material';
 import NoteIcon  from '@mui/icons-material/Note';
-import AccessAlarmIcon from '@mui/icons-material/AccessTime';
+
 
 
 // creates the PostForm component
@@ -26,8 +24,9 @@ export const PostForm = () => {
   const { userId, token } = getUser(store.getState());
   // creates the post state variable and the setPost state function
   const [show, setShow] = useState(false);
-  // creates a timestamp variable and sets it to the current date
+  // creates the timestamp variable and sets it to the current time
   const timestamp = new Date();
+
 
   // sets the initial state of the form data
   const [file, setFile] = useState('');
@@ -113,7 +112,7 @@ export const PostForm = () => {
                 onChange={(e) => setMessage(e.target.value)}
               />
             </Form.Group>
-            <span className="postFormShareTime">
+            {/* <span className="postFormShareTime">
               <AccessAlarmIcon
                 className="postFormShareTimeIcon"
                 style={{ fill: "#FCFFE7" }}
@@ -124,7 +123,7 @@ export const PostForm = () => {
                 date={timestamp}
                 locale="en-US"
               />
-            </span>
+            </span> */}
           </Form>
         </Modal.Body>
         <Modal.Footer>
