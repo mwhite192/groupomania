@@ -1,139 +1,128 @@
-.post{
-    width: 70%;
+.post {
     margin: 30px 0px;
-    margin-left: 170px;
     border-radius: 10px;
-    -webkit-box-shadow: 2px 4px 10px 1px rgba(0,0,0,0.47);
-    box-shadow: 2px 4px 10px 1px rgba(0,0,0,0.47);
-    .postCard{
-        .postWrapper{
-            padding: 20px;
-            .postTop{
+    -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
+    box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
+    .postWrapper {
+        padding: 20px;
+        margin: 0px 50px;
+        .postTop {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            .postTopLeft {
                 display: flex;
                 align-items: center;
-                justify-content: space-between;
-                .postTopLeft{
-                    display: flex;
-                    align-items: center;
-                    padding: 5px;
-                    .postProfileImg{
-                        width: 40px;
-                        height: 40px;
-                        border-radius: 50%;
-                        object-fit: cover;
-                        border: 2px solid #EB455F;
-                        cursor: pointer;
-                    }
-                    .postUsername{
-                        font-size: 15px;
-                        color: #fcffe7;
-                        margin: 0px 10px;
-                        cursor: pointer;
-                    }
-                    .postDate{
-                        font-family: 'Arimo', sans-serif;
-                        font-size: 13px;
-                        color:#BAD7E9;
-                    }
-                }
-                .postTopRight{
-                    .postVertButton{
-                        font-size: 30px;
-                        fill: #b0bac5;
-                        cursor: pointer;
-                    }
-                }
-            }
-            .postCenter{
-                width: 100%;
-                max-height: 500px;
-                margin-top: 10px;   
-                cursor: pointer;
-                display: flex;
-                flex-direction: column;
-                gap: 10px;
-                .postImg{
-                    width: 100%;
-                    object-fit: contain;
-                    border-radius: 12px;
-                }
-                .postFooter{
-                    padding-bottom: 8px;
-                    .postFooterBottomItem{
-                        border: none;
-                        background-color: #2B3467;
-                        display: flex;
-                        align-items: center;
-                        //padding: 7px;
-                        cursor: pointer;
-                        .postFooterIcon{
-                            fill: #FCFFE7;
-                            font-size: 30px;
-                            margin-right: 10px;
-                        }
-                    }
-                }
-            }
-            .postBottom{
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                padding-bottom: 15px;
-                .postBottomLeft{
-                    display: flex;
-                    align-items: center;
-                    gap: 10px;
-                    .postLikeButton{
-                        font-size: 30px;
-                        cursor: pointer;
-                    }
-                    .postLikeCounter{
-                        font-size: 15px;
-                        color: #FCFFE7;
-                    }   
-                }
-            }
-            .postBottomRight{
-                .postCommentText{
-                    font-size: 15px;
-                    color: #FCFFE7;
+                padding: 5px;
+                .postProfileImg {
+                    width: 40px;
+                    height: 40px;
+                    border-radius: 50%;
+                    object-fit: cover;
+                    border: 2px solid #EB455F;
                     cursor: pointer;
                 }
-            }
-            .postContent{
-                width: 100%;
-                margin-bottom: 12px;
-                .postName{
-                    margin-right: 5px;
-                    font-size: 20px;
-                    color: #FCFFE7;
+                .postUsername {
+                    font-size: 15px;
+                    color: #fcffe7;
+                    margin: 0px 10px;
+                    cursor: pointer;
                 }
-                .postText{
+                .postDate {
                     font-family: 'Arimo', sans-serif;
-                    font-size: 15px;    
+                    font-size: 13px;
                     color: #BAD7E9;
                 }
             }
-            .postComment{
-                .postCommentImg{
-                    width: 28px;
-                    height: 28px;
-                    border-radius: 50%;
-                    object-fit: contain;
+            .postTopRight {
+                .postVertButton {
+                    font-size: 30px;
+                    fill: #b0bac5;
                     cursor: pointer;
                 }
-                .postAddComment{
-                    border: none;
-                    background-color: transparent;
-                }
-                // .postAddComment::placeholder{
-                //     //font-family: 'Arimo', sans-serif;
-                //     font-size: 15px;
-                //     color: #BAD7E9;
-                // }
             }
         }
-            
-            
+        .postCenter {
+            margin-top: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            cursor: pointer;
+            .postCenterImg{
+                width: 100%;
+                height: 420px;
+                border-radius: 15px;
+                .postImg {
+                    width: 100%;
+                    height: 100%;
+                    border-radius: 15px;
+                    object-fit: cover;
+                    -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
+                     box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
+                }   
+            } 
+            .postFooter {
+                margin-bottom: 8px;
+                .postFooterBottomItem {
+                    border: none;
+                    padding: 7px;
+                    display: flex;
+                    align-items: center;
+                    background-color: #2B3467;
+                    cursor: pointer;
+                    .postFooterIcon {
+                        fill: #FCFFE7;
+                        font-size: 30px;
+                        margin-right: 10px;
+                    }
+                }
+                .postLikeCounter {
+                    font-size: 15px;
+                    color: #FCFFE7;
+                }
+            }
+        }
+        .postContent {
+            .postName {
+                margin-right: 5px;
+                font-size: 20px;
+                color: #FCFFE7;
+            }
+            .postText {
+                font-family: 'Arimo', sans-serif;
+                font-size: 15px;
+                color: #BAD7E9;
+            }
+            .postCommentText {
+                margin-left: 20px;
+                font-size: 15px;
+                color: #FCFFE7;
+                cursor: pointer;
+            }
+        }
+        .postComment {
+            padding: 25px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            .postCommentImg {
+                width: 35px;
+                height: 35px;
+                border-radius: 50%;
+                border: 4px solid #FCFFE7;
+                object-fit: contain;
+                cursor: pointer;
+            }
+            .postAddComment {
+                padding: 6px 100px 6px 12px;
+                border: 1px solid #BAD7E9;
+                border-radius: 20px;
+                background-color: transparent;
+                font-family: 'Arimo', sans-serif;
+                font-size: 14px;
+                color: #BAD7E9;;
+                opacity: 0.8;
+            }
+        }
     }
-    }
+ }

@@ -9,6 +9,8 @@ import { getUser } from '../../App/Features/User/userSlice';
 import { createPost } from '../../App/Features/Post/postSlice';
 // imports the useState hook 
 import { useState } from 'react';
+// imports useNavigate hook
+import { useNavigate } from 'react-router-dom';
 // imports the TimeAgo component from the react-time-ago library
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
@@ -26,6 +28,8 @@ export const PostForm = () => {
   const [show, setShow] = useState(false);
   // creates the timestamp variable and sets it to the current time
   const timestamp = new Date();
+  // creates the navigate variable and sets it to the useNavigate hook
+  const navigate = useNavigate();
 
 
   // sets the initial state of the form data
@@ -58,6 +62,8 @@ export const PostForm = () => {
     .then((response) => response.json())
     .then((data) => {
       store.dispatch(createPost(data));
+      // navigates to the home page
+      navigate('/home');
       // closes the modal
       handleClose();
       // logs the data

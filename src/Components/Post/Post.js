@@ -33,62 +33,54 @@ export const Post = ({ post }) => {
   // returns the Post component
   return (
     <div className="post">
-      <div className="postCard">
-        <div className="postWrapper">
-          <div className="postTop">
-            <div className="postTopLeft">
-              <img
-                className="postProfileImg"
-                src={file ? file : DefaultOnlineProfileImage}
-                alt="user profile"
-              />
-              <span className="postUsername">{name}</span>
-              <div className="postTime">
-                <ReactTimeAgo
-                  date={Date.parse(date)}
-                  className="postDate"
-                  locale="en-US"
-                />
-              </div>
-            </div>
-            <div className="postTopRight">
-              <IconButton>
-                <MoreVert className="postVertButton" />
-              </IconButton>
-            </div>
-          </div>
-          <div className="postCenter">
-            <img src={Business} alt="post" className="postImg" />
-            <div className="postFooter">
-              <button className="postFooterBottomItem">
-                <ThumbUpAltOutlined className="postFooterIcon" />
-              </button>
-            </div>
-          </div>
-          <div className="postBottom">
-            <div className="postBottomLeft">
-              <span className="postLikeCounter">
-                {post.like} &#x2022; likes
-              </span>
-            </div>
-            <div className="postBottomRight">
-              <span className="postCommentText">
-                {post.comment} &#x2022; comments
-              </span>
-            </div>
-          </div>
-          <div className="postContent">
-            <span className="postName">{name}</span>
-            <span className="postText">{message}</span>
-          </div>
-          <div className="postComment">
+      <div className="postWrapper">
+        <div className="postTop">
+          <div className="postTopLeft">
             <img
-              className="postCommentImg"
+              className="postProfileImg"
               src={file ? file : DefaultOnlineProfileImage}
               alt="user profile"
             />
-            <span className="postAddComment"></span>
+            <span className="postUsername">{name}</span>
+            <div className="postTime">
+              <ReactTimeAgo
+                date={Date.parse(date)}
+                className="postDate"
+                locale="en-US"
+              />
+            </div>
           </div>
+          <div className="postTopRight">
+            <IconButton>
+              <MoreVert className="postVertButton" />
+            </IconButton>
+          </div>
+        </div>
+        <div className="postCenter">
+          <div className="postCenterImg">
+            <img src={image} alt="post" className="postImg" />
+          </div>
+          <div className="postFooter">
+            <button className="postFooterBottomItem">
+              <ThumbUpAltOutlined className="postFooterIcon" />
+            </button>
+            <span className="postLikeCounter">{post.like} &#x2022; likes</span>
+          </div>
+        </div>
+        <div className="postContent">
+          <span className="postName">{name}</span>
+          <span className="postText">{message}</span>
+          <span className="postCommentText">
+            {post.comment} &#x2022; comments
+          </span>
+        </div>
+        <div className="postComment">
+          <img
+            className="postCommentImg"
+            src={file ? file : DefaultOnlineProfileImage}
+            alt="user profile"
+          />
+          <span className="postAddComment">Add a comment...</span>
         </div>
       </div>
     </div>
