@@ -11,7 +11,7 @@ import { createPost } from '../../App/Features/Post/postSlice';
 import { useState } from 'react';
 // imports useNavigate hook
 import { useNavigate } from 'react-router-dom';
-// imports the TimeAgo component from the react-time-ago library
+// import react bootstrap components
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 // imports the icons from the material ui library
@@ -19,17 +19,20 @@ import { PermMedia } from '@mui/icons-material';
 import NoteIcon  from '@mui/icons-material/Note';
 
 
-
 // creates the PostForm component
 export const PostForm = () => {
   // creates a userId variable and sets it to the getUser selector
-  const { userId, token } = getUser(store.getState());
+  const { userId, name, formFile, token } = getUser(store.getState());
   // creates the post state variable and the setPost state function
   const [show, setShow] = useState(false);
   // creates the timestamp variable and sets it to the current time
   const timestamp = new Date();
   // creates the navigate variable and sets it to the useNavigate hook
   const navigate = useNavigate();
+  // creates the username variable and sets it to the name variable
+  const username = name;
+  // creates the profilePicture variable and sets it to the formFile variable
+  const profilePicture = formFile;
 
 
   // sets the initial state of the form data
@@ -38,9 +41,12 @@ export const PostForm = () => {
   // creates a form data object and appends the form data to it
   const formData = new FormData();
   formData.append('userId', userId);
+  formData.append('token', token);
   formData.append('file', file);
   formData.append('message', message);
   formData.append('timestamp', timestamp);
+  formData.append('username', username);
+  formData.append('profilePicture', profilePicture);
 
   // creates the handleClose function
   const handleClose = () => setShow(false);
@@ -80,7 +86,7 @@ export const PostForm = () => {
     <div className="postForm">
       <div className="postFormButton">
         <button className="postFormShareButton" onClick={handleShow}>
-          Launch Share
+          Share Your Thoughts 
         </button>
       </div>
       <Modal animation={true} show={show} onHide={handleClose}>
@@ -98,7 +104,7 @@ export const PostForm = () => {
                 type="file"
                 id="file"
                 className="postShareOption"
-                accept=".png,.jpeg,.jpg"
+                accept=".png,.jpeg,.jpg,.gif,.mp4"
                 autoFocus
                 onChange={(e) => setFile(e.target.files[0])}
               />
@@ -118,18 +124,6 @@ export const PostForm = () => {
                 onChange={(e) => setMessage(e.target.value)}
               />
             </Form.Group>
-            {/* <span className="postFormShareTime">
-              <AccessAlarmIcon
-                className="postFormShareTimeIcon"
-                style={{ fill: "#FCFFE7" }}
-              />
-              <ReactTimeAgo
-                id='timestamp'
-                className="postFormShareTimeDate"
-                date={timestamp}
-                locale="en-US"
-              />
-            </span> */}
           </Form>
         </Modal.Body>
         <Modal.Footer>

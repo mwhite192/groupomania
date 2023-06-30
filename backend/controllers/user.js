@@ -16,7 +16,7 @@ exports.signup = (req, res, next) => {
     .then((hash) => {
       // creates a new user
       const user = new User({
-        fullName: req.body.fullName,
+        name: req.body.name,
         registerEmail: req.body.registerEmail,
         registerPassword: hash,
       });
@@ -40,7 +40,7 @@ exports.signup = (req, res, next) => {
           // creates a new profile
           const profile = new Profile({
             userId: user._id,
-            name: user.fullName,
+            name: user.name,
             formFile: url + "/images/" + req.file.filename,
             formGridEmail: user.registerEmail,
             formGridPassword: user.registerPassword,
@@ -138,7 +138,7 @@ exports.update = (req, res, next) => {
   }
   // updates the profile
   Profile.updateOne({ userId: req.body.userId }, updateProfile)
-    // returns the profile
+    // returns the updated profile
     .then(() => {
       res.status(201).json(updateProfile);
     })

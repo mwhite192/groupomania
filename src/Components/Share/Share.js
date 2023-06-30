@@ -29,7 +29,7 @@ export const Share = () => {
           </div>
           <div className="shareTopHomeIconInfo">
             <span className="shareProfileHeader">
-             Share Your Thoughts {name} !
+             {name}
             </span>
             <span className="shareProfilePostForm">
               <PostForm />

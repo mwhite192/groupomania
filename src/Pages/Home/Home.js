@@ -14,6 +14,7 @@ import { Sidebar } from '../../Components/Sidebar/Sidebar';
 import { Feed } from '../../Components/Feed/Feed';
 
 
+
 // creates the Home page
 export const Home = () => {
   // creates a navigate variable and sets it to the useNavigate hook

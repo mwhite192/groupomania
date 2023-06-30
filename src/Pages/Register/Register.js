@@ -17,13 +17,13 @@ export const Register = () => {
   const navigate = useNavigate();
   
   // sets the initial state of the form data
-  const [fullName, setFullName] = useState('');
+  const [name, setName] = useState('');
   const [registerEmail, setRegisterEmail] = useState('');
   const [registerPassword, setRegisterPassword] = useState('');
-  const [file, setFile] = useState(null);
+  const [file, setFile] = useState('');
   // creates a form data object and appends the form data to it
   const formData = new FormData();
-  formData.append('fullName', fullName);
+  formData.append('name', name);
   formData.append('registerEmail', registerEmail);
   formData.append('registerPassword', registerPassword);
   formData.append('file', file);
@@ -95,11 +95,11 @@ export const Register = () => {
                 <input
                   type="text"
                   placeholder="Name"
-                  id="fullName"
+                  id="name"
                   className="registerInput"
                   required
-                  value={fullName}
-                  onChange={(e) => setFullName(e.target.value)}
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
                 />
                 <p id="fullNameErrorMsg" className='registerErrorMsg'></p>
                 <input
@@ -125,9 +125,6 @@ export const Register = () => {
                 <button type="submit" className="registerButton">
                   Sign Up
                 </button>
-                {/* <button className="loginRegisterButton">
-                  Log into Account
-                </button> */}
               </form>
             </div>
           </div>

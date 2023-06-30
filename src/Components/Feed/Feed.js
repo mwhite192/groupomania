@@ -1,30 +1,55 @@
 // imports the React library and the App.scss file
 import React from 'react';
 import './Feed.scss';
-// // imports the store
-// import { store } from '../../App/store';
-// // imports the getPosts selector
-// import { getPost } from '../../App/Features/Post/postSlice';
+// imports the store
+import { store } from '../../App/store';
+// imports the getUser selector
+import { getUser } from '../../App/Features/User/userSlice';
+// imports the createPost action
+import { createPost } from '../../App/Features/Post/postSlice';
+// imports getArrayOfPosts selector
+import { getArrayOfPosts } from '../../App/Features/Post/postSlice';
+// imports useEffect hook
+import { useEffect } from 'react';
 // imports the Online, Share, and Post components
 import { Online } from '../Online/Online';
 import { Share } from '../Share/Share';
 import { Post } from '../Post/Post';
-import { Posts } from '../../data';
+
 
 // creates the Feed component
 export const Feed = () => {
-  // // creates a posts variable sets it to the getPosts selector
-  // const Posts = getPost(store.getState());
-  
+  const { token } = getUser(store.getState());
+  // creates the Posts variable and sets it to the getArrayOfPosts selector
+  const Posts = getArrayOfPosts(store.getState());
+  // creates the useEffect hook to fetch all posts
+  useEffect(() => {
+   fetch('http://localhost:3000/api/posts/all',{
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + token,
+      },
+    })
+    .then((res) => res.json())
+    .then((data) => {
+      data.forEach(element => {
+        store.dispatch(createPost(element));
+      });
+    })
+   }, []);
+
   // returns the Feed component
   return (
     <div className='feed'>
       <div className="feedWrapper">
         <Online />
         <Share />
-        {Posts.map((post) => (
-          <Post key={post.id} post={post} />
-        ))}
+        {Posts.map((post) => {
+          return (
+            <Post key={post._id} post={post} />
+          )
+        })}
       </div>
     </div>
   )

@@ -56,7 +56,8 @@
                     width: 100%;
                     height: 100%;
                     border-radius: 15px;
-                    object-fit: cover;
+                    object-fit: contain;
+                    background-color: black;
                     -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
                      box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
                 }   
@@ -110,7 +111,7 @@
                 height: 35px;
                 border-radius: 50%;
                 border: 4px solid #FCFFE7;
-                object-fit: contain;
+                object-fit: cover;
                 cursor: pointer;
             }
             .postAddComment {
