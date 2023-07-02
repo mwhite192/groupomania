@@ -47,7 +47,7 @@ export const Feed = () => {
         <Share />
         {Posts.map((post) => {
           return (
-            <Post key={post._id} post={post} />
+            <Post key={post._id} post={post} likes={post.likes} />
           )
         })}
       </div>

@@ -60,13 +60,23 @@ console.log(Posts);
 exports.updatePost = (req, res, next) => {
   // sets the url
   const url = req.protocol + '://' + req.get('host');
-  // creates a update post object
-  const updatePost = { ...req.body };
-  // checks if there is a file
-  if (req.file) {
-    // sets the post image url
-    updatePost.image = url + '/images/' + req.file.filename;
-  }
+  Posts.findOne({ _id: req.params._id })
+    .then((post) => {
+      // Check if the post exists
+      if (!post) {
+        return res.status(404).json({ error: 'Post not found.' });
+      }
+      // Check if the user ID from the request object matches the user ID of the post
+      if (post.userId !== req.body.userId) {
+        return res.status(403).json({ error: 'Unauthorized. You are authorized to update this post.' });
+      }
+      // If the user is authorized, proceed with the update
+      const updatePost = { ...req.body };
+      // checks if there is a file
+      if (req.file) {
+        // sets the post image url
+        updatePost.image = url + '/images/' + req.file.filename;
+      }
   // updates the post
   Posts.updateOne({ _id: req.params._id }, updatePost)
   // returns the post
@@ -77,7 +87,11 @@ exports.updatePost = (req, res, next) => {
       res.status(400).json({
         error: 'unable to update post!',
       });
-    });
+    })
+  .catch((error) => {
+    res.status(500).json({ error: 'Server error.' });
+  });
+});
 };
 
 
@@ -115,55 +129,40 @@ exports.deletePost = (req, res, next) => {
   });
 };
 
+
 // likes a posts
 exports.likePosts = (req, res, next) => {
   // finds the posts by id
- Posts.findOne({ userId: req.body.userId }).then((posts) => {
-    const like = req.body.likes;
-    switch (like) {
-      // case 1: user likes the posts
-      case 1:
-        // checks if the user has already liked the posts
-        if (!posts.usersLiked.includes(req.body.userId)) {
-          // adds the user to the usersLiked array
-          posts.usersLiked.push(req.body.userId);
-          // increments the likes
-          posts.likes++;
-          // updates the posts
-          Posts.updateOne({ userId: req.body.userId }, posts).then(() => {
-            // returns the message
-            res.status(201).json({
-              message: "posts liked successfully!",
-            });
-          });
-        } else {
-          res.status(200).json({
-            message: "you already liked this posts!",
-          });
-        }
-        break;
-        // case 0: user un-likes the posts
-      case 0:
-          // checks if the user has already liked the posts
-          if (posts.usersLiked.includes(req.body.userId)) {
-            // removes the user from the usersLiked array
-            posts.usersLiked.pull(req.body.userId);
-            // decrements the likes
-            posts.likes--;
-            // updates the posts
-            Posts.updateOne({ userId: req.body.userId }, posts).then(() => {
-              // returns the message
-              res.status(201).json({
-                message: "posts un-liked successfully!",
-              });
-            });
-          } else {
-            res.status(200).json({
-              message: "you already un-liked this posts!",
-            });
-          }
-          break; 
-    }
-  });
-};
-
+ Posts.findOne({ _id: req.params._id }).then((post) => {
+  // checks if the posts exists
+  if (!post) {
+    return res.status(404).json({ message: "Post not found!" });
+  }
+  const userId = req.body.userId;
+  // checks if the user has already liked the post
+  if (!post.usersLiked.includes(userId)) {
+    // add the user to the usersLiked array
+    post.usersLiked.push(userId);
+    // increment the likes
+    post.likes++;
+    // save the updated post to the database
+    post.save()
+    .then((updatedPost) => {
+      res.status(201).json({
+        message: "Post liked successfully!",
+        likes: updatedPost.likes, // Return the updated likes count
+      });
+    })
+    .catch((error) => {
+      console.error(error);
+      res.status(500).json({
+        error: "Failed to update the post!",
+      });
+    });
+  } else {
+    res.status(200).json({
+      message: "You already liked this post!",
+    });
+  }
+});
+ };

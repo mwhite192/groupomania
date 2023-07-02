@@ -36,10 +36,12 @@
     export const getPost = (state) => state.post.post;
     export const getAllPost = (state) => state.post;
     export const getPostById = (state, postId) => state.post[postId];
+    export const getLikes = (state, postId) => state.post[postId].likes;
     export const getArrayOfPosts = (state) => Object.values(getAllPost(state));
 
     // export actions and selectors
     export const createPost = postSlice.actions[CREATE];
     export const updatePost = postSlice.actions[UPDATE];
     export const deletePost = postSlice.actions[DELETE];
+    
 

@@ -40,6 +40,8 @@ export const UpdatePostForm = ({ postId }) => {
   const handleClose = () => setShow(false);
   // creates the handleShow function
   const handleShow = () => setShow(true);
+  
+  
   // creates the handleSubmit function
     const handleSubmit = (e) => {
       // prevents the default form submission
@@ -53,6 +55,7 @@ export const UpdatePostForm = ({ postId }) => {
       formData.append("timestamp", timestamp);
       formData.append("username", name);
       formData.append("profilePicture", formFile);
+
       // POST form data to backend
       fetch("/api/posts/" + postId, {
         method: "PUT",

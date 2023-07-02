@@ -67,6 +67,8 @@ export const DeletePost = ({ postId }) => {
     .catch((error) => {
         // logs the error
         console.log(error);
+        // closes the modal
+        handleClose();
     });
   };
 
