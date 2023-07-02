@@ -55,6 +55,40 @@ exports.getAllPosts = (req, res, next) => {
 };
 console.log(Posts);
 
+// deletes a post
+exports.deletePost = (req, res, next) => {
+  // finds the posts by id
+  Posts.findOne({ _id: req.params._id }).then((post) => {
+    // checks if the posts exists
+    console.log(post);
+    if (!post) {
+      // returns an error
+      return res.status(404).json({
+        error: new Error('post not found!'),
+      });
+    }
+    // checks if the user is authorized
+    if (post.userId !== req.auth.userId) {
+      return res.status(403).json({
+        error: new Error('Unauthorized request!'),
+      });
+    }
+    // deletes the posts
+    Posts.deleteOne({ _id: req.params._id })
+      .then(() => {
+        // returns the message
+        res.status(200).json({
+          message: 'posts deleted successfully!',
+        });
+      })
+      .catch((error) => {
+        res.status(400).json({
+          error: 'unable to delete posts!',
+        });
+      });
+  });
+};
+
 // likes a posts
 exports.likePosts = (req, res, next) => {
   // finds the posts by id

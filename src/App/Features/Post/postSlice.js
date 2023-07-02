@@ -9,7 +9,7 @@ export const initialState = {
 // define action types
 export const CREATE = 'CREATE';
 // export const UPDATE = 'UPDATE';
-// export const DELETE = 'DELETE';
+export const DELETE = 'DELETE';
 
 
 // create post slice
@@ -24,10 +24,9 @@ export const postSlice = createSlice({
         //     state.authenticated = true;
         //     state.post = action.payload;
         // },
-        // [DELETE]: (state, action) => {
-        //     state.authenticated = true;
-        //     state.post = action.payload;
-        // },
+        [DELETE]: (state, action) => {
+            delete state[action.payload];
+        },
 
     },
 });
@@ -41,5 +40,5 @@ export const getArrayOfPosts = (state) => Object.values(getAllPost(state));
 // export actions and selectors
 export const createPost = postSlice.actions[CREATE];
 // export const updatePost = postSlice.actions[UPDATE];
-// export const deletePost = postSlice.actions[DELETE];
+ export const deletePost = postSlice.actions[DELETE];
 

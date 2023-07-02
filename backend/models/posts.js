@@ -1,6 +1,7 @@
 // sets up mongoose for MongoDB Atlas
 const mongoose = require('mongoose');
 
+
 // sets schema for posts in MongoDB Atlas
 const postsSchema = mongoose.Schema({
     userId: { type: String, required: true },

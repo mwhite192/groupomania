@@ -15,8 +15,7 @@ import { useNavigate } from 'react-router-dom';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 // imports the icons from the material ui library
-import { PermMedia } from '@mui/icons-material';
-import NoteIcon  from '@mui/icons-material/Note';
+import { PermMedia, Note } from '@mui/icons-material';
 
 
 // creates the PostForm component
@@ -111,7 +110,7 @@ export const PostForm = () => {
             </Form.Group>
             <Form.Group className="mb-3">
               <Form.Label>
-                <NoteIcon className="postShareIcon" style={{ fill: "#FCFFE7" }} />
+                <Note className="postShareIcon" style={{ fill: "#FCFFE7" }} />
                 Post it!
               </Form.Label>
               <Form.Control
