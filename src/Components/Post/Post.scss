@@ -36,10 +36,11 @@
             }
             .postTopRight {
                 display: flex;
-                flex-direction: column;
+                align-items: center;
+                gap: 30px;
                 .postEditButton,
                 .postDeleteButton {
-                    font-size: 30px;
+                    font-size: 20px;
                     fill: #b0bac5;
                     cursor: pointer;
                 }
@@ -47,9 +48,9 @@
                 .postDeleteButton:hover {
                     fill: #fcffe7;
                 }
-                .postEditButton {
-                    margin-top: 20px;
-                }
+                // .postEditButton {
+                //     margin-top: 20px;
+                // }
             }
         }
         .postCenter {
@@ -138,17 +139,5 @@
 
     }
  }
- .postOptionsButton{
-    height: 40px;
-    width: 30%;
-    color: #FCFFE7;
-    background-color: #2B3467;
-    border-radius: 8px;
-    border: 1px solid #FCFFE7;
-    cursor: pointer;
-}
-.postOptionsButton:hover{
-    background-color: #d2042d;
-    border: 1px solid #FCFFE7;
-}
+ 
  

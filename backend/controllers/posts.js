@@ -55,6 +55,32 @@ exports.getAllPosts = (req, res, next) => {
 };
 console.log(Posts);
 
+
+// updates a post
+exports.updatePost = (req, res, next) => {
+  // sets the url
+  const url = req.protocol + '://' + req.get('host');
+  // creates a update post object
+  const updatePost = { ...req.body };
+  // checks if there is a file
+  if (req.file) {
+    // sets the post image url
+    updatePost.image = url + '/images/' + req.file.filename;
+  }
+  // updates the post
+  Posts.updateOne({ _id: req.params._id }, updatePost)
+  // returns the post
+    .then(() => {
+      res.status(201).json(updatePost);
+    })
+    .catch((error) => {
+      res.status(400).json({
+        error: 'unable to update post!',
+      });
+    });
+};
+
+
 // deletes a post
 exports.deletePost = (req, res, next) => {
   // finds the posts by id
@@ -141,38 +167,3 @@ exports.likePosts = (req, res, next) => {
   });
 };
 
-// // updates a post
-// exports.updatePost = (req, res, next) => {
-//   // sets the url
-//   const url = req.protocol + '://' + req.get('host');
-//   // sets the post
-//   const post = new Posts({
-//     userId: req.body.userId,
-//     username: req.body.username,
-//     profilePicture: req.body.profilePicture,
-//     image: req.body.image,
-//     message: req.body.message,
-//     timestamp: req.body.timestamp,
-//     likes: req.body.likes,
-//     usersLiked: req.body.usersLiked,
-//     comments: req.body.comments,
-//   });
-//   // checks if there is a file
-//   if (req.file) {
-//     // sets the post image url
-//     post.image = url + '/images/' + req.file.filename;
-//   }
-//   // updates the post
-//   post.updateOne({ userId: req.body.userId }, post)
-//   // returns the post
-//     .then(() => {
-//       res.status(201).json({
-//         message: 'post updated successfully!',
-//       });
-//     })
-//     .catch((error) => {
-//       res.status(400).json({
-//         error: 'unable to update post!',
-//       });
-//     });
-// };

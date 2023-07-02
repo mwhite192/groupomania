@@ -15,9 +15,9 @@ const auth = require('../middleware/auth');
 // sets up the posts' routes
 router.post('/create', auth, multer, postsCtrl.createPost);
 router.get('/all', auth, postsCtrl.getAllPosts);
-//router.post('/:id/likes', postsCtrl.likePosts);
-// router.put('/:id', multer, postsCtrl.updatePost);
+router.put('/:_id', auth, multer, postsCtrl.updatePost);
 router.delete('/:_id', auth, postsCtrl.deletePost);
+//router.post('/:id/likes', postsCtrl.likePosts);
 
 // exports the router
 module.exports = router;

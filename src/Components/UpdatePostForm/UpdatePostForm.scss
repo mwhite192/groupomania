@@ -1,0 +1,23 @@
+.updatePostFormShareIcon{
+    margin-right: 6px;
+}
+.updatePostFormShareOption{
+    background-color: white;
+}
+.updatePostFormSubmitButton,
+.updatePostFormCloseButton{
+    height: 40px;
+    width: 17%;
+    font-size: 17px;
+    font-family: 'Arimo', sans-serif;
+    color: #FCFFE7;;
+    background-color: #d2042d;
+    border-radius: 8px;
+    border: 1px solid #FCFFE7;
+    cursor: pointer;
+}
+.updatePostFormSubmitButton:hover,
+.updatePostFormCloseButton:hover{
+    background-color: #2B3467;
+    border: 1px solid #FCFFE7;
+}
