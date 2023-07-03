@@ -4,6 +4,12 @@ const Posts = require('../models/posts');
 
 // sets up the create post function
 exports.createPost = (req, res, next) => {
+   // Check if the 'message' field exists and is not empty
+   if (!req.body.message || req.body.message.trim() === '') {
+     return res.status(400).json({
+        error: 'Message is required for creating a post.',
+     });
+    }
     // sets the url
     const url = req.protocol + '://' + req.get('host');
     // sets the post object
@@ -11,13 +17,17 @@ exports.createPost = (req, res, next) => {
       userId: req.body.userId,  
       username: req.body.username,
       profilePicture: req.body.profilePicture,  
-      image: url + '/images/' + req.file.filename,
+      // image: url + '/images/' + req.file.filename,
       message: req.body.message,
       timestamp: req.body.timestamp,
       likes: 0, 
       usersLiked: [],
       comments: [],
     });
+    // Check if an image is provided, then include it in the post object
+    if (req.file) {
+      post.image = url + '/images/' + req.file.filename;
+    }
     // saves the post
     console.log(post);
     post

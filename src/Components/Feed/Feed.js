@@ -5,10 +5,8 @@ import './Feed.scss';
 import { store } from '../../App/store';
 // imports the getUser selector
 import { getUser } from '../../App/Features/User/userSlice';
-// imports the createPost action
-import { createPost } from '../../App/Features/Post/postSlice';
-// imports getArrayOfPosts selector
-import { getArrayOfPosts } from '../../App/Features/Post/postSlice';
+// imports the createPost and getArrayOfPost action
+import { createPost, getArrayOfPosts } from '../../App/Features/Post/postSlice';
 // imports useEffect hook
 import { useEffect } from 'react';
 // imports the Online, Share, and Post components
@@ -22,37 +20,38 @@ export const Feed = () => {
   const { token } = getUser(store.getState());
   // creates the Posts variable and sets it to the getArrayOfPosts selector
   const Posts = getArrayOfPosts(store.getState());
+  
+
   // creates the useEffect hook to fetch all posts
   useEffect(() => {
-   fetch('http://localhost:3000/api/posts/all',{
-      method: 'GET',
+    fetch("http://localhost:3000/api/posts/all", {
+      method: "GET",
       headers: {
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + token,
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
       },
     })
-    .then((res) => res.json())
-    .then((data) => {
-      data.forEach(element => {
-        store.dispatch(createPost(element));
+      .then((res) => res.json())
+      .then((data) => {
+        data.forEach((element) => {
+          store.dispatch(createPost(element));
+        });
       });
-    })
-   }, []);
+  }, [token]);
+
 
   // returns the Feed component
   return (
-    <div className='feed'>
+    <div className="feed">
       <div className="feedWrapper">
         <Online />
         <Share />
         {Posts.map((post) => {
-          return (
-            <Post key={post._id} post={post} likes={post.likes} />
-          )
+          return <Post key={post._id} post={post} likes={post.likes} />;
         })}
       </div>
     </div>
-  )
+  );
 }
 
 export default Feed;

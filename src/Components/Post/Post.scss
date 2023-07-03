@@ -73,28 +73,9 @@
                      box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
                 }   
             } 
-            .postFooter {
-                margin-bottom: 8px;
-                .postFooterBottomItem {
-                    border: none;
-                    padding: 7px;
-                    display: flex;
-                    align-items: center;
-                    background-color: #2B3467;
-                    cursor: pointer;
-                    .postFooterIcon {
-                        fill: #FCFFE7;
-                        font-size: 30px;
-                        margin-right: 10px;
-                    }
-                }
-                .postLikeCounter {
-                    font-size: 15px;
-                    color: #FCFFE7;
-                }
-            }
         }
         .postContent {
+            padding-top: 20px;
             .postName {
                 margin-right: 5px;
                 font-size: 20px;
@@ -112,6 +93,26 @@
                 cursor: pointer;
             }
         }
+        .postFooter {
+                margin-bottom: 8px;
+                .postFooterBottomItem {
+                    border: none;
+                    padding: 7px;
+                    display: flex;
+                    align-items: center;
+                    background-color: #2B3467;
+                    cursor: pointer;
+                    .postFooterIcon {
+                        fill: #FCFFE7;
+                        font-size: 25px;
+                        margin-right: 10px;
+                    }
+                }
+                .postLikeCounter {
+                    font-size: 15px;
+                    color: #FCFFE7;
+                }
+            }
         .postComment {
             padding: 25px;
             display: flex;

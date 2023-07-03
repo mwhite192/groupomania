@@ -41,10 +41,9 @@ export const Post = ({ post }) => {
   // creates the userId variable and sets it to the getUser selector
   const [like, setLike] = useState(likes);
   // creates the userId variable and sets it to the getUser selector
-  const { userId, token } = getUser(store.getState());
+  const { userId } = getUser(store.getState());
   // creates the navigate variable and sets it to the useNavigate hook
   const navigate = useNavigate();
-
 
   // creates the handleLikeClick function
   const handleLikeClick = () => {
@@ -55,9 +54,9 @@ export const Post = ({ post }) => {
     };
     // sends a post request to the server
     fetch(`/api/posts/${_id}/likes`, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       // converts the like object to a json string
       body: JSON.stringify(like),
@@ -67,24 +66,23 @@ export const Post = ({ post }) => {
         return response.json();
       })
       .then((data) => {
-       // Check the response to see if the user already liked the post
-      if (data.message === "You already liked this post!") {
-        alert(data.message); // Display the message to the user
-      } else {
-        // Update the like state only if the user didn't like the post before
-        setLike(data.likes);
-        // Dispatch the Redux action to update the like count in the store
-        store.dispatch(updatePost({ postId: _id, likes: data.likes }));
-        // Navigate to the home page
-        navigate('/home');
-      }
+        // Check the response to see if the user already liked the post
+        if (data.message === "You already liked this post!") {
+          alert(data.message); // Display the message to the user
+        } else {
+          // Update the like state only if the user didn't like the post before
+          setLike(data.likes);
+          // Dispatch the Redux action to update the like count in the store
+          store.dispatch(updatePost({ postId: _id, likes: data.likes }));
+          // Navigate to the home page
+          navigate("/home");
+        }
       })
       .catch((error) => {
         // logs the error
         console.log(error);
       });
   };
-
 
   // returns the Post component
   return (
@@ -98,13 +96,13 @@ export const Post = ({ post }) => {
               alt="user profile"
             />
             <span className="postUsername">{username}</span>
-            {/* <div className="postTime">
+            <div className="postTime">
               <ReactTimeAgo
                 date={Date.parse(date)}
                 className="postDate"
                 locale="en-US"
               />
-            </div> */}
+            </div>
           </div>
           <div className="postTopRight">
             <div className="postDelete">
@@ -118,20 +116,23 @@ export const Post = ({ post }) => {
           </div>
         </div>
         <div className="postCenter">
-          <div className="postCenterImg">
+          <div
+            className="postCenterImg"
+            style={image ? {} : { display: "none" }}
+          >
             <img src={image} alt="post" className="postImg" />
-          </div>
-          <div className="postFooter">
-            <button className="postFooterBottomItem" onClick={handleLikeClick}>
-              <ThumbUpAltOutlined className="postFooterIcon" />
-            </button>
-            <span className="postLikeCounter">{like} &#x2022; likes</span>
           </div>
         </div>
         <div className="postContent">
           <span className="postName">{username}</span>
           <span className="postText">{message}</span>
           <span className="postCommentText">{comments} &#x2022; comments</span>
+        </div>
+        <div className="postFooter">
+          <button className="postFooterBottomItem" onClick={handleLikeClick}>
+            <ThumbUpAltOutlined className="postFooterIcon" />
+          </button>
+          <span className="postLikeCounter">{like} &#x2022; likes</span>
         </div>
         <div className="postComment">
           <img
