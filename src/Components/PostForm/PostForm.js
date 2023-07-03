@@ -66,6 +66,7 @@ export const PostForm = () => {
       /// convert response to JSON
     .then((response) => response.json())
     .then((data) => {
+      // dispatches the createPost action
       store.dispatch(createPost(data));
       // navigates to the home page
       navigate('/home');

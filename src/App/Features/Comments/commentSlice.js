@@ -20,20 +20,20 @@ export const commentSlice = createSlice({
         [CREATE]: (state, action) => {
             state[action.payload._id] = action.payload;
         },
-        [UPDATE]: (state, action) => {
-            const { commentId, ...updatedData } = action.payload;
-            state[commentId] = { ...state[commentId], ...updatedData };
-        },
-        [DELETE]: (state, action) => {
-            delete state[action.payload];
-        },
+        // [UPDATE]: (state, action) => {
+        //     const { commentId, ...updatedData } = action.payload;
+        //     state[commentId] = { ...state[commentId], ...updatedData };
+        // },
+        // [DELETE]: (state, action) => {
+        //     delete state[action.payload];
+        // },
     },
 });
 
 
 // export selectors
 export const getComment = (state) => state.comment;
-export const getCommentById = (state, commentId) => state.comment[commentId];
+export const getCommentById = (state, _id) => state.comment[_id];
 export const getCommentsByPostId = (state, postId) => {
     const comments = Object.values(state.comment);
     return comments.filter((comment) => comment.postId === postId);

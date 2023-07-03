@@ -5,6 +5,8 @@ import './Post.scss';
 import { store } from '../../App/store';
 // imports the getUser selector
 import { getUser } from '../../App/Features/User/userSlice';
+// imports the createComment action
+import { createComment, getCommentsByPostId } from '../../App/Features/Comments/commentSlice';
 // imports updatePost action
 import { updatePost } from '../../App/Features/Post/postSlice';
 // imports ReactTimeAgo library
@@ -21,6 +23,7 @@ import UpdatePostForm from '../UpdatePostForm/UpdatePostForm';
 import { ThumbUpAltOutlined } from '@mui/icons-material';
 // imports DefaultOnlineProfileImage.jpeg
 import DefaultOnlineProfileImage from '../../Assets/person/DefaultOnlineImage.jpeg';
+import e from 'cors';
 
 
 // creates the Post component
@@ -40,10 +43,31 @@ export const Post = ({ post }) => {
   const date = timestamp;
   // creates the userId variable and sets it to the getUser selector
   const [like, setLike] = useState(likes);
+  // creates the commentText variable and sets it to the useState hook
+  const [commentText, setCommentText] = useState('');
   // creates the userId variable and sets it to the getUser selector
   const { userId } = getUser(store.getState());
+  // creates the postsComments variable and sets it to the getCommentsByPostId selector
+  const postsComments = getCommentsByPostId(store.getState(), _id);
   // creates the navigate variable and sets it to the useNavigate hook
   const navigate = useNavigate();
+
+
+  // sets the initial state of the comment object
+  const comment = {};
+  // sets the postId property of the comment object to the _id variable
+  comment.postId = _id;
+  // sets the userId property of the comment object to the userId variable  
+  comment.userId = userId;
+  // sets the username property of the comment object to the username variable
+  comment.username = username;
+  // sets the profilePicture property of the comment object to the profilePicture variable
+  comment.profilePicture = profilePicture;
+  // sets the commentDate property of the comment object to the date variable
+  comment.commentDate = date;
+  // sets the commentText property of the comment object to the commentText variable
+  comment.commentText = commentText;
+  
 
   // creates the handleLikeClick function
   const handleLikeClick = () => {
@@ -84,6 +108,39 @@ export const Post = ({ post }) => {
       });
   };
 
+  // creates the handleComment function
+  const handleSubmit = (e) => {
+    // prevents the default behavior
+    e.preventDefault();
+    // sends a post request to the server
+    fetch(`/api/posts/${_id}/comments`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      // converts the comment object to a json string
+      body: JSON.stringify(comment),
+    })
+      .then((response) => {
+        // returns the response
+        return response.json();
+      })
+      .then((data) => {
+        // dispatches the createComment action
+        store.dispatch(createComment(data));
+        // dispatches the updatePost action
+        store.dispatch(updatePost({ postId: _id, comments: data._id }));
+        // resets the commentText state variable
+        setCommentText("");
+        // logs the data
+        console.log(data);
+      })
+      .catch((error) => {
+        // logs the error
+        console.log(error);
+      });
+  };
+
   // returns the Post component
   return (
     <div className="post">
@@ -96,13 +153,13 @@ export const Post = ({ post }) => {
               alt="user profile"
             />
             <span className="postUsername">{username}</span>
-            <div className="postTime">
+            {/* <div className="postTime">
               <ReactTimeAgo
                 date={Date.parse(date)}
                 className="postDate"
                 locale="en-US"
               />
-            </div>
+            </div> */}
           </div>
           <div className="postTopRight">
             <div className="postDelete">
@@ -156,7 +213,19 @@ export const Post = ({ post }) => {
             src={profilePicture ? profilePicture : DefaultOnlineProfileImage}
             alt="user profile"
           />
-          <span className="postAddComment">Add a comment...</span>
+          <form className="postAddCommentForm">
+            <input
+              type="text"
+              name="comment"
+              className="postAddComment"
+              maxLength={500}
+              onChange={(e) => setCommentText(e.target.value)}
+              placeholder="Add a comment....."
+            />
+            <button className='commentSubmitButton' onClick={handleSubmit}>
+            Post It
+          </button>
+          </form>
         </div>
       </div>
     </div>

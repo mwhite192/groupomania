@@ -1,5 +1,7 @@
 // sets up the post model
 const Posts = require('../models/posts');
+// sets up the comment model
+const Comment = require('../models/comments');
 
 
 // sets up the create post function
@@ -174,4 +176,47 @@ exports.likePosts = (req, res, next) => {
     });
   }
 });
- };
+};
+
+
+// comments on a posts
+exports.commentPosts = (req, res, next) => {
+  // Check if the 'message' field exists and is not empty
+  if (!req.body.commentText || req.body.commentText.trim() === '') {
+      return res.status(400).json({
+      error: 'Message is required for creating a comment.',
+      });
+  }
+  // sets the url
+  const url = req.protocol + '://' + req.get('host');
+  // sets the comment object
+  const comment = new Comment({
+      postId: req.body.postId,
+      userId: req.body.userId,
+      username: req.body.username,
+      profilePicture: req.body.profilePicture,
+      commentText: req.body.commentText,
+      commentDate: req.body.commentDate,
+      likes: 0,
+      usersLiked: [],
+  });
+  // // Check if an image is provided, then include it in the comment object
+  // if (req.file) {
+  //     comment.commentImage = url + '/images/' + req.file.filename;
+  // }
+  // saves the comment
+  console.log(comment);
+  comment
+      .save()
+      .then((savedComment) => {
+      // sends a response with the saved comment
+      res.status(201).json(savedComment);
+      })
+      .catch((error) => {
+      // sends an error response
+      res.status(400).json({
+          // returns the error
+          error: 'Unable to create comment!',
+      });
+      });
+};
