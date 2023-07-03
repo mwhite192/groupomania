@@ -17,7 +17,6 @@ exports.createPost = (req, res, next) => {
       userId: req.body.userId,  
       username: req.body.username,
       profilePicture: req.body.profilePicture,  
-      // image: url + '/images/' + req.file.filename,
       message: req.body.message,
       timestamp: req.body.timestamp,
       likes: 0, 

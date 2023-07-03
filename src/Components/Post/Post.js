@@ -127,6 +127,22 @@ export const Post = ({ post }) => {
           <span className="postName">{username}</span>
           <span className="postText">{message}</span>
           <span className="postCommentText">{comments} &#x2022; comments</span>
+          {/* {postsComments.map((comment) => (
+            <div key={comment._id} className="postComment">
+              <img
+                className="postCommentImg"
+                src={
+                  comment.profilePicture
+                    ? comment.profilePicture
+                    : DefaultOnlineProfileImage
+                }
+                alt="user profile"
+              />
+              <span className="postCommentUsername">{comment.username}</span>
+              <span className="postCommentDate">{comment.commentDate}</span>
+              <span className="postCommentText">{comment.commentText}</span>
+            </div>
+          ))} */}
         </div>
         <div className="postFooter">
           <button className="postFooterBottomItem" onClick={handleLikeClick}>

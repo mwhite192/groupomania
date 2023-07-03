@@ -1,11 +1,11 @@
     // imports create slice from redux toolkit
-    import { createSlice } from '@reduxjs/toolkit'
+    import { createSlice } from '@reduxjs/toolkit';
 
 
     // define initial state
-    export const initialState = {
-    }
+    export const initialState = {};
 
+    
     // define action types
     export const CREATE = 'CREATE';
     export const UPDATE = 'UPDATE';
