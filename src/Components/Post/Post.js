@@ -20,7 +20,7 @@ import { useState } from 'react';
 // imports the UpdatePostForm component
 import UpdatePostForm from '../UpdatePostForm/UpdatePostForm';
 // imports the ThumbUpAltOutlined icon from the material ui library
-import { ThumbUpAltOutlined, SendOutlined } from '@mui/icons-material';
+import { ThumbUpAltOutlined, SendOutlined, Edit, DeleteOutline } from '@mui/icons-material';
 // imports DefaultOnlineProfileImage.jpeg
 import DefaultOnlineProfileImage from '../../Assets/person/DefaultOnlineImage.jpeg';
 
@@ -36,7 +36,6 @@ export const Post = ({ post }) => {
     timestamp,
     image,
     message,
-    comments,
     likes,
   } = post;
   // creates the date variable from timestamp
@@ -44,7 +43,9 @@ export const Post = ({ post }) => {
   // creates the userId variable and sets it to the getUser selector
   const [like, setLike] = useState(likes);
   // creates the commentText variable and sets it to the useState hook
-  const [commentText, setCommentText] = useState('');
+  const [commentText, setCommentText] = useState('Add a comment.....');
+  // creates the visibleComments variable and sets it to the useState hook
+  const [visibleComments, setVisibleComments] = useState(2);
   // creates the userId variable and sets it to the getUser selector
   const { userId, name, formFile } = getUser(store.getState());
   // creates the postsComments variable and sets it to the getCommentsByPostId selector
@@ -108,8 +109,9 @@ export const Post = ({ post }) => {
       });
   };
 
+
   // creates the handleComment function
-  const handleSubmit = (e) => {
+  function handleSubmit(e) {
     // prevents the default behavior
     e.preventDefault();
     // sends a post request to the server
@@ -131,7 +133,7 @@ export const Post = ({ post }) => {
         // dispatches the updatePost action
         store.dispatch(updatePost({ postId: _id, comments: data._id }));
         // resets the commentText state variable
-        setCommentText("");
+        setCommentText("Add a comment.....");
         // logs the data
         console.log(data);
         // navigates to the home page
@@ -141,7 +143,7 @@ export const Post = ({ post }) => {
         // logs the error
         console.log(error);
       });
-  };
+  }
 
   // returns the Post component
   return (
@@ -185,8 +187,18 @@ export const Post = ({ post }) => {
         <div className="postContent">
           <span className="postName">{username}</span>
           <span className="postText">{message}</span>
-          <span className="postCommentText">{comments} &#x2022; comments</span>
-          {postsComments.map((comment) => (
+          <span className="postCommentText">
+            {postsComments.length}{" "}
+            {postsComments.length === 1 ? "comment" : "comments"}
+          </span>
+          <div className="commentLoad">
+              {postsComments.length > visibleComments && ( // If there are more comments than the visibleComments state variable, display the load more button
+                <button className='commentLoadButton' onClick={() => setVisibleComments(visibleComments + 3)}>
+                  View all {postsComments.length} comments
+                </button>
+              )}
+              </div>
+          {postsComments.slice(0, visibleComments).map((comment) => (
             <div key={comment._id} className="comment">
               <div className="commentUserInfo">
                 <img
@@ -205,9 +217,25 @@ export const Post = ({ post }) => {
                   locale="en-US"
                 />
               </div>
-              <div className="commentText">
-                {comment.commentText}
+              <div className="commentText">{comment.commentText}</div>
+              <div className="commentFooter">
+                <button className="commentFooterItem">
+                  <ThumbUpAltOutlined className="commentFooterIcon" />
+                </button>
+                <button className='commentFooterItem'>
+                  <DeleteOutline className='commentFooterIcon' />
+                </button>
+                <button className='commentFooterItem' >
+                  <Edit className='commentFooterIcon' />
+                </button>
               </div>
+              {/* <div className="commentLoad">
+              {postsComments.length > visibleComments && ( // If there are more comments than the visibleComments state variable, display the load more button
+                <button className='commentLoadButton' onClick={() => setVisibleComments(visibleComments + 3)}>
+                  View all {postsComments.length} comments
+                </button>
+              )}
+              </div> */}
             </div>
           ))}
         </div>

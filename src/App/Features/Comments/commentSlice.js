@@ -20,10 +20,10 @@ export const commentSlice = createSlice({
         [CREATE]: (state, action) => {
             state[action.payload._id] = action.payload;
         },
-        // [UPDATE]: (state, action) => {
-        //     const { commentId, ...updatedData } = action.payload;
-        //     state[commentId] = { ...state[commentId], ...updatedData };
-        // },
+        [UPDATE]: (state, action) => {
+            const { _id, ...updatedData } = action.payload;
+            state[_id] = { ...state[_id], ...updatedData };
+        },
         // [DELETE]: (state, action) => {
         //     delete state[action.payload];
         // },
