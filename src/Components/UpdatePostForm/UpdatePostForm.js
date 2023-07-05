@@ -68,15 +68,15 @@ export const UpdatePostForm = ({ postId }) => {
         .then((response) => response.json())
         .then((data) => {
           store.dispatch(updatePost({ postId: postId, ...data }));
-          // navigates to the home page
-          navigate("/home");
-          // closes the modal
-          handleClose();
           // logs the data
           console.log(data);
           // Reset form fields
           setFile('');
           setMessage('');
+          // navigates to the home page
+          navigate("/home");
+          // closes the modal
+          handleClose();
         })
         // catches errors
         .catch((error) => {

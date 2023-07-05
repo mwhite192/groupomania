@@ -20,10 +20,10 @@ import { useState } from 'react';
 // imports the UpdatePostForm component
 import UpdatePostForm from '../UpdatePostForm/UpdatePostForm';
 // imports the ThumbUpAltOutlined icon from the material ui library
-import { ThumbUpAltOutlined } from '@mui/icons-material';
+import { ThumbUpAltOutlined, SendOutlined } from '@mui/icons-material';
 // imports DefaultOnlineProfileImage.jpeg
 import DefaultOnlineProfileImage from '../../Assets/person/DefaultOnlineImage.jpeg';
-import e from 'cors';
+
 
 
 // creates the Post component
@@ -46,7 +46,7 @@ export const Post = ({ post }) => {
   // creates the commentText variable and sets it to the useState hook
   const [commentText, setCommentText] = useState('');
   // creates the userId variable and sets it to the getUser selector
-  const { userId } = getUser(store.getState());
+  const { userId, name, formFile } = getUser(store.getState());
   // creates the postsComments variable and sets it to the getCommentsByPostId selector
   const postsComments = getCommentsByPostId(store.getState(), _id);
   // creates the navigate variable and sets it to the useNavigate hook
@@ -60,9 +60,9 @@ export const Post = ({ post }) => {
   // sets the userId property of the comment object to the userId variable  
   comment.userId = userId;
   // sets the username property of the comment object to the username variable
-  comment.username = username;
+  comment.username = name;
   // sets the profilePicture property of the comment object to the profilePicture variable
-  comment.profilePicture = profilePicture;
+  comment.profilePicture = formFile;
   // sets the commentDate property of the comment object to the date variable
   comment.commentDate = date;
   // sets the commentText property of the comment object to the commentText variable
@@ -134,6 +134,8 @@ export const Post = ({ post }) => {
         setCommentText("");
         // logs the data
         console.log(data);
+        // navigates to the home page
+        navigate("/home");
       })
       .catch((error) => {
         // logs the error
@@ -153,13 +155,13 @@ export const Post = ({ post }) => {
               alt="user profile"
             />
             <span className="postUsername">{username}</span>
-            {/* <div className="postTime">
+            <div className="postTime">
               <ReactTimeAgo
                 date={Date.parse(date)}
                 className="postDate"
                 locale="en-US"
               />
-            </div> */}
+            </div>
           </div>
           <div className="postTopRight">
             <div className="postDelete">
@@ -184,22 +186,30 @@ export const Post = ({ post }) => {
           <span className="postName">{username}</span>
           <span className="postText">{message}</span>
           <span className="postCommentText">{comments} &#x2022; comments</span>
-          {/* {postsComments.map((comment) => (
-            <div key={comment._id} className="postComment">
-              <img
-                className="postCommentImg"
-                src={
-                  comment.profilePicture
-                    ? comment.profilePicture
-                    : DefaultOnlineProfileImage
-                }
-                alt="user profile"
-              />
-              <span className="postCommentUsername">{comment.username}</span>
-              <span className="postCommentDate">{comment.commentDate}</span>
-              <span className="postCommentText">{comment.commentText}</span>
+          {postsComments.map((comment) => (
+            <div key={comment._id} className="comment">
+              <div className="commentUserInfo">
+                <img
+                  className="commentImg"
+                  src={
+                    comment.profilePicture
+                      ? comment.profilePicture
+                      : DefaultOnlineProfileImage
+                  }
+                  alt="user profile"
+                />
+                <span className="commentUsername">{comment.username}</span>
+                <ReactTimeAgo
+                  className="commentDate"
+                  date={Date.parse(comment.commentDate)}
+                  locale="en-US"
+                />
+              </div>
+              <div className="commentText">
+                {comment.commentText}
+              </div>
             </div>
-          ))} */}
+          ))}
         </div>
         <div className="postFooter">
           <button className="postFooterBottomItem" onClick={handleLikeClick}>
@@ -210,7 +220,7 @@ export const Post = ({ post }) => {
         <div className="postComment">
           <img
             className="postCommentImg"
-            src={profilePicture ? profilePicture : DefaultOnlineProfileImage}
+            src={DefaultOnlineProfileImage}
             alt="user profile"
           />
           <form className="postAddCommentForm">
@@ -222,9 +232,12 @@ export const Post = ({ post }) => {
               onChange={(e) => setCommentText(e.target.value)}
               placeholder="Add a comment....."
             />
-            <button className='commentSubmitButton' onClick={handleSubmit}>
-            Post It
-          </button>
+            <button
+              className="postAddCommentSubmitButton"
+              onClick={handleSubmit}
+            >
+              <SendOutlined className="postAddCommentSubmitIcon" />
+            </button>
           </form>
         </div>
       </div>

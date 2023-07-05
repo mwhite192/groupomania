@@ -38,6 +38,7 @@
                 display: flex;
                 align-items: center;
                 gap: 30px;
+                margin-bottom: 10px;
                 .postEditButton,
                 .postDeleteButton {
                     font-size: 20px;
@@ -62,11 +63,10 @@
             .postCenterImg{
                 width: 100%;
                 height: 420px;
-                border-radius: 15px;
                 .postImg {
                     width: 100%;
                     height: 100%;
-                    border-radius: 15px;
+                    border-radius: 5px;
                     object-fit: contain;
                     background-color: black;
                     -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
@@ -91,6 +91,38 @@
                 font-size: 15px;
                 color: #FCFFE7;
                 cursor: pointer;
+            }
+            .comment{
+                //background-color: #EB455F;
+                margin: 30px 0px;
+                .commentUserInfo{
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                    .commentImg{
+                        width: 30px;
+                        height: 30px;
+                        border-radius: 50%;
+                        object-fit: cover;  
+                        cursor: pointer;
+                    }
+                    .commentUsername{
+                        font-size: 15px;
+                        color: #FCFFE7;
+                    }
+                    .commentDate{
+                        font-family: 'Arimo', sans-serif;
+                        font-size: 13px;
+                        color: #BAD7E9;
+                    }
+                }
+                .commentText{
+                    width: 50%;
+                    margin-left: 40px;
+                    font-family: 'Arimo', sans-serif;
+                    font-size: 15px;
+                    color: #BAD7E9;
+                }
             }
         }
         .postFooter {
@@ -119,16 +151,15 @@
             align-items: center;
             gap: 8px;
             .postCommentImg {
-                width: 35px;
-                height: 35px;
+                width: 45px;
+                height: 45px;
                 border-radius: 50%;
-                border: 4px solid #FCFFE7;
                 object-fit: cover;
                 cursor: pointer;
             }
             .postAddComment {
-                padding: 6px 100px 6px 12px;
-                border: 1px solid #BAD7E9;
+                padding: 6px 50px 6px 12px;
+                border: 1px solid #b0bac5;
                 border-radius: 20px;
                 background-color: transparent;
                 font-family: 'Arimo', sans-serif;
@@ -136,7 +167,17 @@
                 opacity: 0.8;
             }
             .postAddComment::placeholder {
-                color: #BAD7E9;
+                color: #b0bac5;
+            }
+            .postAddCommentSubmitButton{
+                border: none;
+                background-color: transparent;
+                margin-left: 10px;
+                cursor: pointer;
+                .postAddCommentSubmitIcon{
+                    fill: #b0bac5;
+                    font-size: 25px;
+                }
             }
         }
 
