@@ -6,7 +6,7 @@ import { store } from '../../App/store';
 // imports the getUser selector
 import { getUser } from '../../App/Features/User/userSlice';
 // imports the createPost and getArrayOfPost action
-import { createPost, getArrayOfPosts } from '../../App/Features/Post/postSlice';
+import { createPost, getSortedArrayOfPosts } from '../../App/Features/Post/postSlice';
 // imports useEffect hook
 import { useEffect } from 'react';
 // imports the Online, Share, and Post components
@@ -19,7 +19,8 @@ import { Post } from '../Post/Post';
 export const Feed = () => {
   const { token } = getUser(store.getState());
   // creates the Posts variable and sets it to the getArrayOfPosts selector
-  const Posts = getArrayOfPosts(store.getState());
+  const Posts = getSortedArrayOfPosts(store.getState());
+  console.log(Posts);
   
 
   // creates the useEffect hook to fetch all posts

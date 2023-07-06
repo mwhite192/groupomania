@@ -167,7 +167,7 @@ exports.likePosts = (req, res, next) => {
     .catch((error) => {
       console.error(error);
       res.status(500).json({
-        error: "Failed to update the post!",
+        error: "Failed to update likes the post!",
       });
     });
   } else {
@@ -200,10 +200,6 @@ exports.commentPosts = (req, res, next) => {
       likes: 0,
       usersLiked: [],
   });
-  // // Check if an image is provided, then include it in the comment object
-  // if (req.file) {
-  //     comment.commentImage = url + '/images/' + req.file.filename;
-  // }
   // saves the comment
   console.log(comment);
   comment
@@ -219,6 +215,41 @@ exports.commentPosts = (req, res, next) => {
           error: 'Unable to create comment!',
       });
       });
+};
+
+
+// deletes a comment
+exports.deleteComment = (req, res, next) => {
+  // finds the comment by id
+  Comment.findOne({ _id: req.params.commentId }).then((comment) => {
+    // checks if the comment exists
+    console.log(comment);
+    if (!comment) {
+      // returns an error
+      return res.status(404).json({
+        error: new Error('post not found!'),
+      });
+    }
+    // checks if the user is authorized
+    if (comment.userId !== req.auth.userId) {
+      return res.status(403).json({
+        error: new Error('Unauthorized request!'),
+      });
+    }
+    // deletes the comment
+    Comment.deleteOne({ _id: req.params.commentId })
+      .then(() => {
+        // returns the message
+        res.status(200).json({
+          message: 'posts deleted successfully!',
+        });
+      })
+      .catch((error) => {
+        res.status(400).json({
+          error: 'unable to delete posts!',
+        });
+      });
+  });
 };
 
 

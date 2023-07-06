@@ -6,7 +6,7 @@ import { store } from '../../App/store';
 // imports the getUser selector
 import { getUser } from '../../App/Features/User/userSlice';
 // imports the createComment action
-import { createComment, getCommentsByPostId } from '../../App/Features/Comments/commentSlice';
+import { createComment, getCommentsByPostId, deleteComment } from '../../App/Features/Comments/commentSlice';
 // imports updatePost action
 import { updatePost } from '../../App/Features/Post/postSlice';
 // imports ReactTimeAgo library
@@ -43,15 +43,16 @@ export const Post = ({ post }) => {
   // creates the userId variable and sets it to the getUser selector
   const [like, setLike] = useState(likes);
   // creates the commentText variable and sets it to the useState hook
-  const [commentText, setCommentText] = useState('Add a comment.....');
+  const [commentText, setCommentText] = useState('');
   // creates the visibleComments variable and sets it to the useState hook
   const [visibleComments, setVisibleComments] = useState(2);
   // creates the userId variable and sets it to the getUser selector
-  const { userId, name, formFile } = getUser(store.getState());
+  const { userId, name, formFile, token } = getUser(store.getState());
   // creates the postsComments variable and sets it to the getCommentsByPostId selector
   const postsComments = getCommentsByPostId(store.getState(), _id);
   // creates the navigate variable and sets it to the useNavigate hook
   const navigate = useNavigate();
+  
 
 
   // sets the initial state of the comment object
@@ -110,6 +111,35 @@ export const Post = ({ post }) => {
   };
 
 
+  // creates the handleDelete function
+  const handleDelete = (commentId) => {
+    console.log(commentId);
+    // sends a delete request to the server
+    fetch(`/api/posts/${_id}/comments/` + commentId, {
+      method: "DELETE",
+      headers: {
+        "Authorization": `Bearer ${token}`,
+      },
+    })
+      .then((response) => {
+        // returns the response 
+        return response.json();
+      })
+      .then((data) => {
+        // logs the data
+        console.log(data, 'comment deleted');
+        // dispatches the deleteComment action
+        store.dispatch(deleteComment(commentId));
+        // navigates to the home page
+        navigate("/home");
+      })
+      .catch((error) => {
+        // logs the error
+        console.log(error);
+      });
+  };
+
+
   // creates the handleComment function
   function handleSubmit(e) {
     // prevents the default behavior
@@ -133,7 +163,7 @@ export const Post = ({ post }) => {
         // dispatches the updatePost action
         store.dispatch(updatePost({ postId: _id, comments: data._id }));
         // resets the commentText state variable
-        setCommentText("Add a comment.....");
+        setCommentText("");
         // logs the data
         console.log(data);
         // navigates to the home page
@@ -188,8 +218,8 @@ export const Post = ({ post }) => {
           <span className="postName">{username}</span>
           <span className="postText">{message}</span>
           <span className="postCommentText">
-            {postsComments.length}{" "}
-            {postsComments.length === 1 ? "comment" : "comments"}
+            {postsComments.length}{" "} 
+            &#x2022; {postsComments.length === 1 ? "comment" : "comments"}
           </span>
           <div className="commentLoad">
               {postsComments.length > visibleComments && ( // If there are more comments than the visibleComments state variable, display the load more button
@@ -222,20 +252,13 @@ export const Post = ({ post }) => {
                 <button className="commentFooterItem">
                   <ThumbUpAltOutlined className="commentFooterIcon" />
                 </button>
-                <button className='commentFooterItem'>
+                <button className='commentFooterItem' onClick={() => handleDelete(comment._id)}>
                   <DeleteOutline className='commentFooterIcon' />
                 </button>
                 <button className='commentFooterItem' >
                   <Edit className='commentFooterIcon' />
                 </button>
               </div>
-              {/* <div className="commentLoad">
-              {postsComments.length > visibleComments && ( // If there are more comments than the visibleComments state variable, display the load more button
-                <button className='commentLoadButton' onClick={() => setVisibleComments(visibleComments + 3)}>
-                  View all {postsComments.length} comments
-                </button>
-              )}
-              </div> */}
             </div>
           ))}
         </div>

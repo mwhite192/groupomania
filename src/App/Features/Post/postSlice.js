@@ -37,6 +37,10 @@
     export const getPostById = (state, postId) => state.post[postId];
     export const getLikes = (state, postId) => state.post[postId].likes;
     export const getArrayOfPosts = (state) => Object.values(getAllPost(state));
+    export const getSortedArrayOfPosts = (state) => getArrayOfPosts(state).sort((a, b) => {
+      console.log(Date.parse(a.timestamp), Date.parse(b.timestamp))
+      return Date.parse(b.timestamp) - Date.parse(a.timestamp)
+      });
 
     // export actions and selectors
     export const createPost = postSlice.actions[CREATE];

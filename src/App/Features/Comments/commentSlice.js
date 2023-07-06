@@ -24,9 +24,9 @@ export const commentSlice = createSlice({
             const { _id, ...updatedData } = action.payload;
             state[_id] = { ...state[_id], ...updatedData };
         },
-        // [DELETE]: (state, action) => {
-        //     delete state[action.payload];
-        // },
+        [DELETE]: (state, action) => {
+            delete state[action.payload];
+        },
     },
 });
 
