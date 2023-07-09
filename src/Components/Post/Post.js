@@ -11,8 +11,9 @@ import { createComment, getCommentsByPostId, deleteComment } from '../../App/Fea
 import { updatePost } from '../../App/Features/Post/postSlice';
 // imports ReactTimeAgo library
 import ReactTimeAgo from 'react-time-ago';
-// imports the DeletePost component
+// imports the DeletePost and UpdateComment component
 import DeletePost from '../DeletePost/DeletePost';
+import UpdateComment from '../UpdateComment/UpdateComment';
 // imports useNavigate hook
 import { useNavigate } from 'react-router-dom';
 // imports the useState hook
@@ -20,7 +21,7 @@ import { useState } from 'react';
 // imports the UpdatePostForm component
 import UpdatePostForm from '../UpdatePostForm/UpdatePostForm';
 // imports the ThumbUpAltOutlined icon from the material ui library
-import { ThumbUpAltOutlined, SendOutlined, Edit, DeleteOutline } from '@mui/icons-material';
+import { ThumbUpAltOutlined, ThumbUpAlt, SendOutlined, DeleteOutline } from '@mui/icons-material';
 // imports DefaultOnlineProfileImage.jpeg
 import DefaultOnlineProfileImage from '../../Assets/person/DefaultOnlineImage.jpeg';
 
@@ -42,6 +43,8 @@ export const Post = ({ post }) => {
   const date = timestamp;
   // creates the userId variable and sets it to the getUser selector
   const [like, setLike] = useState(likes);
+  // creates the liked variable and sets it to the useState hook
+  const [liked, setLiked] = useState(false);
   // creates the commentText variable and sets it to the useState hook
   const [commentText, setCommentText] = useState('');
   // creates the visibleComments variable and sets it to the useState hook
@@ -66,7 +69,7 @@ export const Post = ({ post }) => {
   // sets the profilePicture property of the comment object to the profilePicture variable
   comment.profilePicture = formFile;
   // sets the commentDate property of the comment object to the date variable
-  comment.commentDate = date;
+  comment.commentDate = new Date().toISOString();
   // sets the commentText property of the comment object to the commentText variable
   comment.commentText = commentText;
   
@@ -98,6 +101,8 @@ export const Post = ({ post }) => {
         } else {
           // Update the like state only if the user didn't like the post before
           setLike(data.likes);
+          // Update the liked state only if the user didn't like the post before
+          setLiked(true);
           // Dispatch the Redux action to update the like count in the store
           store.dispatch(updatePost({ postId: _id, likes: data.likes }));
           // Navigate to the home page
@@ -218,16 +223,19 @@ export const Post = ({ post }) => {
           <span className="postName">{username}</span>
           <span className="postText">{message}</span>
           <span className="postCommentText">
-            {postsComments.length}{" "} 
-            &#x2022; {postsComments.length === 1 ? "comment" : "comments"}
+            {postsComments.length} &#x2022;{" "}
+            {postsComments.length === 1 ? "comment" : "comments"}
           </span>
           <div className="commentLoad">
-              {postsComments.length > visibleComments && ( // If there are more comments than the visibleComments state variable, display the load more button
-                <button className='commentLoadButton' onClick={() => setVisibleComments(visibleComments + 3)}>
-                  View all {postsComments.length} comments
-                </button>
-              )}
-              </div>
+            {postsComments.length > visibleComments && ( // If there are more comments than the visibleComments state variable, display the load more button
+              <button
+                className="commentLoadButton"
+                onClick={() => setVisibleComments(visibleComments + 3)}
+              >
+                View all {postsComments.length} comments
+              </button>
+            )}
+          </div>
           {postsComments.slice(0, visibleComments).map((comment) => (
             <div key={comment._id} className="comment">
               <div className="commentUserInfo">
@@ -252,26 +260,33 @@ export const Post = ({ post }) => {
                 <button className="commentFooterItem">
                   <ThumbUpAltOutlined className="commentFooterIcon" />
                 </button>
-                <button className='commentFooterItem' onClick={() => handleDelete(comment._id)}>
-                  <DeleteOutline className='commentFooterIcon' />
+                <button
+                  className="commentFooterItem"
+                  onClick={() => handleDelete(comment._id)}
+                >
+                  <DeleteOutline className="commentFooterIcon" />
                 </button>
-                <button className='commentFooterItem' >
-                  <Edit className='commentFooterIcon' />
-                </button>
+                <span className="commentFooterItem">
+                  <UpdateComment className='commentFooterIcon' postId={_id} commentId={comment._id} />
+                </span>
               </div>
             </div>
           ))}
         </div>
         <div className="postFooter">
           <button className="postFooterBottomItem" onClick={handleLikeClick}>
-            <ThumbUpAltOutlined className="postFooterIcon" />
+            {liked ? (
+              <ThumbUpAlt className="postFooterIcon" />
+            ) : (
+              <ThumbUpAltOutlined className="postFooterIcon" />
+            )}
           </button>
           <span className="postLikeCounter">{like} &#x2022; likes</span>
         </div>
         <div className="postComment">
           <img
             className="postCommentImg"
-            src={DefaultOnlineProfileImage}
+            src={DefaultOnlineProfileImage} 
             alt="user profile"
           />
           <form className="postAddCommentForm">
@@ -280,6 +295,7 @@ export const Post = ({ post }) => {
               name="comment"
               className="postAddComment"
               maxLength={500}
+              value={commentText}
               onChange={(e) => setCommentText(e.target.value)}
               placeholder="Add a comment....."
             />

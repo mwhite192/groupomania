@@ -1,0 +1,45 @@
+.postAddComment{
+    padding: 5px;
+    font-family: 'Arimo', sans-serif;
+    border: 1px solid #FCFFE7;
+    border-radius: 20px;
+    background-color: transparent;
+}
+.postAddComment::placeholder{
+    font-family: 'Arimo', sans-serif;
+    font-size: 15px;
+    padding-left: 10px;
+    color: #FCFFE7;
+}
+.commentFooterIcon {
+    margin-top: 3px;
+    margin-left: -10px;
+    font-size: 17px;
+    font-family: 'Arimo', sans-serif;
+    color: #FCFFE7;
+    cursor: pointer;
+
+}
+.updateCommentButton{
+    margin-top: 5px;
+    margin-left: -8px;
+    border: none;
+    background-color: transparent;
+}   
+.updateCommentCloseButton,
+.updateCommentSubmitButton{
+    height: 40px;
+    width: 17%;
+    font-size: 17px;
+    font-family: 'Arimo', sans-serif;
+    color: #FCFFE7;
+    border: 1px solid #FCFFE7;
+    background-color: #d2042d;
+    border-radius: 8px;
+    cursor: pointer;
+}
+.updateCommentCloseButton:hover,
+.updateCommentSubmitButton:hover{
+    background-color: #2B3467;
+    border: 1px solid #FCFFE7;
+}

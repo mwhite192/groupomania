@@ -149,6 +149,7 @@ exports.likePosts = (req, res, next) => {
   if (!post) {
     return res.status(404).json({ message: "Post not found!" });
   }
+  // sets the userId 
   const userId = req.body.userId;
   // checks if the user has already liked the post
   if (!post.usersLiked.includes(userId)) {
@@ -187,8 +188,6 @@ exports.commentPosts = (req, res, next) => {
       error: 'Message is required for creating a comment.',
       });
   }
-  // sets the url
-  const url = req.protocol + '://' + req.get('host');
   // sets the comment object
   const comment = new Comment({
       postId: req.body.postId,
@@ -217,6 +216,24 @@ exports.commentPosts = (req, res, next) => {
       });
 };
 
+
+// updates a comment
+exports.updateComment = (req, res, next) => {
+   // updates the comment
+   Comment.updateOne({ _id: req.params.commentId }, 
+    { commentText: req.body.commentText })
+   // returns the sauce
+     .then((comment) => {
+      // sends a response with the saved comment
+       res.status(201).json(comment);
+     })
+     .catch((error) => {
+       res.status(400).json({
+         error: error,
+       });
+     });
+ };
+ 
 
 // deletes a comment
 exports.deleteComment = (req, res, next) => {

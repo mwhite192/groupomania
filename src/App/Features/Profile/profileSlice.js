@@ -10,6 +10,7 @@ export const initialState = {
 // define action types
 export const UPDATE = 'UPDATE';
 
+
 // create profile slice
 export const profileSlice = createSlice({
     name: 'profile',
@@ -29,3 +30,4 @@ export const getProfileId = (state) => getProfile(state).userId;
 
 // export actions and selectors
 export const update = profileSlice.actions[UPDATE];
+

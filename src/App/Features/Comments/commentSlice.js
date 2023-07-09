@@ -21,8 +21,12 @@ export const commentSlice = createSlice({
             state[action.payload._id] = action.payload;
         },
         [UPDATE]: (state, action) => {
-            const { _id, ...updatedData } = action.payload;
-            state[_id] = { ...state[_id], ...updatedData };
+            const updatedComment = action.payload;
+            const comment = Object.values(state).find((c) => c._id === updatedComment._id);
+            if (comment) {
+                // Update the comment text property
+                comment.commentText = updatedComment.commentText;
+            }
         },
         [DELETE]: (state, action) => {
             delete state[action.payload];
