@@ -22,7 +22,7 @@
   // creates the UpdateComment component
   export const UpdateComment = ({ postId, commentId }) => {
     // creates the token variable and sets it to the token in local storage
-    const { token, userId, username, formFile } = getUser(store.getState());
+    const { token, username, formFile } = getUser(store.getState());
     // creates the navigate function
     const navigate = useNavigate();
     // creates the show state variable and the setShow state function
@@ -30,18 +30,7 @@
     // creates the commentText state variable and the setCommentText state function
     const [commentText, setCommentText] = useState('');
 
-    // creates the comment object
-    const comment = {
-      postId: postId,
-      userId: userId,
-      username: username,
-      profilePicture: formFile,
-      commentText: commentText,
-      commentDate: new Date().toISOString(),
-      likes: 0,
-      usersLiked: [],
-    };
-
+    
     // creates the handleClose function
     const handleClose = () => setShow(false);
     // creates the handleShow function
@@ -55,13 +44,24 @@
         setCommentText(commentToUpdate.commentText);
       }
     };
-
+    
     // creates the handleUpdate function
     const handleUpdate = () => {
-      // prevents the default behavior
-      //e.preventDefault();
+      // gets the comment to update
+      const commentToUpdate = getCommentById(store.getState(), commentId);
+      // creates the comment object
+      const comment = {
+        postId: postId,
+        userId: commentToUpdate.userId,
+        username: username,
+        profilePicture: formFile,
+        commentText: commentText,
+        commentDate: new Date().toISOString(),
+        likes: 0,
+        usersLiked: [],
+      };
       // sends a put request to the server
-      fetch(`/api/posts/${postId}/comments/` + commentId, {
+      fetch(`/api/posts/${postId}/comments/${commentId}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -72,7 +72,7 @@
       })
         .then((response) => {
           // checks if the response is unauthorized (401)
-          if (response.status === 401) {
+          if (response.status === 403) {
             throw new Error("Unauthorized");
           }
           // returns the response

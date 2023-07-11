@@ -234,6 +234,12 @@ exports.commentPosts = (req, res, next) => {
 
 // updates a comment
 exports.updateComment = (req, res, next) => {
+  // checks if user is authorized to update the comment
+  if (req.body.userId !== req.auth.userId) {
+    return res.status(403).json({
+      error: new Error('Unauthorized request!'),
+    });
+  }
    // updates the comment
    Comment.updateOne({ _id: req.params.commentId }, 
     { commentText: req.body.commentText })
@@ -259,11 +265,11 @@ exports.deleteComment = (req, res, next) => {
     if (!comment) {
       // returns an error
       return res.status(404).json({
-        error: new Error('post not found!'),
+        error: new Error('comment not found!'),
       });
     }
     // checks if the user is authorized
-    if (comment.userId !== req.auth.userId) {
+    if (req.body.userId !== req.auth.userId) {
       return res.status(403).json({
         error: new Error('Unauthorized request!'),
       });
@@ -281,6 +287,9 @@ exports.deleteComment = (req, res, next) => {
           error: 'unable to delete posts!',
         });
       });
+  })
+  .catch((error) => {
+    res.status(500).json({ error: 'Server error.' });
   });
 };
 

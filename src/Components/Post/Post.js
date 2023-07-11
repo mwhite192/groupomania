@@ -58,23 +58,17 @@ export const Post = ({ post }) => {
   const [visibleComments, setVisibleComments] = useState(2);
   
 
-
   // sets the initial state of the comment object
-  const comment = {};
-  // sets the postId property of the comment object to the _id variable
-  comment.postId = _id;
-  // sets the userId property of the comment object to the userId variable  
-  comment.userId = userId;
-  // sets the username property of the comment object to the username variable
-  comment.username = name;
-  // sets the profilePicture property of the comment object to the profilePicture variable
-  comment.profilePicture = formFile;
-  // sets the commentDate property of the comment object to the date variable
-  comment.commentDate = new Date().toISOString();
-  // sets the commentText property of the comment object to the commentText variable
-  comment.commentText = commentText;
+  const comment = {
+    postId: _id,
+    userId: userId,
+    username: name,
+    profilePicture: formFile,
+    commentText: commentText,
+    commentDate: new Date().toISOString(),
+  };
   
-
+  
   // creates the handleLike function
   const handleLike = () => {
     // creates the like object
@@ -101,6 +95,8 @@ export const Post = ({ post }) => {
           alert(data.message); // Display the message to the user
           // Update the like state only if the user didn't like the post before
           setLiked(false);
+          // Dispatch the Redux action to update the like count in the store
+          store.dispatch(updatePost({ postId: _id, likes: data.likes }));
         } else {
           // Update the like state only if the user didn't like the post before
           setLike(data.likes);
@@ -144,6 +140,7 @@ export const Post = ({ post }) => {
         // Check the response to see if the user already liked the post
         if (data.message === "Comment un-liked successfully!") {
           alert(data.message); // Display the message to the user
+          // Update the commentLiked state only if the user didn't like the post before
           setCommentLiked(false);
         } else {
           // Dispatch the Redux action to update the like count in the store
@@ -167,16 +164,15 @@ export const Post = ({ post }) => {
     fetch(`/api/posts/${_id}/comments/` + commentId, {
       method: "DELETE",
       headers: {
-        "Authorization": `Bearer ${token}`,
+        Authorization: "Bearer " + token,
       },
+      body: JSON.stringify({ userId: userId }),
     })
       .then((response) => {
         // returns the response 
         return response.json();
       })
-      .then((data) => {
-        // logs the data
-        console.log(data, 'comment deleted');
+      .then(() => {
         // dispatches the deleteComment action
         store.dispatch(deleteComment(commentId));
         // navigates to the home page

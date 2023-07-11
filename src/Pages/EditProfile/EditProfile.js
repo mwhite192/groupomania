@@ -55,7 +55,7 @@ export const EditProfile = () => {
   const [profileData, setProfileData] = useState({
     userId: userId,
     formFile: formFile,
-    formGridEmail: "",
+    formGridEmail: email,
     formGridPassword: "",
     formGridPhone: "",
     formGridWorkOffice: "",
