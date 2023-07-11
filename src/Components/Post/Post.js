@@ -6,7 +6,7 @@ import { store } from '../../App/store';
 // imports the getUser selector
 import { getUser } from '../../App/Features/User/userSlice';
 // imports the createComment action
-import { createComment, getCommentsByPostId, deleteComment } from '../../App/Features/Comments/commentSlice';
+import { createComment, getCommentsByPostId, updateComment, deleteComment } from '../../App/Features/Comments/commentSlice';
 // imports updatePost action
 import { updatePost } from '../../App/Features/Post/postSlice';
 // imports ReactTimeAgo library
@@ -26,7 +26,6 @@ import { ThumbUpAltOutlined, ThumbUpAlt, SendOutlined, DeleteOutline } from '@mu
 import DefaultOnlineProfileImage from '../../Assets/person/DefaultOnlineImage.jpeg';
 
 
-
 // creates the Post component
 export const Post = ({ post }) => {
   // creates the variables from the post object
@@ -41,20 +40,22 @@ export const Post = ({ post }) => {
   } = post;
   // creates the date variable from timestamp
   const date = timestamp;
-  // creates the userId variable and sets it to the getUser selector
-  const [like, setLike] = useState(likes);
-  // creates the liked variable and sets it to the useState hook
-  const [liked, setLiked] = useState(false);
-  // creates the commentText variable and sets it to the useState hook
-  const [commentText, setCommentText] = useState('');
-  // creates the visibleComments variable and sets it to the useState hook
-  const [visibleComments, setVisibleComments] = useState(2);
+  // creates the navigate variable and sets it to the useNavigate hook
+  const navigate = useNavigate();
   // creates the userId variable and sets it to the getUser selector
   const { userId, name, formFile, token } = getUser(store.getState());
   // creates the postsComments variable and sets it to the getCommentsByPostId selector
   const postsComments = getCommentsByPostId(store.getState(), _id);
-  // creates the navigate variable and sets it to the useNavigate hook
-  const navigate = useNavigate();
+  // creates the userId variable and sets it to the getUser selector
+  const [like, setLike] = useState(likes);
+  // creates the liked variable and sets it to the useState hook
+  const [liked, setLiked] = useState(false);
+  // creates the commentLiked variable and sets it to the useState hook
+  const [commentLiked, setCommentLiked] = useState(false);
+  // creates the commentText variable and sets it to the useState hook
+  const [commentText, setCommentText] = useState('');
+  // creates the visibleComments variable and sets it to the useState hook
+  const [visibleComments, setVisibleComments] = useState(2);
   
 
 
@@ -74,8 +75,8 @@ export const Post = ({ post }) => {
   comment.commentText = commentText;
   
 
-  // creates the handleLikeClick function
-  const handleLikeClick = () => {
+  // creates the handleLike function
+  const handleLike = () => {
     // creates the like object
     const like = {
       // sets the userId to the userId variable
@@ -96,8 +97,10 @@ export const Post = ({ post }) => {
       })
       .then((data) => {
         // Check the response to see if the user already liked the post
-        if (data.message === "You already liked this post!") {
+        if (data.message === "Post un-liked successfully!") {
           alert(data.message); // Display the message to the user
+          // Update the like state only if the user didn't like the post before
+          setLiked(false);
         } else {
           // Update the like state only if the user didn't like the post before
           setLike(data.likes);
@@ -116,9 +119,50 @@ export const Post = ({ post }) => {
   };
 
 
+  // creates the handleCommentLikes function
+  const handleCommentLikes = (commentId) => {
+    // creates the like object
+    const like = {
+      // sets the userId to the userId variable
+      userId: userId,
+    };
+    // sends a post request to the server
+    fetch(`/api/posts/${_id}/comments/${commentId}/likes`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": 'Bearer ' + token,
+      },
+      // converts the like object to a json string
+      body: JSON.stringify(like),
+    })
+      .then((response) => {
+        // returns the response
+        return response.json();
+      })
+      .then((data) => {
+        // Check the response to see if the user already liked the post
+        if (data.message === "Comment un-liked successfully!") {
+          alert(data.message); // Display the message to the user
+          setCommentLiked(false);
+        } else {
+          // Dispatch the Redux action to update the like count in the store
+          store.dispatch(updateComment({ commentId: commentId, likes: data.likes }));
+          // Update the commentLiked state only if the user didn't like the post before
+          setCommentLiked(true);
+          // Navigate to the home page
+          navigate("/home");
+        }
+      })
+      .catch((error) => {
+        // logs the error
+        console.log(error);
+      });
+  };
+
+
   // creates the handleDelete function
   const handleDelete = (commentId) => {
-    console.log(commentId);
     // sends a delete request to the server
     fetch(`/api/posts/${_id}/comments/` + commentId, {
       method: "DELETE",
@@ -145,7 +189,7 @@ export const Post = ({ post }) => {
   };
 
 
-  // creates the handleComment function
+  // creates the handleSubmit function
   function handleSubmit(e) {
     // prevents the default behavior
     e.preventDefault();
@@ -257,8 +301,15 @@ export const Post = ({ post }) => {
               </div>
               <div className="commentText">{comment.commentText}</div>
               <div className="commentFooter">
-                <button className="commentFooterItem">
-                  <ThumbUpAltOutlined className="commentFooterIcon" />
+                <button
+                  className="commentFooterItem"
+                  onClick={() => handleCommentLikes(comment._id)}
+                >
+                  {commentLiked ? (
+                    <ThumbUpAlt className="commentFooterIcon" />
+                  ) : (
+                    <ThumbUpAltOutlined className="commentFooterIcon" />
+                  )}
                 </button>
                 <button
                   className="commentFooterItem"
@@ -267,14 +318,18 @@ export const Post = ({ post }) => {
                   <DeleteOutline className="commentFooterIcon" />
                 </button>
                 <span className="commentFooterItem">
-                  <UpdateComment className='commentFooterIcon' postId={_id} commentId={comment._id} />
+                  <UpdateComment
+                    className="commentFooterIcon"
+                    postId={_id}
+                    commentId={comment._id}
+                  />
                 </span>
               </div>
             </div>
           ))}
         </div>
         <div className="postFooter">
-          <button className="postFooterBottomItem" onClick={handleLikeClick}>
+          <button className="postFooterBottomItem" onClick={handleLike}>
             {liked ? (
               <ThumbUpAlt className="postFooterIcon" />
             ) : (
@@ -286,7 +341,7 @@ export const Post = ({ post }) => {
         <div className="postComment">
           <img
             className="postCommentImg"
-            src={DefaultOnlineProfileImage} 
+            src={DefaultOnlineProfileImage}
             alt="user profile"
           />
           <form className="postAddCommentForm">

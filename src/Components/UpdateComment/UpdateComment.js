@@ -6,7 +6,7 @@
   // imports the getUser selector
   import { getUser } from '../../App/Features/User/userSlice';
   // imports updateComment action
-  import { updateComment } from '../../App/Features/Comments/commentSlice';
+  import { updateComment, getCommentById } from '../../App/Features/Comments/commentSlice';
   // imports useState from react library
   import { useState } from 'react';
   // imports the navigate function from the react-router-dom library
@@ -28,7 +28,7 @@
     // creates the show state variable and the setShow state function
     const [show, setShow] = useState(false);
     // creates the commentText state variable and the setCommentText state function
-    const [commentText, setCommentText] = useState("");
+    const [commentText, setCommentText] = useState('');
 
     // creates the comment object
     const comment = {
@@ -38,12 +38,23 @@
       profilePicture: formFile,
       commentText: commentText,
       commentDate: new Date().toISOString(),
+      likes: 0,
+      usersLiked: [],
     };
 
     // creates the handleClose function
     const handleClose = () => setShow(false);
     // creates the handleShow function
-    const handleShow = () => setShow(true);
+    const handleShow = () => { 
+      // sets the show state variable to true
+      setShow(true);
+      // gets the comment to update
+      const commentToUpdate = getCommentById(store.getState(), commentId);
+      // sets the commentText state variable to the comment text
+      if (commentToUpdate) {
+        setCommentText(commentToUpdate.commentText);
+      }
+    };
 
     // creates the handleUpdate function
     const handleUpdate = () => {
@@ -69,7 +80,7 @@
         })
         .then((data) => {
           // logs the data
-          console.log(data, "comment updated");
+          console.log(data);
           // dispatches the updateComment action
           store.dispatch(updateComment({ _id: commentId, commentText: commentText }));
           // navigates to the home page
@@ -100,6 +111,7 @@
                 type="text"
                 name="comment"
                 className="postAddComment"
+                rows={3}
                 maxLength={500}
                 value={commentText}
                 onChange={(e) => setCommentText(e.target.value)}

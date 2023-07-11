@@ -168,12 +168,27 @@ exports.likePosts = (req, res, next) => {
     .catch((error) => {
       console.error(error);
       res.status(500).json({
-        error: "Failed to update likes the post!",
+        error: "Failed to update likes!",
       });
     });
-  } else {
-    res.status(200).json({
-      message: "You already liked this post!",
+  } else if (post.usersLiked.includes(userId)) {
+    // remove the user from the usersLiked array
+    post.usersLiked.pull(userId);
+    // decrement the likes
+    post.likes--;
+    // save the updated post to the database
+    post.save()
+    .then((updatedPost) => {
+      res.status(201).json({
+        message: "Post un-liked successfully!",
+        likes: updatedPost.likes, // Return the updated likes count
+      });
+    })
+    .catch((error) => {
+      console.error(error);
+      res.status(500).json({
+        error: "Failed to update likes!",
+      });
     });
   }
 });
@@ -270,4 +285,57 @@ exports.deleteComment = (req, res, next) => {
 };
 
 
-
+// likes a comment
+exports.likeComment = (req, res, next) => {
+  // finds the comment by id
+  Comment.findOne({ _id: req.params.commentId }).then((comment) => {
+    // checks if the comment exists
+    if (!comment) {
+      return res.status(404).json({ message: "Comment not found!" });
+    }
+    // sets the userId
+    const userId = req.body.userId; 
+    // checks if the user has already liked the comment
+    if (!comment.usersLiked.includes(userId)) {
+      // add the user to the usersLiked array
+      comment.usersLiked.push(userId);
+      // increment the likes
+      comment.likes++;
+      // save the updated comment to the database
+      comment.save()
+      .then((updatedComment) => {
+        res.status(201).json({
+          message: "Comment liked successfully!",
+          likes: updatedComment.likes, // Return the updated likes count
+        });
+      })
+      .catch((error) => {
+        console.error(error);
+        res.status(500).json({
+          error: "Failed to update likes!",
+        });
+      });
+    } 
+    // checks if the user has already liked the comment to unlike it
+    else if (comment.usersLiked.includes(userId)) {
+      // remove the user from the usersLiked array
+      comment.usersLiked.pull(userId);
+      // decrement the likes
+      comment.likes--;
+      // save the updated comment to the database
+      comment.save()
+      .then((updatedComment) => {
+        res.status(201).json({
+          message: "Comment un-liked successfully!",
+          likes: updatedComment.likes, // Return the updated likes count
+        });
+      })
+      .catch((error) => {
+        console.error(error);
+        res.status(500).json({
+          error: "Failed to update likes!",
+        });
+      });
+    }
+    });
+  };

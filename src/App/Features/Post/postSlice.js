@@ -21,8 +21,11 @@
           state[action.payload._id] = action.payload;
         },
         [UPDATE]: (state, action) => {
-          const { postId, commentId } = action.payload;
-          state[postId].comments.push(commentId);
+          const { postId, ...updatedData } = action.payload;
+          state[postId] = {
+            ...state[postId],
+            ...updatedData,
+          };
         },
         [DELETE]: (state, action) => {
           delete state[action.payload];
@@ -38,7 +41,6 @@
     export const getLikes = (state, postId) => state.post[postId].likes;
     export const getArrayOfPosts = (state) => Object.values(getAllPost(state));
     export const getSortedArrayOfPosts = (state) => getArrayOfPosts(state).sort((a, b) => {
-      console.log(Date.parse(a.timestamp), Date.parse(b.timestamp))
       return Date.parse(b.timestamp) - Date.parse(a.timestamp)
       });
 
