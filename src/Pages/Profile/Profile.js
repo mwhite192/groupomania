@@ -5,6 +5,7 @@ import './Profile.scss';
 import { store } from '../../App/store';
 // imports the getUser and getAuthenticated selectors
 import { getUser, getAuthenticated } from '../../App/Features/User/userSlice';
+// imports the useEffect hook
 import { useEffect } from 'react';
 // imports useNavigate hook
 import { useNavigate } from 'react-router-dom';
@@ -33,7 +34,6 @@ export const Profile = () => {
   
   // gets the user and profile from the store
   const { name, formFile } = getUser(store.getState());
-  
   // returns the profile page
   return (
     <div className='profile'>

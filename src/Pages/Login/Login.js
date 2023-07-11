@@ -1,9 +1,12 @@
 // imports the React Library and the Login.scss file
 import React from 'react';
 import './Login.scss';
-// imports the store and authenticate function
+// imports the store 
 import { store } from '../../App/store';
+// imports the authenticate action
 import { authenticate } from '../../App/Features/User/userSlice';
+// imports login action
+import { login } from '../../App/Features/Profile/profileSlice';
 // imports useState and useNavigate hook
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -82,8 +85,11 @@ export const Login = () => {
     .then((data) => {
         // dispatches AUTHENTICATE action to update state
         store.dispatch(authenticate(data));
+        // dispatches LOGIN action to update state
+        store.dispatch(login(data));
         // navigates user to home page
         navigate('/home'); 
+        // logs response data to console
         console.log(data);
     })
     // Catches errors

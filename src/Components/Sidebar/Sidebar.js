@@ -1,6 +1,10 @@
 // imports the React library and the Sidebar.scss file
 import React from 'react';
 import './Sidebar.scss';
+// imports the store
+import { store } from '../../App/store';
+// imports the logout action
+import { logout } from '../../App/Features/Profile/profileSlice';
 // imports the useNavigate hook 
 import { useNavigate } from 'react-router-dom';
 // imports the MenuLink and Friends components
@@ -25,6 +29,8 @@ export const Sidebar = () => {
 
   // creates a handleClick function
   const handleClick = () => {
+    // dispatches the LOGOUT action
+    store.dispatch(logout());
     // navigates user to login profile page
     navigate('/');
   };

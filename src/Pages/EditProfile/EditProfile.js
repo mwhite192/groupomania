@@ -9,7 +9,7 @@ import { useState, useEffect } from 'react';
 import { store } from '../../App/store';
 // imports the getUser, deauthenticate, and getAuthenticated actions and selectors
 import { getUser, deauthenticate, getAuthenticated } from '../../App/Features/User/userSlice';
-// imports the update action from the profileSlice
+// imports the update action and get profile selector from the profileSlice
 import { update } from '../../App/Features/Profile/profileSlice';
 // imports the react bootstrap components
 import Form from 'react-bootstrap/Form';
@@ -35,48 +35,48 @@ export const EditProfile = () => {
   // creates an authenticated variable and sets it to the getAuthenticated function
   const authenticated = getAuthenticated(store.getState());
   // checks if the user is authenticated
-  useEffect (() => {
+  useEffect(() => {
     // if the user is not authenticated, navigate to the login page
     if (!authenticated) {
-      navigate('/');
+      navigate("/");
       // if the user is authenticated, navigate to the edit profile page
-  }}, [authenticated]);
+    }
+  }, [authenticated]);
 
   // gets the user from the store
-  const { formFile, name, userId, token, formGridEmail: email } = getUser(store.getState());
+  const {
+    formFile,
+    name,
+    userId,
+    token,
+    formGridEmail: email,
+  } = getUser(store.getState());
   // sets the initial state of the form data
-  const [formGridEmail, setFormGridEmail] = useState("");
-  const [formGridPassword, setFormGridPassword] = useState("");
-  const [formGridPhone, setFormGridPhone] = useState("");
-  const [formGridWorkOffice, setFormGridWorkOffice] = useState("");
-  const [formGridPosition, setFormGridPosition] = useState("");
-  const [formGridCity, setFormGridCity] = useState("");
-  const [formGridState, setFormGridState] = useState("");
-  const [formGridZip, setFormGridZip] = useState("");
+  const [profileData, setProfileData] = useState({
+    userId: userId,
+    formFile: formFile,
+    formGridEmail: "",
+    formGridPassword: "",
+    formGridPhone: "",
+    formGridWorkOffice: "",
+    formGridPosition: "",
+    formGridCity: "",
+    formGridState: "",
+    formGridZip: "",
+  });
 
   // creates a handleSubmit function
   const handleSubmit = (e) => {
     // prevents default form submission
     e.preventDefault();
-    // Creates a form data object and appends the form data to it
-    const formData = new FormData();
-    formData.append("userId", userId);
-    formData.append("formGridEmail", formGridEmail);
-    formData.append("formFile", formFile);
-    formData.append("formGridPassword", formGridPassword);
-    formData.append("formGridPhone", formGridPhone);
-    formData.append("formGridWorkOffice", formGridWorkOffice);
-    formData.append("formGridPosition", formGridPosition);
-    formData.append("formGridCity", formGridCity);
-    formData.append("formGridState", formGridState);
-    formData.append("formGridZip", formGridZip);
     // PUTS form data to backend
     fetch("/api/user/userId", {
       method: "PUT",
-      headers: { 
-        'Authorization': 'Bearer ' + token,
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: "Bearer " + token,
       },
-      body: formData,
+      body: JSON.stringify(profileData),
     })
       // converts response to JSON
       .then((response) => {
@@ -109,8 +109,8 @@ export const EditProfile = () => {
     fetch("/api/user/" + email, {
       method: "DELETE",
       headers: {
-        'Authorization': 'Bearer ' + token,
-      }
+        Authorization: "Bearer " + token,
+      },
     })
       // converts response to JSON
       .then((response) => {
@@ -136,7 +136,6 @@ export const EditProfile = () => {
         console.error(error);
       });
   };
-
 
   // returns the EditProfile page
   return (
@@ -168,7 +167,7 @@ export const EditProfile = () => {
             <div className="editProfileRightBottomBottom">
               <div className="editProfileRightBottomLeft">
                 <img
-                  src={formFile ? formFile: DefaultProfileCover}
+                  src={formFile ? formFile : DefaultProfileCover}
                   className="editProfileRightBottomLeftImg"
                   alt="default user profile"
                 />
@@ -193,8 +192,8 @@ export const EditProfile = () => {
                         type="email"
                         className="editProfileFormInput"
                         placeholder="Enter email"
-                        value={formGridEmail}
-                        onChange={(e) => setFormGridEmail(e.target.value)}
+                        value={profileData.formGridEmail}
+                        onChange={(e) => setProfileData({ ...profileData, formGridEmail: e.target.value })}
                       />
                       <p
                         id="editProfilePasswordErrorMsg"
@@ -207,8 +206,8 @@ export const EditProfile = () => {
                         type="password"
                         className="editProfileFormInput"
                         placeholder="Enter new password"
-                        onChange={(e) => setFormGridPassword(e.target.value)}
-                        value={formGridPassword}
+                        value={profileData.formGridPassword}
+                        onChange={(e) => setProfileData({ ...profileData, formGridPassword: e.target.value })}
                       />
                       <p
                         id="editProfilePasswordErrorMsg"
@@ -226,8 +225,8 @@ export const EditProfile = () => {
                       <Form.Label>Phone Number:</Form.Label>
                       <Form.Control
                         className="editProfileFormInput"
-                        onChange={(e) => setFormGridPhone(e.target.value)}
-                        value={formGridPhone}
+                        value={profileData.formGridPhone}
+                        onChange={(e) => setProfileData({ ...profileData, formGridPhone: e.target.value })}
                       />
                       <p
                         id="editProfilePhoneErrorMsg"
@@ -244,8 +243,8 @@ export const EditProfile = () => {
                       <Form.Label>Work Office: </Form.Label>
                       <Form.Select
                         className="editProfileFormInput"
-                        onChange={(e) => setFormGridWorkOffice(e.target.value)}
-                        value={formGridWorkOffice}
+                        value={profileData.formGridWorkOffice}
+                        onChange={(e) => setProfileData({ ...profileData, formGridWorkOffice: e.target.value })}
                         //defaultValue="Choose..."
                       >
                         <option>select Office...</option>
@@ -263,8 +262,8 @@ export const EditProfile = () => {
                       <Form.Control
                         className="editProfileFormInput"
                         placeholder="Enter Title"
-                        onChange={(e) => setFormGridPosition(e.target.value)}
-                        value={formGridPosition}
+                        value={profileData.formGridPosition}
+                        onChange={(e) => setProfileData({ ...profileData, formGridPosition: e.target.value})}
                       />
                     </Form.Group>
                   </Row>
@@ -278,8 +277,8 @@ export const EditProfile = () => {
                       <Form.Label>City</Form.Label>
                       <Form.Control
                         className="editProfileFormInput"
-                        onChange={(e) => setFormGridCity(e.target.value)}
-                        value={formGridCity}
+                        value={profileData.formGridCity}
+                        onChange={(e) => setProfileData({ ...profileData, formGridCity: e.target.value})}
                       />
                       <p
                         id="editProfileCityErrorMsg"
@@ -295,13 +294,13 @@ export const EditProfile = () => {
                       <Form.Label>State</Form.Label>
                       <Form.Select
                         className="editProfileFormInput"
-                        onChange={(e) => setFormGridState(e.target.value)}
-                        value={formGridState}
+                        value={profileData.formGridState}
+                        onChange={(e) => setProfileData({ ...profileData, formGridState: e.target.value})}
                         //defaultValue="Choose..."
                       >
                         <option>select state...</option>
                         {States.map((state) => (
-                          <option key={state.id}>{state.abbr}</option>
+                          <option key={state.id}>{state.name}</option>
                         ))}
                       </Form.Select>
                       <p
@@ -313,8 +312,8 @@ export const EditProfile = () => {
                       <Form.Label>Zip Code</Form.Label>
                       <Form.Control
                         className="editProfileFormInput"
-                        onChange={(e) => setFormGridZip(e.target.value)}
-                        value={formGridZip}
+                        value={profileData.formGridZip}
+                        onChange={(e) => setProfileData({...profileData, formGridZip: e.target.value})}
                       />
                       <p
                         id="editProfileZipErrorMsg"
