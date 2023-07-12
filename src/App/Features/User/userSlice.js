@@ -10,6 +10,7 @@ export const initialState = {
 // define action types
 export const AUTHENTICATE = 'AUTHENTICATE';
 export const DEAUTHENTICATE = 'DEAUTHENTICATE';
+export const SETUSERTIME = 'SETUSERTIME';
 
 // create profile slice
 export const userSlice = createSlice({
@@ -24,6 +25,9 @@ export const userSlice = createSlice({
             state.authenticated = false;
             state.user = {};
         },
+        [SETUSERTIME]: (state, action) => {
+            state.user.timestamp = action.payload;    
+        },
     },
 })
 
@@ -31,10 +35,13 @@ export const userSlice = createSlice({
 export const getAuthenticated = (state) => state.user.authenticated;
 export const getUser = (state) => state.user.user;
 export const getUserId = (state) => getUser(state).id;
+export const getArrayOfUsers = (state) => Object.values(getUser(state));
+export const setUsers = (state) => state.user.users;
 
 // export actions and selectors
 export const authenticate = userSlice.actions[AUTHENTICATE];
 export const deauthenticate = userSlice.actions[DEAUTHENTICATE];
+export const setUserTime = userSlice.actions[SETUSERTIME];
 
 
 

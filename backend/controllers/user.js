@@ -8,6 +8,7 @@ const User = require('../models/user');
 // sets up the profile model
 const Profile = require('../models/profile');
 
+
 // exports the signup function
 exports.signup = (req, res, next) => {
   // hashes the password
@@ -19,6 +20,7 @@ exports.signup = (req, res, next) => {
         name: req.body.name,
         registerEmail: req.body.registerEmail,
         registerPassword: hash,
+        timestamp: Date.now(),
       });
       // saves the user
       user
@@ -70,6 +72,7 @@ exports.signup = (req, res, next) => {
     });
 };
 
+
 // exports the login function
 exports.login = async (req, res, next) => {
   // finds the user by email
@@ -106,6 +109,7 @@ exports.login = async (req, res, next) => {
           // returns the token, user id, and profile
           res.status(200).json({
             ...profile._doc,
+            ...user._doc,
             userId: user._id,
             token: token,
           });
@@ -124,6 +128,24 @@ exports.login = async (req, res, next) => {
       });
     });
 };
+
+
+// exports the get all users function
+exports.getAll = (req, res, next) => {
+  // finds all users
+  Profile.find()
+    // returns the users
+    .then((profiles) => {
+      res.status(200).json(profiles);
+    })
+    // returns the error if the users are not found
+    .catch((error) => {
+      res.status(400).json({
+        error: 'Users not found!',
+      });
+    });
+};
+
 
 // exports the update profile function
 exports.update = (req, res, next) => {
@@ -189,4 +211,40 @@ exports.delete = async (req, res, next) => {
         error: 'Failed to delete profile!'
       });
     })
+};
+
+exports.updateTime = (req, res, next) => {
+  // checks if the user exists
+  if (!req.body.userId) {
+    // returns the error if the user does not exist
+    return res.status(400).json({
+      error: 'User not found!',
+    });
+  } 
+  // finds the user by user id
+  User.findOne({ _id: req.body.userId })
+    // returns the user
+    .then((user) => {
+      // checks if the user exists
+      if (!user) {
+        // returns the error if the user does not exist
+        return res.status(404).json({
+          error: 'User not found!',
+        });
+      }
+      // updates the user
+      const timestamp = { timestamp: Date.now() }
+      User.updateOne({ _id: req.body.userId }, timestamp)
+        // returns the updated user
+        .then(() => {
+          res.status(201).json({...user._doc});
+        })
+        // returns the error if the user is not updated
+        .catch((error) => {
+          res.status(500).json({
+            error: 'Failed to update user!',
+          });
+        });
+    })
+
 };

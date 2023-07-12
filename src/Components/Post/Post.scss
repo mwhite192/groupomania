@@ -3,6 +3,10 @@
     border-radius: 10px;
     -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
     box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
+    transition: box-shadow 0.5s ease-in-out;
+    &.newPost{
+        box-shadow: 2px 4px 10px 1px #fcffe7;
+    }
     .postWrapper {
         padding: 20px;
         margin: 0px 50px;

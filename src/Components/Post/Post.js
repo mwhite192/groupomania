@@ -36,18 +36,20 @@ export const Post = ({ post }) => {
     timestamp,
     image,
     message,
-    likes,
+    usersLiked,
   } = post;
   // creates the date variable from timestamp
   const date = timestamp;
   // creates the navigate variable and sets it to the useNavigate hook
   const navigate = useNavigate();
   // creates the userId variable and sets it to the getUser selector
-  const { userId, name, formFile, token } = getUser(store.getState());
+  const { userId, name, formFile, token, timestamp: time } = getUser(store.getState());
   // creates the postsComments variable and sets it to the getCommentsByPostId selector
   const postsComments = getCommentsByPostId(store.getState(), _id);
+  //
+  const [postClass, setPostClass] = useState(time < Date.parse(post.timestamp) ? 'newPost' : '');
   // creates the userId variable and sets it to the getUser selector
-  const [like, setLike] = useState(likes);
+  const [like, setLike] = useState((usersLiked || []).length);
   // creates the liked variable and sets it to the useState hook
   const [liked, setLiked] = useState(false);
   // creates the commentLiked variable and sets it to the useState hook
@@ -95,15 +97,17 @@ export const Post = ({ post }) => {
           alert(data.message); // Display the message to the user
           // Update the like state only if the user didn't like the post before
           setLiked(false);
+          // Update the like state only if the user didn't like the post before
+          setLike(data.usersLiked.length);
           // Dispatch the Redux action to update the like count in the store
-          store.dispatch(updatePost({ postId: _id, likes: data.likes }));
+          store.dispatch(updatePost({ postId: _id, usersLiked: data.usersLiked }));
         } else {
           // Update the like state only if the user didn't like the post before
-          setLike(data.likes);
+          setLike(data.usersLiked.length);
           // Update the liked state only if the user didn't like the post before
           setLiked(true);
           // Dispatch the Redux action to update the like count in the store
-          store.dispatch(updatePost({ postId: _id, likes: data.likes }));
+          store.dispatch(updatePost({ postId: _id, usersLiked: data.usersLiked }));
           // Navigate to the home page
           navigate("/home");
         }
@@ -226,8 +230,10 @@ export const Post = ({ post }) => {
   }
 
   // returns the Post component
+  console.log(time, Date.parse(post.timestamp), time < Date.parse(post.timestamp))
+  setTimeout(() => {setPostClass('')}, 5000);
   return (
-    <div className="post">
+    <div className={`post ${postClass}`}>
       <div className="postWrapper">
         <div className="postTop">
           <div className="postTopLeft">

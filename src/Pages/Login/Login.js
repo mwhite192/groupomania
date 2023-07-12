@@ -4,7 +4,7 @@ import './Login.scss';
 // imports the store 
 import { store } from '../../App/store';
 // imports the authenticate action
-import { authenticate } from '../../App/Features/User/userSlice';
+import { authenticate, setUserTime } from '../../App/Features/User/userSlice';
 // imports login action
 import { login } from '../../App/Features/Profile/profileSlice';
 // imports useState and useNavigate hook
@@ -87,6 +87,8 @@ export const Login = () => {
         store.dispatch(authenticate(data));
         // dispatches LOGIN action to update state
         store.dispatch(login(data));
+        //
+        store.dispatch(setUserTime(data.timestamp));
         // navigates user to home page
         navigate('/home'); 
         // logs response data to console

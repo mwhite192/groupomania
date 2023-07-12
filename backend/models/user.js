@@ -11,6 +11,7 @@ const userSchema = mongoose.Schema({
     registerEmail: { type: String, required: true, unique: true },
     registerPassword: { type: String, required: true },
     friends: { type: Array, required: false },
+    timestamp: { type: Number, required: true },
 });
 
 // uses the unique validator plugin

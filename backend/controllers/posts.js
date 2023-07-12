@@ -162,7 +162,7 @@ exports.likePosts = (req, res, next) => {
     .then((updatedPost) => {
       res.status(201).json({
         message: "Post liked successfully!",
-        likes: updatedPost.likes, // Return the updated likes count
+        usersLiked: updatedPost.usersLiked, // Return the updated likes count
       });
     })
     .catch((error) => {
@@ -181,7 +181,7 @@ exports.likePosts = (req, res, next) => {
     .then((updatedPost) => {
       res.status(201).json({
         message: "Post un-liked successfully!",
-        likes: updatedPost.likes, // Return the updated likes count
+        usersLiked: updatedPost.usersLiked, // Return the updated likes count
       });
     })
     .catch((error) => {

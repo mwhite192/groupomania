@@ -10,6 +10,16 @@
         flex-basis: 20%;
         margin: 5px;
         position: relative;
+        .onlineCardOverlay{
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: black;
+            opacity: 0.4;
+            border-radius: 10px;
+        }
         .onlineProfile{
             display: flex;
             position: absolute;
@@ -18,8 +28,7 @@
             border-radius: 50%;
             top: -5px;
             right: -5px;
-            background-color: #d2042d;
-            object-fit: contain;
+            object-fit: cover;
         }
         .onlineBackground{
             width: 100%;
