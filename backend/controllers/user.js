@@ -25,21 +25,20 @@ exports.signup = (req, res, next) => {
       // saves the user
       user
         .save()
-        // returns the user
         // if the user is not saved, returns an error
         .catch((error) => {
-          console.log(error);
-          res.status(500).json({
-            error: "Failed to add user!",
+          res.status(501).json({
+            error: "failed to save user!",
           });
         })
+        // returns success message if the user is saved
         .then(() => {
           res.status(201).json({
-            message: "User added successfully!",
+            message: "user added successfully!",
           });
-          // sets the url
+          // sets the url for the image
           const url = req.protocol + "://" + req.get("host");
-          // creates a new profile
+          // creates a new user profile
           const profile = new Profile({
             userId: user._id,
             name: user.name,
@@ -58,16 +57,15 @@ exports.signup = (req, res, next) => {
         })
         // if the profile is not saved, returns an error
         .catch((error) => {
-          console.log(error);
-          res.status(500).json({
-            error: "Failed to add profile!",
+          res.status(501).json({
+            error: "failed to save profile!",
           });
         });
     })
     // if the password is not hashed, returns an error
     .catch((error) => {
-      res.status(500).json({
-        error: "Failed to encrypt password!",
+      res.status(501).json({
+        error: "failed to encrypt password!",
       });
     });
 };
@@ -83,7 +81,7 @@ exports.login = async (req, res, next) => {
       if (!user) {
         // returns the error if the user does not exist
         return res.status(401).json({
-          error: new Error("User not found!"),
+          error: 'user not found!',
         });
       }
       // compares the password
@@ -95,7 +93,7 @@ exports.login = async (req, res, next) => {
           if (!valid) {
             // returns the error if the password is not valid
             return res.status(401).json({
-              error: new Error("Incorrect password!"),
+              error: 'incorrect password!',
             });
           }
           // finds the profile by user id
@@ -106,7 +104,7 @@ exports.login = async (req, res, next) => {
             {userId: user._id}, 
             'RANDOM_TOKEN_SECRET',
             {expiresIn: '24h'});
-          // returns the token, user id, and profile
+          // returns the token, user id, user, and profile
           res.status(200).json({
             ...profile._doc,
             ...user._doc,
@@ -117,14 +115,14 @@ exports.login = async (req, res, next) => {
         // returns the error if the password is not valid
         .catch((error) => {
           res.status(500).json({
-            error: "Password does not match!",
+            error: 'password does not match!',
           });
         });
     })
     // returns the error if the user is not found
     .catch((error) => {
       res.status(500).json({
-        error: 'User not found!',
+        error: 'user not found!',
       });
     });
 };
@@ -141,7 +139,7 @@ exports.getAll = (req, res, next) => {
     // returns the error if the users are not found
     .catch((error) => {
       res.status(400).json({
-        error: 'Users not found!',
+        error: 'users not found!',
       });
     });
 };
@@ -149,13 +147,13 @@ exports.getAll = (req, res, next) => {
 
 // exports the update profile function
 exports.update = (req, res, next) => {
-  // sets the url
+  // sets the url for the image
   const url = req.protocol + '://' + req.get('host');
   // creates a update profile object
   const updateProfile = { ...req.body};
   // checks if the is an image
   if (req.file) {
-    // sets the image path
+    // sets the image path for the profile
     updateProfile.formFile = url + '/images/' + req.file.filename;
   }
   // updates the profile
@@ -166,8 +164,8 @@ exports.update = (req, res, next) => {
     })
     // returns the error if the profile is not updated
     .catch((error) => {
-      res.status(500).json({
-        error: 'Failed to update profile!',
+      res.status(501).json({
+        error: 'failed to update profile!',
       });
     });
 };
@@ -181,44 +179,48 @@ exports.delete = async (req, res, next) => {
   .then((user) => user)
   // returns the error if the user is not found
   .catch((error) => {
-    console.log('ERROR getting user to delete', error)
+      res.status(400).json({
+      error: 'user not found!',  
+    });
   });
   // checks if the user exists
   if (!user) {
     // returns the error if the user does not exist
     return res.status(404).json({
-      error: 'User not found!',
+      error: 'user not found!',
     });
   } 
   // checks if the user is authorized to delete user
   if (user.registerEmail !== req.params.userId) {
     // returns the error if the user is not authorized
     return res.status(401).json({
-      error: new Error('User not authorized!')
+      error: 'user not authorized!',
     });
   }
-  // deletes the user
+  // finds the user by email and deletes the user
   User.deleteOne({ registerEmail: req.params.userId })
-    // returns message is user is deleted successfully
+    // returns message if user is deleted successfully
     .then(() => {
       res.status(200).json({
-        message: 'User deleted successfully!'
+        message: 'user deleted successfully!'
       });
     })
     // returns the error if the user is not deleted
     .catch((error) => {
       res.status(400).json({
-        error: 'Failed to delete profile!'
+        error: 'failed to delete user!'
       });
     })
 };
 
+
+// exports the update time function
 exports.updateTime = (req, res, next) => {
   // checks if the user exists
   if (!req.body.userId) {
     // returns the error if the user does not exist
     return res.status(400).json({
-      error: 'User not found!',
+      error: 'user not found!',
     });
   } 
   // finds the user by user id
@@ -229,11 +231,12 @@ exports.updateTime = (req, res, next) => {
       if (!user) {
         // returns the error if the user does not exist
         return res.status(404).json({
-          error: 'User not found!',
+          error: 'user not found!',
         });
       }
-      // updates the user
+      // sets the timestamp variable to the current time
       const timestamp = { timestamp: Date.now() }
+      // finds the user by user id and updates the timestamp
       User.updateOne({ _id: req.body.userId }, timestamp)
         // returns the updated user
         .then(() => {
@@ -242,9 +245,8 @@ exports.updateTime = (req, res, next) => {
         // returns the error if the user is not updated
         .catch((error) => {
           res.status(500).json({
-            error: 'Failed to update user!',
+            error: 'failed to update user timestamp!',
           });
         });
     })
-
 };
