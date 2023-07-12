@@ -1,3 +1,4 @@
+// Purpose: Defines the comments model for MongoDB Atlas
 // sets up mongoose for MongoDB Atlas
 const mongoose = require('mongoose');
 
@@ -13,6 +14,7 @@ const commentsSchema = mongoose.Schema({
     likes: { type: Array, required: false },
     usersLiked: { type: Array, required: false },
 });
+
 
 // exports the comments model
 module.exports = mongoose.model('Comments', commentsSchema);

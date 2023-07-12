@@ -2,6 +2,7 @@
 // sets up mongoose for MongoDB Atlas
 const mongoose = require('mongoose');
 
+
 // sets schema for user profile in MongoDB Atlas
 const profileSchema = mongoose.Schema({
     userId: { type: String, required: false },
@@ -16,6 +17,7 @@ const profileSchema = mongoose.Schema({
     formGridState: { type: String, required: false },
     formGridZip: { type: String, required: false },
 });
+
 
 // exports the profile model
 module.exports = mongoose.model('Profile', profileSchema);

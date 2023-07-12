@@ -1,3 +1,4 @@
+// Purpose: Defines the posts model for MongoDB Atlas
 // sets up mongoose for MongoDB Atlas
 const mongoose = require('mongoose');
 
@@ -14,6 +15,7 @@ const postsSchema = mongoose.Schema({
     usersLiked: { type: Array, required: false },
     comments: { type: Array, required: false },
 });
+
 
 // exports the post model
 module.exports = mongoose.model('Posts', postsSchema);

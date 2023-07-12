@@ -1,5 +1,7 @@
+// Description: This file contains the business logic for the multer middleware
 // set up multer to store images in the backend/images folder
 const multer = require('multer');
+
 
 // sets the file types that can be uploaded
 const MIME_TYPES = {
@@ -9,6 +11,7 @@ const MIME_TYPES = {
     'image/gif': 'gif',
     'video/mp4': 'mp4',
 };
+
 
 // sets the storage location and file name
 const storage = multer.diskStorage({
@@ -21,6 +24,7 @@ const storage = multer.diskStorage({
     callback(null, name + Date.now() + '.' + extension);
   }
 }); 
+
 
 // exports multer middleware
 module.exports = multer({storage: storage}).single('file');

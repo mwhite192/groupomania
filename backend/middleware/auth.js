@@ -1,3 +1,4 @@
+// Description: This file contains the business logic for the auth middleware
 // sets javascript token to be used for authentication
 const jwt = require('jsonwebtoken');
 

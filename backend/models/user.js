@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 // imports mongoose-unique-validator package 
 const uniqueValidator = require('mongoose-unique-validator');
 
+
 // sets schema for user in MongoDB Atlas
 const userSchema = mongoose.Schema({
     file: { type: String, required: false },
@@ -13,6 +14,7 @@ const userSchema = mongoose.Schema({
     friends: { type: Array, required: false },
     timestamp: { type: Number, required: true },
 });
+
 
 // uses the unique validator plugin
 userSchema.plugin(uniqueValidator);

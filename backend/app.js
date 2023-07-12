@@ -14,10 +14,12 @@ const app = express();
 const path = require('path');
 require('dotenv').config({path: path.resolve(__dirname, './.env')});
 
+
 // Middleware Imports: All middleware for the backend server
 // imports the http-proxy-middleware
 const { createProxyMiddleware } = require('http-proxy-middleware');
 
+// Purpose: Connects the server to MongoDB Atlas
 // connects server to MongoDB Atlas
 mongoose
   .connect(
@@ -31,24 +33,16 @@ mongoose
     console.log(error);
   });
 
+
 // middleware
+app.use( '/', createProxyMiddleware({target: 'http://localhost:3000', changeOrigin: true,}));
+app.use('/images/', express.static(path.join(__dirname, 'images')));
+app.use('/api/user', userRouter);
+app.use('/api/posts', postsRouter);
 app.use(cors({allowedHeaders: ['Authorization', 'Content-Type']}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('static'));
-app.use('/images/', express.static(path.join(__dirname, 'images')));
-app.use('/api/user', userRouter);
-app.use('/api/posts', postsRouter);
-app.use( '/', createProxyMiddleware({target: 'http://localhost:3000', changeOrigin: true,}));
 
-// Error handling
-// app.use((err, req, res, next) => {
-//   if(err){
-//   res.status(500).json({ error: 'Internal Server Error' });
-//   }
-//   else{
-//   next();
-//   }
-// });
-
+// exports the app
 module.exports = app;

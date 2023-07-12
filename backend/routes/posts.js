@@ -6,10 +6,11 @@ const router = express.Router();
 // sets up the post controller
 const postsCtrl = require('../controllers/posts');
 
-// sets up multer middleware
-const multer = require('../middleware/multer-config');
+
 // sets up the auth middleware
 const auth = require('../middleware/auth');
+// sets up multer middleware
+const multer = require('../middleware/multer-config');
 
 
 // sets up the posts' routes
@@ -22,6 +23,7 @@ router.post('/:_id/comments', auth, postsCtrl.commentPosts);
 router.put('/:_id/comments/:commentId', auth, postsCtrl.updateComment);
 router.delete('/:_id/comments/:commentId', auth, postsCtrl.deleteComment);
 router.post('/:_id/comments/:commentId/likes', auth, postsCtrl.likeComment);
+
 
 // exports the router
 module.exports = router;
