@@ -269,9 +269,9 @@ exports.deleteComment = (req, res, next) => {
       });
     }
     // checks if the user is authorized
-    if (req.body.userId !== req.auth.userId) {
-      return res.status(403).json({
-        error: new Error('Unauthorized request!'),
+    if (comment.userId !== req.auth.userId) {
+      return res.status(401).json({
+        message: new Error('Unauthorized request!'),
       });
     }
     // deletes the comment
@@ -279,12 +279,12 @@ exports.deleteComment = (req, res, next) => {
       .then(() => {
         // returns the message
         res.status(200).json({
-          message: 'posts deleted successfully!',
+          message: 'comment deleted successfully!',
         });
       })
       .catch((error) => {
         res.status(400).json({
-          error: 'unable to delete posts!',
+          error: 'unable to delete comment!',
         });
       });
   })

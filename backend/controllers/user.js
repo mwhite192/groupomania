@@ -150,6 +150,7 @@ exports.update = (req, res, next) => {
     });
 };
 
+
 // exports the delete user function
 exports.delete = async (req, res, next) => {
   // finds the user by user email

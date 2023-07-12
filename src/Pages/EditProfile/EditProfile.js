@@ -42,7 +42,8 @@ export const EditProfile = () => {
       // if the user is authenticated, navigate to the edit profile page
     }
   }, [authenticated]);
-
+  
+  
   // gets the user from the store
   const {
     formFile,
@@ -51,11 +52,12 @@ export const EditProfile = () => {
     token,
     formGridEmail: email,
   } = getUser(store.getState());
+
+
   // sets the initial state of the form data
   const [profileData, setProfileData] = useState({
     userId: userId,
     formFile: formFile,
-    formGridEmail: email,
     formGridPassword: "",
     formGridPhone: "",
     formGridWorkOffice: "",
@@ -64,6 +66,7 @@ export const EditProfile = () => {
     formGridState: "",
     formGridZip: "",
   });
+
 
   // creates a handleSubmit function
   const handleSubmit = (e) => {
@@ -115,7 +118,7 @@ export const EditProfile = () => {
       // converts response to JSON
       .then((response) => {
         // checks for errors
-        if (response.status === 404 || !response.ok) {
+        if (response.status === 403 || !response.ok) {
           throw new Error("Unable to delete profile!");
         }
         // returns response body as JSON
@@ -129,6 +132,7 @@ export const EditProfile = () => {
         localStorage.removeItem("persist:root");
         // navigates user to login page
         navigate("/");
+        // logs data
         console.log(data);
       })
       // catches errors
@@ -136,6 +140,7 @@ export const EditProfile = () => {
         console.error(error);
       });
   };
+
 
   // returns the EditProfile page
   return (

@@ -133,7 +133,7 @@ export const Post = ({ post }) => {
       body: JSON.stringify(like),
     })
       .then((response) => {
-        // returns the response
+        // returns response body as JSON
         return response.json();
       })
       .then((data) => {
@@ -164,12 +164,16 @@ export const Post = ({ post }) => {
     fetch(`/api/posts/${_id}/comments/` + commentId, {
       method: "DELETE",
       headers: {
-        Authorization: "Bearer " + token,
+        "Content-Type": "application/json",
+         Authorization: "Bearer " + token,
       },
-      body: JSON.stringify({ userId: userId }),
     })
       .then((response) => {
-        // returns the response 
+        // checks for errors
+        if (response.status === 401 || !response.ok) {
+          throw new Error("Unable to delete comment!");
+        }
+        // returns response body as JSON
         return response.json();
       })
       .then(() => {
@@ -194,6 +198,7 @@ export const Post = ({ post }) => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
       },
       // converts the comment object to a json string
       body: JSON.stringify(comment),
