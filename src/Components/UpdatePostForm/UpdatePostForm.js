@@ -136,11 +136,11 @@ export const UpdatePostForm = ({ postId }) => {
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <button className="updatePostFormSubmitButton" onClick={handleSubmit}>
-            Update
-          </button>
           <button className="updatePostFormCloseButton" onClick={handleClose}>
             Close
+          </button>
+          <button className="updatePostFormSubmitButton" onClick={handleSubmit}>
+            Update
           </button>
         </Modal.Footer>
       </Modal>

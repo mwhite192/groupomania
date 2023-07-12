@@ -127,11 +127,11 @@ export const PostForm = () => {
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <button className='postSubmitButton' onClick={handleSubmit}>
-            Submit
-          </button>
           <button className='postCloseButton' onClick={handleClose}>
             Close
+          </button>
+          <button className='postSubmitButton' onClick={handleSubmit}>
+            Submit
           </button>
         </Modal.Footer>
       </Modal>

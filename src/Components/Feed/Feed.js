@@ -34,9 +34,11 @@ export const Feed = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        data.forEach((element) => {
-          store.dispatch(createPost(element));
-        });
+        if (Array.isArray(data)) {
+          data.forEach((element) => {
+            store.dispatch(createPost(element));
+          });
+        }
       });
   }, [token]);
 
