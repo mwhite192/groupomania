@@ -2,13 +2,14 @@
 // sets javascript token to be used for authentication
 const jwt = require('jsonwebtoken');
 
+
 // checks if the token is valid
 module.exports = (req, res, next) => {
   try {
     // splits the token into two parts
-    const token = req.headers.authorization.split(" ")[1];
+    const token = req.headers.authorization.split(' ')[1];
     // verifies the token
-    const decodedToken = jwt.verify(token, "RANDOM_TOKEN_SECRET");
+    const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET');
     // sets the userId to the decoded token
     const userId = decodedToken.userId;
     // sets the userId to the request
@@ -25,8 +26,7 @@ module.exports = (req, res, next) => {
     // if the token is not valid, an error is thrown
   } catch {
     res.status(401).json({
-      error: new Error("Invalid request!"),
-      message: "Invalid request!",
+      error: 'Invalid request!',
     });
   }
 };

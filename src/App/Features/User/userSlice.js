@@ -1,11 +1,13 @@
 // import create slice from redux toolkit
 import { createSlice } from '@reduxjs/toolkit'
 
+
 // define initial state
 export const initialState = {
     authenticated: false,
     user: {},
 }
+
 
 // define action types
 export const AUTHENTICATE = 'AUTHENTICATE';
@@ -31,12 +33,14 @@ export const userSlice = createSlice({
     },
 })
 
+
 // export selectors
 export const getAuthenticated = (state) => state.user.authenticated;
 export const getUser = (state) => state.user.user;
 export const getUserId = (state) => getUser(state).id;
 export const getArrayOfUsers = (state) => Object.values(getUser(state));
 export const setUsers = (state) => state.user.users;
+
 
 // export actions and selectors
 export const authenticate = userSlice.actions[AUTHENTICATE];

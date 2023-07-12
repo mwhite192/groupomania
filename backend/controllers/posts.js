@@ -158,7 +158,7 @@ exports.likePosts = (req, res, next) => {
   // checks if the posts exists
   if (!post) {
     return res.status(404).json({ 
-      error: "post not found!" 
+      error: 'post not found!' 
     });
   }
   // sets the userId to the request body userId
@@ -173,7 +173,7 @@ exports.likePosts = (req, res, next) => {
     post.save()
     .then((updatedPost) => {
       res.status(201).json({
-        message: "post liked successfully!",
+        message: 'post liked successfully!',
         // return the updated usersLiked count
         usersLiked: updatedPost.usersLiked, 
       });
@@ -182,7 +182,7 @@ exports.likePosts = (req, res, next) => {
     .catch((error) => {
       console.error(error);
       res.status(501).json({
-        error: "unable to update likes!",
+        error: 'unable to update likes!',
       });
     });
     // checks if the user has already liked the post to unlike it
@@ -195,7 +195,7 @@ exports.likePosts = (req, res, next) => {
     post.save()
     .then((updatedPost) => {
       res.status(201).json({
-        message: "post un-liked successfully!",
+        message: 'post un-liked successfully!',
         // returns the updated usersLiked count
         usersLiked: updatedPost.usersLiked, 
       });
@@ -204,7 +204,7 @@ exports.likePosts = (req, res, next) => {
     .catch((error) => {
       console.error(error);
       res.status(501).json({
-        error: "failed to un-like post!",
+        error: 'failed to un-like post!',
       });
     });
   }
@@ -243,7 +243,7 @@ exports.commentPosts = (req, res, next) => {
       .catch((error) => {
       res.status(400).json({
           // returns the error
-          error: 'Unable to create comment!',
+          error: 'unable to create comment!',
       });
       });
 };
@@ -339,7 +339,7 @@ exports.likeComment = (req, res, next) => {
       comment.save()
       .then((updatedComment) => {
         res.status(201).json({
-          message: "comment liked successfully!",
+          message: 'comment liked successfully!',
           // returns the updated likes count
           likes: updatedComment.likes, 
         });
@@ -348,7 +348,7 @@ exports.likeComment = (req, res, next) => {
       .catch((error) => {
         console.error(error);
         res.status(501).json({
-          error: "failed to update comment likes!",
+          error: 'failed to update comment likes!',
         });
       });
     } 
@@ -362,7 +362,7 @@ exports.likeComment = (req, res, next) => {
       comment.save()
       .then((updatedComment) => {
         res.status(201).json({
-          message: "comment un-liked successfully!",
+          message: 'comment un-liked successfully!',
           // returns the updated likes count
           likes: updatedComment.likes, 
         });
@@ -371,7 +371,7 @@ exports.likeComment = (req, res, next) => {
       .catch((error) => {
         console.error(error);
         res.status(501).json({
-          error: "failed to un-like comment!",
+          error: 'failed to un-like comment!',
         });
       });
     }

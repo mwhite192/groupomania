@@ -14,7 +14,7 @@
 
     // create post slice
     export const postSlice = createSlice({
-      name: "post",
+      name: 'post',
       initialState,
       reducers: {
         [CREATE]: (state, action) => {
@@ -33,6 +33,7 @@
       },
     });
 
+
     // export selectors
     export const getAuthenticated = (state) => state.post.authenticated;
     export const getPost = (state) => state.post.post;
@@ -42,7 +43,8 @@
     export const getArrayOfPosts = (state) => Object.values(getAllPost(state));
     export const getSortedArrayOfPosts = (state) => getArrayOfPosts(state).sort((a, b) => {
       return Date.parse(b.timestamp) - Date.parse(a.timestamp)
-      });
+    });
+
 
     // export actions and selectors
     export const createPost = postSlice.actions[CREATE];

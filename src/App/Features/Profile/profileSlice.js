@@ -1,11 +1,13 @@
 // imports create slice from redux toolkit
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit';
+
 
 // define initial state
 export const initialState = {
     authenticated: false,
     profile: {},
 }
+
 
 // define action types
 export const UPDATE = 'UPDATE';
@@ -35,10 +37,12 @@ export const profileSlice = createSlice({
     },
 });
 
+
 // export selectors
 export const getAuthenticated = (state) => state.profile.authenticated;
 export const getProfile = (state) => state.profile.profile;
 export const getProfileId = (state) => getProfile(state).userId;
+
 
 // export actions and selectors
 export const update = profileSlice.actions[UPDATE];

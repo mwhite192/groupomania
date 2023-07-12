@@ -28,21 +28,21 @@ exports.signup = (req, res, next) => {
         // if the user is not saved, returns an error
         .catch((error) => {
           res.status(501).json({
-            error: "failed to save user!",
+            error: 'failed to save user!',
           });
         })
         // returns success message if the user is saved
         .then(() => {
           res.status(201).json({
-            message: "user added successfully!",
+            message: 'user added successfully!',
           });
           // sets the url for the image
-          const url = req.protocol + "://" + req.get("host");
+          const url = req.protocol + '://' + req.get('host');
           // creates a new user profile
           const profile = new Profile({
             userId: user._id,
             name: user.name,
-            formFile: url + "/images/" + req.file.filename,
+            formFile: url + '/images/' + req.file.filename,
             formGridEmail: user.registerEmail,
             formGridPassword: user.registerPassword,
             formGridPosition: req.body.formGridPosition,
@@ -58,14 +58,14 @@ exports.signup = (req, res, next) => {
         // if the profile is not saved, returns an error
         .catch((error) => {
           res.status(501).json({
-            error: "failed to save profile!",
+            error: 'failed to save profile!',
           });
         });
     })
     // if the password is not hashed, returns an error
     .catch((error) => {
       res.status(501).json({
-        error: "failed to encrypt password!",
+        error: 'failed to encrypt password!',
       });
     });
 };
