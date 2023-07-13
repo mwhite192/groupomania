@@ -27,6 +27,7 @@ export const Sidebar = () => {
   // creates a navigate variable and sets it to the useNavigate hook
   const navigate = useNavigate();
 
+
   // creates a handleClick function
   const handleClick = () => {
     // dispatches the LOGOUT action
@@ -35,11 +36,13 @@ export const Sidebar = () => {
     navigate('/');
   };
 
+
   // creates a handleFeed function
   const handleFeed = () => {
     // navigates user to home page
     navigate('/home');
   };
+
 
   // returns the Sidebar component
   return (
@@ -61,9 +64,11 @@ export const Sidebar = () => {
             <Friends key={user.id} user={user} />
           ))}
         </ul>
+
       </div>
     </div>
   );
 }
+
 
 export default Sidebar;

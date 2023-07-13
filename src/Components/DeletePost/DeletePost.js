@@ -1,4 +1,4 @@
-// imports React library
+// imports React library and the DeletePost.scss file
 import React from 'react';
 import './DeletePost.scss';
 // imports the store
@@ -7,13 +7,13 @@ import { store } from '../../App/store';
 import { getUser } from '../../App/Features/User/userSlice';
 // imports the deletePost action
 import { deletePost } from '../../App/Features/Post/postSlice';
-// imports the useNavigate hook
-import { useNavigate } from 'react-router-dom';
 // imports the useState hook
 import { useState } from 'react';
+// imports the useNavigate hook
+import { useNavigate } from 'react-router-dom';
 // imports react bootstrap components
-import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal";
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
 // imports the icons from the material ui library
 import { IconButton } from '@mui/material';
 import { Delete } from '@mui/icons-material';
@@ -23,10 +23,10 @@ import { Delete } from '@mui/icons-material';
 export const DeletePost = ({ postId }) => {
   // creates the navigate variable and sets it to the useNavigate hook
   const navigate = useNavigate();
-  // creates a token variable and sets it to the token from the getUser selector
-  const { token, userId } = getUser(store.getState());
   // creates the post state variable and the setPost state function
   const [show, setShow] = useState(false);
+  // creates a token variable and sets it to the token from the getUser selector
+  const { token, userId } = getUser(store.getState());
   
   
   // creates the handleShow function
@@ -51,7 +51,7 @@ export const DeletePost = ({ postId }) => {
     .then((response) => {
         // checks for errors
         if (response.status === 404 || !response.ok) {
-            throw new Error('Unable to delete post!');
+            throw new Error('unable to delete post!');
         }
         // returns the response as JSON
         return response.json();
@@ -75,22 +75,22 @@ export const DeletePost = ({ postId }) => {
 
   // returns the DeletePost component
   return (
-    <div className="deletePost">
-      <div className="deletePostButton">
+    <div className='deletePost'>
+      <div className='deletePostButton'>
         <IconButton onClick={handleShow}>
-          <Delete className="postDeleteButton" />
+          <Delete className='postDeleteButton' />
         </IconButton>
       </div>
-      <Modal animation={true} show={show} onHide={handleClose} size="sm">
+      <Modal animation={true} show={show} onHide={handleClose} size='sm'>
         <Modal.Header closeButton>
           <Modal.Title>Confirm Post Deletion</Modal.Title>
         </Modal.Header>
         <Modal.Body>Are you sure you want to delete this post?</Modal.Body>
         <Modal.Footer>
-          <Button className="postOptionsButton" onClick={handleClose}>
+          <Button className='postOptionsButton' onClick={handleClose}>
             Cancel
           </Button>
-          <Button className="postOptionsButton" onClick={handleDelete}>
+          <Button className='postOptionsButton' onClick={handleDelete}>
             Delete
           </Button>
         </Modal.Footer>
@@ -98,5 +98,6 @@ export const DeletePost = ({ postId }) => {
     </div>
   );
 }
+
 
 export default DeletePost;

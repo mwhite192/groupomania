@@ -1,8 +1,8 @@
 // imports the React library and the Friends.scss file
 import React from "react";
 import "./Friends.scss";
-// imports DefaultOnlineProfileImage.jpeg
-import DefaultOnlineProfileImage from '../../Assets/person/DefaultOnlineImage.jpeg'
+// imports default profile image
+import DefaultOnlineProfileImage from '../../Assets/Person/DefaultOnlineImage.jpeg'
 
 
 // creates the Friends component

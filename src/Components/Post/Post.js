@@ -11,19 +11,19 @@ import { createComment, getCommentsByPostId, updateComment, deleteComment } from
 import { updatePost } from '../../App/Features/Post/postSlice';
 // imports ReactTimeAgo library
 import ReactTimeAgo from 'react-time-ago';
-// imports the DeletePost and UpdateComment component
-import DeletePost from '../DeletePost/DeletePost';
-import UpdateComment from '../UpdateComment/UpdateComment';
 // imports useNavigate hook
 import { useNavigate } from 'react-router-dom';
 // imports the useState hook
 import { useState } from 'react';
+// imports the DeletePost and UpdateComment component
+import DeletePost from '../DeletePost/DeletePost';
+import UpdateComment from '../UpdateComment/UpdateComment';
 // imports the UpdatePostForm component
 import UpdatePostForm from '../UpdatePostForm/UpdatePostForm';
 // imports the ThumbUpAltOutlined icon from the material ui library
 import { ThumbUpAltOutlined, ThumbUpAlt, SendOutlined, DeleteOutline } from '@mui/icons-material';
-// imports DefaultOnlineProfileImage.jpeg
-import DefaultOnlineProfileImage from '../../Assets/person/DefaultOnlineImage.jpeg';
+// imports default profile image
+import DefaultOnlineProfileImage from '../../Assets/Person/DefaultOnlineImage.jpeg';
 
 
 // creates the Post component
@@ -46,7 +46,7 @@ export const Post = ({ post }) => {
   const { userId, name, formFile, token, timestamp: time } = getUser(store.getState());
   // creates the postsComments variable and sets it to the getCommentsByPostId selector
   const postsComments = getCommentsByPostId(store.getState(), _id);
-  //
+  // creates the postClass variable and sets it to the useState hook
   const [postClass, setPostClass] = useState(time < Date.parse(post.timestamp) ? 'newPost' : '');
   // creates the userId variable and sets it to the getUser selector
   const [like, setLike] = useState((usersLiked || []).length);
@@ -80,9 +80,9 @@ export const Post = ({ post }) => {
     };
     // sends a post request to the server
     fetch(`/api/posts/${_id}/likes`, {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       // converts the like object to a json string
       body: JSON.stringify(like),
@@ -93,8 +93,9 @@ export const Post = ({ post }) => {
       })
       .then((data) => {
         // Check the response to see if the user already liked the post
-        if (data.message === "Post un-liked successfully!") {
-          alert(data.message); // Display the message to the user
+        if (data.message === 'post un-liked successfully!') {
+          // Display the message to the user
+          alert(data.message); 
           // Update the like state only if the user didn't like the post before
           setLiked(false);
           // Update the like state only if the user didn't like the post before
@@ -109,7 +110,7 @@ export const Post = ({ post }) => {
           // Dispatch the Redux action to update the like count in the store
           store.dispatch(updatePost({ postId: _id, usersLiked: data.usersLiked }));
           // Navigate to the home page
-          navigate("/home");
+          navigate('/home');
         }
       })
       .catch((error) => {
@@ -128,10 +129,10 @@ export const Post = ({ post }) => {
     };
     // sends a post request to the server
     fetch(`/api/posts/${_id}/comments/${commentId}/likes`, {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
-        "Authorization": 'Bearer ' + token,
+        'Content-Type': 'application/json',
+         Authorization: 'Bearer ' + token,
       },
       // converts the like object to a json string
       body: JSON.stringify(like),
@@ -142,7 +143,7 @@ export const Post = ({ post }) => {
       })
       .then((data) => {
         // Check the response to see if the user already liked the post
-        if (data.message === "Comment un-liked successfully!") {
+        if (data.message === 'Comment un-liked successfully!') {
           alert(data.message); // Display the message to the user
           // Update the commentLiked state only if the user didn't like the post before
           setCommentLiked(false);
@@ -152,7 +153,7 @@ export const Post = ({ post }) => {
           // Update the commentLiked state only if the user didn't like the post before
           setCommentLiked(true);
           // Navigate to the home page
-          navigate("/home");
+          navigate('/home');
         }
       })
       .catch((error) => {
@@ -166,16 +167,16 @@ export const Post = ({ post }) => {
   const handleDelete = (commentId) => {
     // sends a delete request to the server
     fetch(`/api/posts/${_id}/comments/` + commentId, {
-      method: "DELETE",
+      method: 'DELETE',
       headers: {
-        "Content-Type": "application/json",
-         Authorization: "Bearer " + token,
+        'Content-Type': 'application/json',
+         Authorization: 'Bearer ' + token,
       },
     })
       .then((response) => {
         // checks for errors
         if (response.status === 401 || !response.ok) {
-          throw new Error("Unable to delete comment!");
+          throw new Error('unable to delete comment!');
         }
         // returns response body as JSON
         return response.json();
@@ -184,7 +185,7 @@ export const Post = ({ post }) => {
         // dispatches the deleteComment action
         store.dispatch(deleteComment(commentId));
         // navigates to the home page
-        navigate("/home");
+        navigate('/home');
       })
       .catch((error) => {
         // logs the error
@@ -199,10 +200,10 @@ export const Post = ({ post }) => {
     e.preventDefault();
     // sends a post request to the server
     fetch(`/api/posts/${_id}/comments`, {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + token,
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + token,
       },
       // converts the comment object to a json string
       body: JSON.stringify(comment),
@@ -217,11 +218,9 @@ export const Post = ({ post }) => {
         // dispatches the updatePost action
         store.dispatch(updatePost({ postId: _id, comments: data._id }));
         // resets the commentText state variable
-        setCommentText("");
-        // logs the data
-        console.log(data);
+        setCommentText('');
         // navigates to the home page
-        navigate("/home");
+        navigate('/home');
       })
       .catch((error) => {
         // logs the error
@@ -229,58 +228,60 @@ export const Post = ({ post }) => {
       });
   }
 
+
   // returns the Post component
-  console.log(time, Date.parse(post.timestamp), time < Date.parse(post.timestamp))
+  // sets the timeout to 5 seconds for the newPost class
   setTimeout(() => {setPostClass('')}, 5000);
   return (
     <div className={`post ${postClass}`}>
-      <div className="postWrapper">
-        <div className="postTop">
-          <div className="postTopLeft">
+      <div className='postWrapper'>
+        <div className='postTop'>
+          <div className='postTopLeft'>
             <img
-              className="postProfileImg"
+              className='postProfileImg'
               src={profilePicture ? profilePicture : DefaultOnlineProfileImage}
-              alt="user profile"
+              alt='user profile'
             />
-            <span className="postUsername">{username}</span>
-            <div className="postTime">
+            <span className='postUsername'>{username}</span>
+            <div className='postTime'>
               <ReactTimeAgo
                 date={Date.parse(date)}
-                className="postDate"
-                locale="en-US"
+                className='postDate'
+                locale='en-US'
               />
             </div>
           </div>
-          <div className="postTopRight">
-            <div className="postDelete">
+          <div className='postTopRight'>
+            <div className='postDelete'>
               <DeletePost postId={_id} />
-              <span className="postTopDeleteText">Delete</span>
+              <span className='postTopDeleteText'>Delete</span>
             </div>
-            <div className="postEdit">
+            <div className='postEdit'>
               <UpdatePostForm postId={_id} />
-              <span className="postTopDeleteText">Edit</span>
+              <span className='postTopDeleteText'>Edit</span>
             </div>
           </div>
         </div>
-        <div className="postCenter">
+        <div className='postCenter'>
           <div
-            className="postCenterImg"
-            style={image ? {} : { display: "none" }}
+            className='postCenterImg'
+            style={image ? {} : { display: 'none' }}
           >
-            <img src={image} alt="post" className="postImg" />
+            <img src={image} alt='post' className='postImg' />
           </div>
         </div>
-        <div className="postContent">
-          <span className="postName">{username}</span>
-          <span className="postText">{message}</span>
-          <span className="postCommentText">
-            {postsComments.length} &#x2022;{" "}
-            {postsComments.length === 1 ? "comment" : "comments"}
+        <div className='postContent'>
+          <span className='postName'>{username}</span>
+          <span className='postText'>{message}</span>
+          <span className='postCommentText'>
+            {postsComments.length} &#x2022;{' '}
+            {postsComments.length === 1 ? 'comment' : 'comments'}
           </span>
-          <div className="commentLoad">
-            {postsComments.length > visibleComments && ( // If there are more comments than the visibleComments state variable, display the load more button
+          <div className='commentLoad'>
+            {postsComments.length > visibleComments && ( 
+              // If there are more comments than the visibleComments state variable, display the load more button
               <button
-                className="commentLoadButton"
+                className='commentLoadButton'
                 onClick={() => setVisibleComments(visibleComments + 3)}
               >
                 View all {postsComments.length} comments
@@ -288,45 +289,45 @@ export const Post = ({ post }) => {
             )}
           </div>
           {postsComments.slice(0, visibleComments).map((comment) => (
-            <div key={comment._id} className="comment">
-              <div className="commentUserInfo">
+            <div key={comment._id} className='comment'>
+              <div className='commentUserInfo'>
                 <img
-                  className="commentImg"
+                  className='commentImg'
                   src={
                     comment.profilePicture
                       ? comment.profilePicture
                       : DefaultOnlineProfileImage
                   }
-                  alt="user profile"
+                  alt='user profile'
                 />
-                <span className="commentUsername">{comment.username}</span>
+                <span className='commentUsername'>{comment.username}</span>
                 <ReactTimeAgo
-                  className="commentDate"
+                  className='commentDate'
                   date={Date.parse(comment.commentDate)}
-                  locale="en-US"
+                  locale='en-US'
                 />
               </div>
-              <div className="commentText">{comment.commentText}</div>
-              <div className="commentFooter">
+              <div className='commentText'>{comment.commentText}</div>
+              <div className='commentFooter'>
                 <button
-                  className="commentFooterItem"
+                  className='commentFooterItem'
                   onClick={() => handleCommentLikes(comment._id)}
                 >
                   {commentLiked ? (
-                    <ThumbUpAlt className="commentFooterIcon" />
+                    <ThumbUpAlt className='commentFooterIcon' />
                   ) : (
-                    <ThumbUpAltOutlined className="commentFooterIcon" />
+                    <ThumbUpAltOutlined className='commentFooterIcon' />
                   )}
                 </button>
                 <button
-                  className="commentFooterItem"
+                  className='commentFooterItem'
                   onClick={() => handleDelete(comment._id)}
                 >
-                  <DeleteOutline className="commentFooterIcon" />
+                  <DeleteOutline className='commentFooterIcon' />
                 </button>
-                <span className="commentFooterItem">
+                <span className='commentFooterItem'>
                   <UpdateComment
-                    className="commentFooterIcon"
+                    className='commentFooterIcon'
                     postId={_id}
                     commentId={comment._id}
                   />
@@ -335,37 +336,37 @@ export const Post = ({ post }) => {
             </div>
           ))}
         </div>
-        <div className="postFooter">
-          <button className="postFooterBottomItem" onClick={handleLike}>
+        <div className='postFooter'>
+          <button className='postFooterBottomItem' onClick={handleLike}>
             {liked ? (
-              <ThumbUpAlt className="postFooterIcon" />
+              <ThumbUpAlt className='postFooterIcon' />
             ) : (
-              <ThumbUpAltOutlined className="postFooterIcon" />
+              <ThumbUpAltOutlined className='postFooterIcon' />
             )}
           </button>
-          <span className="postLikeCounter">{like} &#x2022; likes</span>
+          <span className='postLikeCounter'>{like} &#x2022; likes</span>
         </div>
-        <div className="postComment">
+        <div className='postComment'>
           <img
-            className="postCommentImg"
+            className='postCommentImg'
             src={DefaultOnlineProfileImage}
-            alt="user profile"
+            alt='user profile'
           />
-          <form className="postAddCommentForm">
+          <form className='postAddCommentForm'>
             <input
-              type="text"
-              name="comment"
-              className="postAddComment"
+              type='text'
+              name='comment'
+              className='postAddComment'
               maxLength={500}
               value={commentText}
               onChange={(e) => setCommentText(e.target.value)}
-              placeholder="Add a comment....."
+              placeholder='Add a comment.....'
             />
             <button
-              className="postAddCommentSubmitButton"
+              className='postAddCommentSubmitButton'
               onClick={handleSubmit}
             >
-              <SendOutlined className="postAddCommentSubmitIcon" />
+              <SendOutlined className='postAddCommentSubmitIcon' />
             </button>
           </form>
         </div>
@@ -373,5 +374,6 @@ export const Post = ({ post }) => {
     </div>
   );
 };
+
 
 export default Post;

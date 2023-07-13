@@ -15,7 +15,7 @@ import { Sidebar } from '../../Components/Sidebar/Sidebar';
 import { Feed } from '../../Components/Feed/Feed';
 // imports the ProfileRightBar, User, and ProfileCover images
 import { ProfileRightBar } from '../../Components/ProfileRightBar/ProfileRightBar'; 
-import ProfileCover from '../../Assets/person/profileCover.jpeg';
+import ProfileCover from '../../Assets/Person/profileCover.jpeg';
 
 
 // creates the Profile page

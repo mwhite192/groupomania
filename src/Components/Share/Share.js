@@ -7,13 +7,13 @@ import { store } from '../../App/store';
 import { getUser } from '../../App/Features/User/userSlice';
 // imports PostForm component
 import { PostForm } from '../PostForm/PostForm';
-// import homeIcon 
+// import HomeIcon 
 import HomeIcon from '../../Assets/Logos/homeIcon.svg';
 
 
 // creates the Share component
 export const Share = () => {
-  // gets the user from the store
+  // gets the users name from the store
   const { name } = getUser(store.getState());
   // returns the Share component
   return (
@@ -40,5 +40,6 @@ export const Share = () => {
     </div>
   );
 };
+
 
 export default Share;

@@ -15,7 +15,9 @@ import { Button } from 'react-bootstrap';
 
 // creates the ProfileRightBar component
 export const ProfileRightBar = () => {
-  // gets the user from the store
+  // creates the navigate hook and assigns it to the navigate function
+   const navigate = useNavigate();
+  // gets the users email from the store
   const { formGridEmail } = getUser(store.getState());
   // get the profile from the store
   const { formGridPhone, 
@@ -25,44 +27,44 @@ export const ProfileRightBar = () => {
     formGridState, 
     formGridZip} = getProfile(store.getState());
   
- // creates the navigate hook
-  const navigate = useNavigate();
+    
   // creates the handleClick function
   const handleClick = () => {
     // navigates user to edit profile page
     navigate('/profile/update');
   };
   
+  
   // returns the ProfileRightBar component
   return (
-    <div className="profileRightBar">
-      <div className="profileRightBarHeading">
-        <span className="profileRightBarTitle">{formGridPosition}</span>
+    <div className='profileRightBar'>
+      <div className='profileRightBarHeading'>
+        <span className='profileRightBarTitle'>{formGridPosition}</span>
       </div>
-      <div className="profileRightBarInfo">
-        <div className="profileRightBarInfoItem">
-          <span className="profileRightBarInfoKey">Email: </span>
-          <span className="profileRightBarInfoValue">{formGridEmail}</span>
+      <div className='profileRightBarInfo'>
+        <div className='profileRightBarInfoItem'>
+          <span className='profileRightBarInfoKey'>Email: </span>
+          <span className='profileRightBarInfoValue'>{formGridEmail}</span>
         </div>
-        <div className="profileRightBarInfoItem">
-          <span className="profileRightBarInfoKey">Phone#: </span>
-          <span className="profileRightBarInfoValue">{formGridPhone}</span>
+        <div className='profileRightBarInfoItem'>
+          <span className='profileRightBarInfoKey'>Phone#: </span>
+          <span className='profileRightBarInfoValue'>{formGridPhone}</span>
         </div>
-        <div className="profileRightBarInfoItem">
-          <span className="profileRightBarInfoKey">Work Office: </span>
-          <span className="profileRightBarInfoValue">{formGridWorkOffice}</span>
+        <div className='profileRightBarInfoItem'>
+          <span className='profileRightBarInfoKey'>Work Office: </span>
+          <span className='profileRightBarInfoValue'>{formGridWorkOffice}</span>
         </div>
-        <div className="profileRightBarInfoItem">
-          <span className="profileRightBarInfoKey">City: </span>
-          <span className="profileRightBarInfoValue">{formGridCity}</span>
+        <div className='profileRightBarInfoItem'>
+          <span className='profileRightBarInfoKey'>City: </span>
+          <span className='profileRightBarInfoValue'>{formGridCity}</span>
         </div>
-        <div className="profileRightBarInfoItem">
-          <span className="profileRightBarInfoKey">State: </span>
-          <span className="profileRightBarInfoValue">{formGridState}</span>
+        <div className='profileRightBarInfoItem'>
+          <span className='profileRightBarInfoKey'>State: </span>
+          <span className='profileRightBarInfoValue'>{formGridState}</span>
         </div>
-        <div className="profileRightBarInfoItem">
-          <span className="profileRightBarInfoKey">Zip: </span>
-          <span className="profileRightBarInfoValue">{formGridZip}</span>
+        <div className='profileRightBarInfoItem'>
+          <span className='profileRightBarInfoKey'>Zip: </span>
+          <span className='profileRightBarInfoValue'>{formGridZip}</span>
         </div>
       </div>
       <Button variant='primary' onClick={handleClick}>
@@ -71,5 +73,6 @@ export const ProfileRightBar = () => {
     </div>
   );
 };
+
 
 export default ProfileRightBar;

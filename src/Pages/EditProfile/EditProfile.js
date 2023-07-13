@@ -24,8 +24,8 @@ import { States } from '../../States';
 // imports the WorkOffices array
 import { WorkOffice } from '../../WorkOffice';
 // imports the images
-import ProfileCover from '../../Assets/person/profileCover.jpeg';
-import DefaultProfileCover from '../../Assets/person/DefaultProfile.jpg';
+import ProfileCover from '../../Assets/Person/profileCover.jpeg';
+import DefaultProfileCover from '../../Assets/Person/DefaultProfile.jpg';
 
 
 // creates the EditProfile page

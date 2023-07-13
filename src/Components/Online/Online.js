@@ -11,7 +11,6 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 // imports the OnlineCard component
 import { OnlineCard } from '../OnlineCard/OnlineCard';
-//import { Users } from '../../data';
 
 
 // creates the Online component
@@ -20,19 +19,24 @@ export const Online = () => {
   const { formFile, name, token, userId } = getUser(store.getState());
   // creates the users variable and sets it to the getUsers selector
   const [profiles, setProfiles] = useState([]);
+
+
   // creates the useEffect hook to fetch all users
   useEffect(() => {
-    fetch("http://localhost:3000/api/user/users", {
-      method: "GET",
+    fetch('http://localhost:3000/api/user/users', {
+      method: 'GET',
       headers: {
-        "Content-Type": "application/json",
-         Authorization: "Bearer " + token,
+        'Content-Type': 'application/json',
+         Authorization: 'Bearer ' + token,
       }
     })
+    // converts the response to json
     .then(response => response.json())
+      // sets the profiles variable to the data
       .then(data => {
         setProfiles(data);
       })
+      // logs an error if there is one
       .catch(error => console.error('Error fetching users:', error));
   }, [token]);
 
@@ -40,14 +44,15 @@ export const Online = () => {
   // returns the Online component
   return (
     <div className='online'>
-      <div className="onlineCard">
-        <div className="onlineProfileOverlay"></div> 
-        <img src={formFile} alt="user Online background" className="onlineBackground" />
-        <span className="onlineUser">{name}</span>
+      <div className='onlineCard'>
+        <div className='onlineProfileOverlay'></div> 
+        <img src={formFile} alt='user online background' className='onlineBackground' />
+        <span className='onlineUser'>{name}</span>
       </div>
       {profiles.filter((p) => p.userId !== userId).map((profile) => (<OnlineCard key={profile._id} profile={profile} />))}
     </div>
   )
 }
+
 
 export default Online;

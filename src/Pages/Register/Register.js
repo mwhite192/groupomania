@@ -8,7 +8,7 @@ import { useState } from 'react';
 // imports the DriveFolderUploadOutlined icon, company logo, and default profile image
 import { DriveFolderUploadOutlined } from '@mui/icons-material';
 import CompanyLogo from '../../Assets/Logos/logo 1.svg';
-import DefaultProfile from '../../Assets/person/DefaultProfile.jpg';
+import DefaultProfile from '../../Assets/Person/DefaultProfile.jpg';
 
 
 // creates the Register page

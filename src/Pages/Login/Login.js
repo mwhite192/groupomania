@@ -87,7 +87,7 @@ export const Login = () => {
         store.dispatch(authenticate(data));
         // dispatches LOGIN action to update state
         store.dispatch(login(data));
-        //
+        // dispatches SETUSERTIME action to update state
         store.dispatch(setUserTime(data.timestamp));
         // navigates user to home page
         navigate('/home'); 

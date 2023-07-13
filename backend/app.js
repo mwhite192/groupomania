@@ -35,14 +35,15 @@ mongoose
 
 
 // middleware
-app.use( '/', createProxyMiddleware({target: 'http://localhost:3000', changeOrigin: true,}));
-app.use('/images/', express.static(path.join(__dirname, 'images')));
-app.use('/api/user', userRouter);
-app.use('/api/posts', postsRouter);
 app.use(cors({allowedHeaders: ['Authorization', 'Content-Type']}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('static'));
+app.use('/images/', express.static(path.join(__dirname, 'images')));
+app.use('/api/user', userRouter);
+app.use('/api/posts', postsRouter);
+app.use( '/', createProxyMiddleware({target: 'http://localhost:3000', changeOrigin: true,}));
+
 
 // exports the app
 module.exports = app;

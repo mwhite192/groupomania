@@ -17,25 +17,29 @@ import { Post } from '../Post/Post';
 
 // creates the Feed component
 export const Feed = () => {
-  const { token, userId } = getUser(store.getState());
   // creates the Posts variable and sets it to the getArrayOfPosts selector
   const Posts = getSortedArrayOfPosts(store.getState());
-  //console.log(Posts);
+  // creates a token variable and sets it to the token from the getUser selector
+  const { token, userId } = getUser(store.getState());
   
 
   // creates the useEffect hook to fetch all posts
   useEffect(() => {
-    fetch("http://localhost:3000/api/posts/all", {
-      method: "GET",
+    fetch('http://localhost:3000/api/posts/all', {
+      method: 'GET',
       headers: {
-        "Content-Type": "application/json",
-         Authorization: "Bearer " + token,
+        'Content-Type': 'application/json',
+         Authorization: 'Bearer ' + token,
       },
     })
+      // converts the response to json
       .then((res) => res.json())
       .then((data) => {
+        // checks if data is an array
         if (Array.isArray(data)) {
+          // loops through the data array
           data.forEach((element) => {
+            // dispatches createPost action
             store.dispatch(createPost(element));
           });
         }
@@ -45,31 +49,34 @@ export const Feed = () => {
 
   // creates the useEffect hook to fetch user times
   useEffect(() => {
-    fetch("http://localhost:3000/api/user/updateTime", {
-      method: "PUT",
+    fetch('http://localhost:3000/api/user/updateTime', {
+      method: 'PUT',
       headers: {
-        "Content-Type": "application/json",
-         Authorization: "Bearer " + token,
+        'Content-Type': 'application/json',
+         Authorization: 'Bearer ' + token,
       },
       body: JSON.stringify({ userId }),
     })
-    .then((res) => res.json())
-    .then((data) => {
-      // 
-      if (data.timestamp){
-        setTimeout(() => {
-          store.dispatch(setUserTime(data.timestamp));
-        }, 2000);
-      }
-      console.log(data);
-    });
+      // converts the response to json
+      .then((res) => res.json())
+      // sets the user time
+      .then((data) => {
+        // checks if data has a timestamp
+        if (data.timestamp) {
+          // sets the timeout to 2 seconds
+          setTimeout(() => {
+            // dispatches setUserTime action
+            store.dispatch(setUserTime(data.timestamp));
+          }, 2000);
+        }
+      });
   }, []);
 
 
   // returns the Feed component
   return (
-    <div className="feed">
-      <div className="feedWrapper">
+    <div className='feed'>
+      <div className='feedWrapper'>
         <Online />
         <Share />
         {Posts.filter((p) => typeof p._id !== 'undefined').map((post) => {

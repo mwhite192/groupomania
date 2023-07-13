@@ -47,10 +47,13 @@ export const PostForm = () => {
   formData.append('username', username);
   formData.append('profilePicture', profilePicture);
 
+
   // creates the handleClose function
   const handleClose = () => setShow(false);
   // creates the handleShow function
   const handleShow = () => setShow(true);
+
+  
   // creates the handleSubmit function
     const handleSubmit = (e) => {
       // prevents the default form submission
@@ -66,14 +69,12 @@ export const PostForm = () => {
       /// convert response to JSON
     .then((response) => response.json())
     .then((data) => {
-      // dispatches the createPost action
+      // dispatches the CREATEPOST action
       store.dispatch(createPost(data));
       // navigates to the home page
       navigate('/home');
       // closes the modal
       handleClose();
-      // logs the data
-      console.log(data);
     })
     // catches errors
     .catch((error) => {
@@ -81,11 +82,12 @@ export const PostForm = () => {
     });
   };
 
+
   // returns the PostForm component
   return (
-    <div className="postForm">
-      <div className="postFormButton">
-        <button className="postFormShareButton" onClick={handleShow}>
+    <div className='postForm'>
+      <div className='postFormButton'>
+        <button className='postFormShareButton' onClick={handleShow}>
           Share Your Thoughts 
         </button>
       </div>
@@ -95,31 +97,31 @@ export const PostForm = () => {
         </Modal.Header>
         <Modal.Body>
           <Form onSubmit={handleSubmit}>
-            <Form.Group className="mb-3">
+            <Form.Group className='mb-3'>
               <Form.Label>
-                <PermMedia className="postShareIcon" style={{ fill: "##FCFFE7" }} />
+                <PermMedia className='postShareIcon' style={{ fill: '##FCFFE7' }} />
                 Photo/Video
               </Form.Label>
               <Form.Control
-                type="file"
-                id="file"
-                className="postShareOption"
-                accept=".png,.jpeg,.jpg,.gif,.mp4"
+                type='file'
+                id='file'
+                className='postShareOption'
+                accept='.png,.jpeg,.jpg,.gif,.mp4'
                 autoFocus
                 onChange={(e) => setFile(e.target.files[0])}
               />
             </Form.Group>
-            <Form.Group className="mb-3">
+            <Form.Group className='mb-3'>
               <Form.Label>
-                <Note className="postShareIcon" style={{ fill: "#FCFFE7" }} />
+                <Note className='postShareIcon' style={{ fill: '#FCFFE7' }} />
                 Post it!
               </Form.Label>
               <Form.Control
-                as="textarea"
-                id="message"
+                as='textarea'
+                id='message'
                 rows={3}
                 maxLength={500}
-                className="postOption"
+                className='postOption'
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
               />
@@ -138,5 +140,6 @@ export const PostForm = () => {
     </div>
   );
 };
+
 
 export default PostForm;
