@@ -144,7 +144,8 @@ export const Post = ({ post }) => {
       .then((data) => {
         // Check the response to see if the user already liked the post
         if (data.message === 'Comment un-liked successfully!') {
-          alert(data.message); // Display the message to the user
+          // Display the message to the user
+          alert(data.message); 
           // Update the commentLiked state only if the user didn't like the post before
           setCommentLiked(false);
         } else {

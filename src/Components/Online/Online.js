@@ -6,9 +6,7 @@ import { store } from '../../App/store';
 // imports the getUsers selector
 import { getUser } from '../../App/Features/User/userSlice';
 // imports useState hook
-import { useState } from 'react';
-// imports useEffect hook
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 // imports the OnlineCard component
 import { OnlineCard } from '../OnlineCard/OnlineCard';
 

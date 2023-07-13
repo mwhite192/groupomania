@@ -4,18 +4,18 @@ import './OnlineCard.scss';
 // imports online default image
 import onlineDefaultImg from '../../Assets/Logos/onlineDefaultImg.jpeg'
 // imports the add image
-import addImg from '../../Assets/Person/upload.png'
+import offlineImg from '../../Assets/Person/offline.jpeg'
 
 
 // creates the OnlineCard component
 export const OnlineCard = ({profile}) => {
   // returns the OnlineCard component
   return (
-    <div className="onlineCard">
-      <div className="onlineCardOverlay"></div>
-      <img src={addImg} alt='plus sign with blue background' className="onlineProfile"></img> 
-      <img src={profile.formFile || onlineDefaultImg} alt="user Online background" className="onlineBackground" />
-      <span className="onlineUser">{profile.name}</span>
+    <div className='onlineCard'>
+      <div className='onlineCardOverlay'></div>
+      <img src={offlineImg} alt='plus sign with blue background' className='onlineProfile'></img> 
+      <img src={profile.formFile || onlineDefaultImg} alt='user Online background' className='onlineBackground' />
+      <span className='onlineUser'>{profile.name}</span>
     </div>
   );
 };

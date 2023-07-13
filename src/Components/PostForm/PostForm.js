@@ -99,7 +99,7 @@ export const PostForm = () => {
           <Form onSubmit={handleSubmit}>
             <Form.Group className='mb-3'>
               <Form.Label>
-                <PermMedia className='postShareIcon' style={{ fill: '##FCFFE7' }} />
+                <PermMedia className='postShareIcon' style={{ fill: '#FCFFE7' }} />
                 Photo/Video
               </Form.Label>
               <Form.Control
