@@ -18,16 +18,20 @@ import CompanyLogo from '../../Assets/Logos/logo 1.svg';
 export const Login = () => {
   // creates a navigate variable and sets it to the useNavigate hook
   const navigate = useNavigate();
+
+
   // creates a handleClick function
   const handleClick = () => {
     // navigates user to register page
     navigate('/register');
   };
 
+
   // creates a form data object
   const formValues = {  email: '', password: '' };
   const [formData, setFormData] = useState(formValues);
   
+
   // creates a handleChange function
   const handleChange = (event) => {
     const { id, value } = event.target;
@@ -36,6 +40,7 @@ export const Login = () => {
       [id]: value
     });
   };
+
 
   // handles form validation
   const validateForm = () => {
@@ -76,7 +81,7 @@ export const Login = () => {
     // converts response to JSON
     .then((response) => {
       if (response.status === 401 || !response.ok) {
-        throw new Error('Sign in failed!');
+        throw new Error('sign in failed!');
       } 
       // returns response body as JSON
       return response.json();
@@ -91,8 +96,6 @@ export const Login = () => {
         store.dispatch(setUserTime(data.timestamp));
         // navigates user to home page
         navigate('/home'); 
-        // logs response data to console
-        console.log(data);
     })
     // Catches errors
     .catch((error) => {
@@ -100,48 +103,49 @@ export const Login = () => {
     });
   };
 
+
   // returns the Login page
   return (
-    <div className="login">
-      <div className="login">
-        <div className="loginWrapper">
-          <div className="loginWrapperLeft">
-            <img src={CompanyLogo} alt="company logo" className="loginLogo" />
-            <span className="loginLogoName">Groupomania</span>
-            <span className="loginDesc">
+    <div className='login'>
+      <div className='login'>
+        <div className='loginWrapper'>
+          <div className='loginWrapperLeft'>
+            <img src={CompanyLogo} alt='company logo' className='loginLogo' />
+            <span className='loginLogoName'>Groupomania</span>
+            <span className='loginDesc'>
               Connect and interact with colleagues to create a network of
               friends on Groupomania!
             </span>
           </div>
-          <div className="loginWrapperRight">
-            <div className="loginBox">
-              <div className="loginBoxBottom">
-                <form className="loginForm" onSubmit={handleSubmit}>
+          <div className='loginWrapperRight'>
+            <div className='loginBox'>
+              <div className='loginBoxBottom'>
+                <form className='loginForm' onSubmit={handleSubmit}>
                   <input
-                    type="email"
-                    placeholder="Email"
-                    id="email"
-                    className="loginInput"
+                    type='email'
+                    placeholder='Email'
+                    id='email'
+                    className='loginInput'
                     required
                     value={formData.email}
                     onChange={handleChange}
                   />
-                  <span id="emailErrorMsg" className='loginErrorMsg'></span>
+                  <span id='emailErrorMsg' className='loginErrorMsg'></span>
                   <input
-                    type="password"
-                    placeholder="Password"
-                    id="password"
-                    className="loginInput"
+                    type='password'
+                    placeholder='Password'
+                    id='password'
+                    className='loginInput'
                     required
                     value={formData.password}
                     onChange={handleChange}
                   />
-                  <span id="passwordErrorMsg" className='loginErrorMsg'></span>
+                  <span id='passwordErrorMsg' className='loginErrorMsg'></span>
 
-                  <button type="submit" className="loginButton">
+                  <button type='submit' className='loginButton'>
                     Log In
                   </button>
-                  <button className="loginRegisterButton"  onClick={handleClick}>
+                  <button className='loginRegisterButton'  onClick={handleClick}>
                     Create Account
                   </button>
                 </form>
@@ -153,6 +157,7 @@ export const Login = () => {
     </div>
   );
 };
+
 
 export default Login;
 

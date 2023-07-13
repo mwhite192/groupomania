@@ -24,6 +24,10 @@ export const Profile = () => {
   const navigate = useNavigate();
   // creates an authenticated variable and sets it to the getAuthenticated selector
   const authenticated = getAuthenticated(store.getState());
+  // gets the user from the store
+  const { name, formFile } = getUser(store.getState());
+
+
   // checks if the user is authenticated
   useEffect (() => {
     // if the user is not authenticated, navigate to the home page
@@ -32,26 +36,25 @@ export const Profile = () => {
       // if the user is authenticated, do nothing
   }}, [authenticated]);
   
-  // gets the user and profile from the store
-  const { name, formFile } = getUser(store.getState());
+
   // returns the profile page
   return (
     <div className='profile'>
       <Navbar />
-      <div className="profileWrapper">
+      <div className='profileWrapper'>
         <Sidebar />
-        <div className="profileRight">
-            <div className="profileRightTop">
-                <div className="profileCover">
-                    <img src={ProfileCover} alt="company logo" className="profileCoverImg" />
-                    <img src={formFile} alt="user" className="profileUserImg" />
+        <div className='profileRight'>
+            <div className='profileRightTop'>
+                <div className='profileCover'>
+                    <img src={ProfileCover} alt='company logo' className='profileCoverImg' />
+                    <img src={formFile} alt='user' className='profileUserImg' />
                 </div>
-                <div className="profileInfo">
-                    <h4 className="profileInfoName">{name}</h4>
-                    <span className="profileInfoDesc">Hi Team!</span>
+                <div className='profileInfo'>
+                    <h4 className='profileInfoName'>{name}</h4>
+                    <span className='profileInfoDesc'>Hi Team!</span>
                 </div>
             </div>
-            <div className="profileRightBottom">
+            <div className='profileRightBottom'>
                 <Feed />
                 <ProfileRightBar />
             </div>
@@ -59,6 +62,7 @@ export const Profile = () => {
       </div>
     </div>
   )
-}
+};
+
 
 export default Profile;

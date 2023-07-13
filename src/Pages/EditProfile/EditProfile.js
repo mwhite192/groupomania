@@ -1,16 +1,16 @@
 // imports the React library and the EditProfile.scss file
 import React from 'react';
 import './EditProfile.scss';
-// imports useNavigate hook
-import { useNavigate } from 'react-router-dom';
-// imports the useState hook
-import { useState, useEffect } from 'react';
 // imports the store
 import { store } from '../../App/store';
 // imports the getUser, deauthenticate, and getAuthenticated actions and selectors
 import { getUser, deauthenticate, getAuthenticated } from '../../App/Features/User/userSlice';
 // imports the update action and get profile selector from the profileSlice
 import { update } from '../../App/Features/Profile/profileSlice';
+// imports useNavigate hook
+import { useNavigate } from 'react-router-dom';
+// imports the useState hook
+import { useState, useEffect } from 'react';
 // imports the react bootstrap components
 import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col';
@@ -34,11 +34,13 @@ export const EditProfile = () => {
   const navigate = useNavigate();
   // creates an authenticated variable and sets it to the getAuthenticated function
   const authenticated = getAuthenticated(store.getState());
+
+
   // checks if the user is authenticated
   useEffect(() => {
     // if the user is not authenticated, navigate to the login page
     if (!authenticated) {
-      navigate("/");
+      navigate('/');
       // if the user is authenticated, navigate to the edit profile page
     }
   }, [authenticated]);
@@ -58,13 +60,13 @@ export const EditProfile = () => {
   const [profileData, setProfileData] = useState({
     userId: userId,
     formFile: formFile,
-    formGridPassword: "",
-    formGridPhone: "",
-    formGridWorkOffice: "",
-    formGridPosition: "",
-    formGridCity: "",
-    formGridState: "",
-    formGridZip: "",
+    formGridPassword: '',
+    formGridPhone: '',
+    formGridWorkOffice: '',
+    formGridPosition: '',
+    formGridCity: '',
+    formGridState: '',
+    formGridZip: '',
   });
 
 
@@ -73,11 +75,11 @@ export const EditProfile = () => {
     // prevents default form submission
     e.preventDefault();
     // PUTS form data to backend
-    fetch("/api/user/userId", {
-      method: "PUT",
+    fetch('/api/user/userId', {
+      method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: "Bearer " + token,
+         Authorization: 'Bearer ' + token,
       },
       body: JSON.stringify(profileData),
     })
@@ -85,7 +87,7 @@ export const EditProfile = () => {
       .then((response) => {
         // checks for errors
         if (response.status === 404 || !response.ok) {
-          throw new Error("Unable to update profile!");
+          throw new Error('unable to update profile!');
         }
         // returns response body as JSON
         return response.json();
@@ -95,8 +97,7 @@ export const EditProfile = () => {
         // dispatches UPDATE action profile to store
         store.dispatch(update(data));
         // navigates user to profile page
-        navigate("/profile");
-        console.log(data);
+        navigate('/profile');
       })
       // catches errors
       .catch((error) => {
@@ -104,22 +105,23 @@ export const EditProfile = () => {
       });
   };
 
+
   // creates a handleDelete function
   const handleDelete = (e) => {
     // prevents page from reloading on submit
     e.preventDefault();
     // DELETES form data to backend
-    fetch("/api/user/" + email, {
-      method: "DELETE",
+    fetch('/api/user/' + email, {
+      method: 'DELETE',
       headers: {
-        Authorization: "Bearer " + token,
+        Authorization: 'Bearer ' + token,
       },
     })
       // converts response to JSON
       .then((response) => {
         // checks for errors
         if (response.status === 403 || !response.ok) {
-          throw new Error("Unable to delete profile!");
+          throw new Error('unable to delete profile!');
         }
         // returns response body as JSON
         return response.json();
@@ -129,11 +131,9 @@ export const EditProfile = () => {
         // dispatches DEAUTHENTICATE action to store
         store.dispatch(deauthenticate());
         // deletes user from local storage
-        localStorage.removeItem("persist:root");
+        localStorage.removeItem('persist:root');
         // navigates user to login page
-        navigate("/");
-        // logs data
-        console.log(data);
+        navigate('/');
       })
       // catches errors
       .catch((error) => {
@@ -144,113 +144,113 @@ export const EditProfile = () => {
 
   // returns the EditProfile page
   return (
-    <div className="editProfile">
+    <div className='editProfile'>
       <Navbar />
-      <div className="editProfileWrapper">
+      <div className='editProfileWrapper'>
         <Sidebar />
-        <div className="profileRight">
-          <div className="profileRightTop">
-            <div className="profileCover">
+        <div className='profileRight'>
+          <div className='profileRightTop'>
+            <div className='profileCover'>
               <img
                 src={ProfileCover}
-                alt="company logo"
-                className="profileCoverImg"
+                alt='company logo'
+                className='profileCoverImg'
               />
-              <img src={formFile} alt="user" className="profileUserImg" />
+              <img src={formFile} alt='user' className='profileUserImg' />
             </div>
-            <div className="profileInfo">
-              <h4 className="profileInfoName">{name}</h4>
-              <span className="profileInfoDesc">Hi Team!</span>
+            <div className='profileInfo'>
+              <h4 className='profileInfoName'>{name}</h4>
+              <span className='profileInfoDesc'>Hi Team!</span>
             </div>
           </div>
-          <div className="editProfileRightBottom">
-            <div className="editProfileRightBottomTop">
-              <span className="editProfileRightBottomTopTitle">
-                Update Team Member Profile
+          <div className='editProfileRightBottom'>
+            <div className='editProfileRightBottomTop'>
+              <span className='editProfileRightBottomTopTitle'>
+                Team Member Profile
               </span>
             </div>
-            <div className="editProfileRightBottomBottom">
-              <div className="editProfileRightBottomLeft">
+            <div className='editProfileRightBottomBottom'>
+              <div className='editProfileRightBottomLeft'>
                 <img
                   src={formFile ? formFile : DefaultProfileCover}
-                  className="editProfileRightBottomLeftImg"
-                  alt="default user profile"
+                  className='editProfileRightBottomLeftImg'
+                  alt='default user profile'
                 />
               </div>
-              <div className="editProfileRightBottomForm">
-                <Form className="editProfileForm" onSubmit={handleSubmit}>
-                  <Row className="mb-3">
-                    <Form.Group controlId="formFile" className="mb-3">
+              <div className='editProfileRightBottomForm'>
+                <Form className='editProfileForm' onSubmit={handleSubmit}>
+                  <Row className='mb-3'>
+                    <Form.Group controlId='formFile' className='mb-3'>
                       <Form.Label>Image:</Form.Label>
                       <Form.Control
-                        type="file"
-                        className="editProfileFormInput"
+                        type='file'
+                        className='editProfileFormInput'
                       />
                       <p
-                        id="editProfileFileErrorMsg"
-                        className="editProfileErrorMsg"
+                        id='editProfileFileErrorMsg'
+                        className='editProfileErrorMsg'
                       ></p>
                     </Form.Group>
-                    <Form.Group as={Col} controlId="email">
+                    <Form.Group as={Col} controlId='email'>
                       <Form.Label>Email:</Form.Label>
                       <Form.Control
-                        type="email"
-                        className="editProfileFormInput"
-                        placeholder="Enter email"
+                        type='email'
+                        className='editProfileFormInput'
+                        placeholder='Enter email'
                         value={profileData.formGridEmail}
                         onChange={(e) => setProfileData({ ...profileData, formGridEmail: e.target.value })}
                       />
                       <p
-                        id="editProfilePasswordErrorMsg"
-                        className="editProfileErrorMsg"
+                        id='editProfilePasswordErrorMsg'
+                        className='editProfileErrorMsg'
                       ></p>
                     </Form.Group>
-                    <Form.Group as={Col} controlId="formGridPassword">
+                    <Form.Group as={Col} controlId='formGridPassword'>
                       <Form.Label>Password:</Form.Label>
                       <Form.Control
-                        type="password"
-                        className="editProfileFormInput"
-                        placeholder="Enter new password"
+                        type='password'
+                        className='editProfileFormInput'
+                        placeholder='Enter new password'
                         value={profileData.formGridPassword}
                         onChange={(e) => setProfileData({ ...profileData, formGridPassword: e.target.value })}
                       />
                       <p
-                        id="editProfilePasswordErrorMsg"
-                        className="editProfileErrorMsg"
+                        id='editProfilePasswordErrorMsg'
+                        className='editProfileErrorMsg'
                       ></p>
                     </Form.Group>
                   </Row>
-                  <Row className="mb-3">
+                  <Row className='mb-3'>
                     <Form.Group
-                      className="mb-3"
+                      className='mb-3'
                       as={Col}
                       md={3}
-                      controlId="formGridPhone"
+                      controlId='formGridPhone'
                     >
                       <Form.Label>Phone Number:</Form.Label>
                       <Form.Control
-                        className="editProfileFormInput"
+                        className='editProfileFormInput'
                         value={profileData.formGridPhone}
                         onChange={(e) => setProfileData({ ...profileData, formGridPhone: e.target.value })}
                       />
                       <p
-                        id="editProfilePhoneErrorMsg"
-                        className="editProfileErrorMsg"
+                        id='editProfilePhoneErrorMsg'
+                        className='editProfileErrorMsg'
                       ></p>
                     </Form.Group>
                     <Form.Group
                       as={Col}
                       sm={12}
                       md={3}
-                      className="mb-3"
-                      controlId="formGridWorkOffice"
+                      className='mb-3'
+                      controlId='formGridWorkOffice'
                     >
                       <Form.Label>Work Office: </Form.Label>
                       <Form.Select
-                        className="editProfileFormInput"
+                        className='editProfileFormInput'
                         value={profileData.formGridWorkOffice}
                         onChange={(e) => setProfileData({ ...profileData, formGridWorkOffice: e.target.value })}
-                        //defaultValue="Choose..."
+                        //defaultValue='Choose...'
                       >
                         <option>select Office...</option>
                         {WorkOffice.map((office) => (
@@ -258,50 +258,50 @@ export const EditProfile = () => {
                         ))}
                       </Form.Select>
                       <p
-                        id="editProfileAddressErrorMsg"
-                        className="editProfileErrorMsg"
+                        id='editProfileAddressErrorMsg'
+                        className='editProfileErrorMsg'
                       ></p>
                     </Form.Group>
-                    <Form.Group as={Col} controlId="formGridPosition">
+                    <Form.Group as={Col} controlId='formGridPosition'>
                       <Form.Label>Position:</Form.Label>
                       <Form.Control
-                        className="editProfileFormInput"
-                        placeholder="Enter Title"
+                        className='editProfileFormInput'
+                        placeholder='Enter Title'
                         value={profileData.formGridPosition}
                         onChange={(e) => setProfileData({ ...profileData, formGridPosition: e.target.value})}
                       />
                     </Form.Group>
                   </Row>
-                  <Row className="mb-3">
+                  <Row className='mb-3'>
                     <Form.Group
                       as={Col}
                       sm={12}
                       md={6}
-                      controlId="formGridCity"
+                      controlId='formGridCity'
                     >
                       <Form.Label>City</Form.Label>
                       <Form.Control
-                        className="editProfileFormInput"
+                        className='editProfileFormInput'
                         value={profileData.formGridCity}
                         onChange={(e) => setProfileData({ ...profileData, formGridCity: e.target.value})}
                       />
                       <p
-                        id="editProfileCityErrorMsg"
-                        className="editProfileErrorMsg"
+                        id='editProfileCityErrorMsg'
+                        className='editProfileErrorMsg'
                       ></p>
                     </Form.Group>
                     <Form.Group
                       as={Col}
                       sm={12}
                       md={3}
-                      controlId="formGridState"
+                      controlId='formGridState'
                     >
                       <Form.Label>State</Form.Label>
                       <Form.Select
-                        className="editProfileFormInput"
+                        className='editProfileFormInput'
                         value={profileData.formGridState}
                         onChange={(e) => setProfileData({ ...profileData, formGridState: e.target.value})}
-                        //defaultValue="Choose..."
+                        //defaultValue='Choose...'
                       >
                         <option>select state...</option>
                         {States.map((state) => (
@@ -309,28 +309,28 @@ export const EditProfile = () => {
                         ))}
                       </Form.Select>
                       <p
-                        id="editProfileStateErrorMsg"
-                        className="editProfileErrorMsg"
+                        id='editProfileStateErrorMsg'
+                        className='editProfileErrorMsg'
                       ></p>
                     </Form.Group>
-                    <Form.Group as={Col} md={3} controlId="formGridZip">
+                    <Form.Group as={Col} md={3} controlId='formGridZip'>
                       <Form.Label>Zip Code</Form.Label>
                       <Form.Control
-                        className="editProfileFormInput"
+                        className='editProfileFormInput'
                         value={profileData.formGridZip}
                         onChange={(e) => setProfileData({...profileData, formGridZip: e.target.value})}
                       />
                       <p
-                        id="editProfileZipErrorMsg"
-                        className="editProfileErrorMsg"
+                        id='editProfileZipErrorMsg'
+                        className='editProfileErrorMsg'
                       ></p>
                     </Form.Group>
                   </Row>
-                  <div className="editProfileButtons">
-                    <Button variant="primary" onClick={handleDelete}>
+                  <div className='editProfileButtons'>
+                    <Button variant='primary' onClick={handleDelete}>
                       Delete Account
                     </Button>
-                    <Button variant="primary" type="submit">
+                    <Button variant='primary' type='submit'>
                       Update Account
                     </Button>
                   </div>
@@ -343,6 +343,7 @@ export const EditProfile = () => {
     </div>
   );
 };
+
 
 export default EditProfile;
 

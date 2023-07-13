@@ -15,6 +15,7 @@ import DefaultProfile from '../../Assets/Person/DefaultProfile.jpg';
 export const Register = () => {
   // creates a navigate variable and sets it to the useNavigate hook
   const navigate = useNavigate();
+
   
   // sets the initial state of the form data
   const [name, setName] = useState('');
@@ -27,6 +28,7 @@ export const Register = () => {
   formData.append('registerEmail', registerEmail);
   formData.append('registerPassword', registerPassword);
   formData.append('file', file);
+
 
   // creates a handleSubmit function
   const handleSubmit = (event) => {
@@ -41,88 +43,86 @@ export const Register = () => {
     })
     // convert response to JSON
     .then((response) => response.json())
-    .then((data) => {
-      console.log(data);
-    })
     // catches errors
     .catch((error) => {
       console.error(error);
     });
   };
+
   
   // returns the Register page
   return (
-    <div className="register">
-      <div className="registerWrapper">
-        <div className="registerWrapperLeft">
-          <img src={CompanyLogo} alt="company logo" className="registerLogo" />
-          <span className="registerLogoName">Groupomania</span>
-          <span className="registerDesc">
+    <div className='register'>
+      <div className='registerWrapper'>
+        <div className='registerWrapperLeft'>
+          <img src={CompanyLogo} alt='company logo' className='registerLogo' />
+          <span className='registerLogoName'>Groupomania</span>
+          <span className='registerDesc'>
             Connect and interact with colleagues to create a network of friends
             on Groupomania!
           </span>
         </div>
-        <div className="registerWrapperRight">
-          <div className="registerBox">
-            <div className="registerBoxTop">
+        <div className='registerWrapperRight'>
+          <div className='registerBox'>
+            <div className='registerBoxTop'>
               <img
                 src={file ? URL.createObjectURL(file):DefaultProfile}
-                alt="default user"
-                className="registerImg"
+                alt='default user'
+                className='registerImg'
               />
             </div>
-            <div className="registerBoxBottom">
+            <div className='registerBoxBottom'>
               <form
-                className="registerForm"
+                className='registerForm'
                 onSubmit={handleSubmit}
               >
-                <div className="registerImgUpload">
-                  <label className="registerImgUploadLabel" htmlFor="file">
+                <div className='registerImgUpload'>
+                  <label className='registerImgUploadLabel' htmlFor='file'>
                     Upload Image:
-                    <DriveFolderUploadOutlined className="icon" />
+                    <DriveFolderUploadOutlined className='icon' />
                     <input
-                      type="file"
-                      name="file"
-                      id="file"
+                      type='file'
+                      name='file'
+                      id='file'
                       required
-                      accept=".png,.jpeg,.jpg"
-                      style={{ display: "none" }}
+                      accept='.png,.jpeg,.jpg'
+                      style={{ display: 'none' }}
                       onChange={(e) => setFile(e.target.files[0])}
                     />
                   </label>
-                  <p id="uploadImageErrorMsg" className='registerErrorMsg'></p>
+                  <p id='uploadImageErrorMsg' className='registerErrorMsg'></p>
                 </div>
                 <input
-                  type="text"
-                  placeholder="Name"
-                  id="name"
-                  className="registerInput"
+                  type='text'
+                  placeholder='Name'
+                  id='name'
+                  className='registerInput'
                   required
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                 />
-                <p id="fullNameErrorMsg" className='registerErrorMsg'></p>
+                <p id='fullNameErrorMsg' className='registerErrorMsg'></p>
                 <input
-                  type="email"
-                  placeholder="Email"
-                  id="registerEmail"
-                  className="registerInput"
+                  type='email'
+                  placeholder='Email'
+                  id='registerEmail'
+                  className='registerInput'
                   required
                   value={registerEmail}
                   onChange={(e) => setRegisterEmail(e.target.value)}
                 />
-                <p id="emailErrorMsg" className='registerErrorMsg'></p>
+                <p id='emailErrorMsg' className='registerErrorMsg'></p>
                 <input
-                  type="password"
-                  placeholder="Password"
-                  id="registerPassword"
-                  className="registerInput"
+                  type='password'
+                  placeholder='Password'
+                  id='registerPassword'
+                  className='registerInput'
                   required
                   value={registerPassword}
                   onChange={(e) => setRegisterPassword(e.target.value)}
                 />
-                <p id="passwordErrorMsg" className='registerErrorMsg'></p>
-                <button type="submit" className="registerButton">
+                <p id='passwordErrorMsg' className='registerErrorMsg'></p>
+                <button type='submit' className='registerButton'>
                   Sign Up
                 </button>
               </form>
@@ -133,6 +133,7 @@ export const Register = () => {
     </div>
   );
 };
+
 
 export default Register;
 

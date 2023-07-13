@@ -9,6 +9,7 @@ import { Home } from './Pages/Home/Home';
 import { Profile } from './Pages/Profile/Profile';
 import { EditProfile } from './Pages/EditProfile/EditProfile';
 
+// sets up the App component
 function App() {
   // returns the App component
   return (
@@ -24,5 +25,6 @@ function App() {
     </Router>
   );
 }
+
 
 export default App;
