@@ -22,35 +22,39 @@ export const Navbar = () => {
   const { formFile } = getUser(store.getState());
   // returns the Navbar component
   return (
-    <div className='navbarContainer'>
-      <div className='navbarLeft'>
-        <img src={CompanyLogo} alt='company logo' className='logo' />
+    <div className="navbarContainer">
+      <div className="navbarLeft">
+        <Link to='/home'>
+          <img src={CompanyLogo} alt="company logo" className="logo" />
+        </Link>
       </div>
-      <div className='navbarCenter'>
-        <div className='searchBar'>
-          <Search className='searchIcon' />
+      <div className="navbarCenter">
+        <div className="searchBar">
+          <Search className="searchIcon" />
           <input
-            type='text'
-            placeholder='Search for friend, post or video'
-            className='searchInput'
+            type="text"
+            placeholder="Search for friend, post or video"
+            className="searchInput"
           />
         </div>
       </div>
-      <div className='navbarRight'>
-        <div className='navbarIcons'>
-          <div className='navbarIconItem'>
-            <AccountCircle className='navbarIcon' />
+      <div className="navbarRight">
+        <div className="navbarIcons">
+          <Link to="/profile/update">
+            <div className="navbarIconItem">
+              <AccountCircle className="navbarIcon" />
+            </div>
+          </Link>
+          <div className="navbarIconItem">
+            <ChatBubble className="navbarIcon" />
           </div>
-          <div className='navbarIconItem'>
-            <ChatBubble className='navbarIcon' />
-          </div>
-          <div className='navbarIconItem'>
-            <Notifications className='navbarIcon' />
+          <div className="navbarIconItem">
+            <Notifications className="navbarIcon" />
           </div>
         </div>
-        <Link to='/profile'>
-          <div className='navbarIconItem'>
-            <img src={formFile} alt='user' className='navbarImg' />
+        <Link to="/profile">
+          <div className="navbarIconItem">
+            <img src={formFile} alt="user" className="navbarImg" />
           </div>
         </Link>
       </div>
