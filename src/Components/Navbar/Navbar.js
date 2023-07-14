@@ -28,16 +28,6 @@ export const Navbar = () => {
           <img src={CompanyLogo} alt="company logo" className="logo" />
         </Link>
       </div>
-      <div className="navbarCenter">
-        <div className="searchBar">
-          <Search className="searchIcon" />
-          <input
-            type="text"
-            placeholder="Search for friend, post or video"
-            className="searchInput"
-          />
-        </div>
-      </div>
       <div className="navbarRight">
         <div className="navbarIcons">
           <Link to="/profile/update">
