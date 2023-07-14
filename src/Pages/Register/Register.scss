@@ -1,7 +1,7 @@
 .register {
     background-color: #2B3467;
     width: 100vw;
-    height: 150vh;
+    height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -122,9 +122,9 @@
 // media queries for responsiveness
 @media only screen and (max-width: 768px){
     .register{
+        height: 150vh;
         .registerWrapper{
             width: 50%;
-            height: 100vh;
             display: flex;
             flex-direction: column;
             .registerWrapperLeft{
