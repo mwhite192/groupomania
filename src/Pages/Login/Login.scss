@@ -1,6 +1,6 @@
 .login {
     background-color: #2B3467;
-    width: 100vw;
+    width: 100%;
     height: 100vh;
     display: flex;
     align-items: center;
@@ -89,3 +89,41 @@
         }
     }
 }
+
+// media queries for responsiveness
+@media only screen and (max-width: 768px){
+    .login{
+        .loginWrapper{
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+            .loginWrapperLeft{
+                .loginLogo{
+                    width: 35%;
+                    height: 40%;
+                }
+                .loginLogoName{
+                    font-size: 30px;
+                }
+                .loginDesc{
+                    font-size: 15px;
+                }
+            }
+            .loginWrapperRight{
+                padding-top: 30px;
+                .loginBox{
+                    .loginBoxBottom{
+                        .loginForm{
+                            .loginRegisterButton{
+                                font-size: 18px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    };
+    
+    }
+
+

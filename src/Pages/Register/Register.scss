@@ -114,20 +114,44 @@
                     margin-bottom: 5px;
                     cursor: pointer;
                 }
-                // .loginRegisterButton {
-                //     height: 50px;
-                //     width: 100%;
-                //     background-color: #2B3467;
-                //     color: #BAD7E9;
-                //     font-weight: 500;
-                //     font-size: 23px;
-                //     border-radius: 10px;
-                //     border: none;
-                //     margin-bottom: 5px;
-                //     cursor: pointer;
-                // }
             }
         }
     }
 }
+
+
+// media queries for responsiveness
+@media only screen and (max-width: 768px){
+    .registerWrapper{
+        width: 50%;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        .registerWrapperLeft{
+            .registerLogo{
+                width: 10%;
+                height: 20%;
+            }
+            .registerLogoName{
+                display: none;
+            }
+            .registerDesc {
+                font-size: 10px;
+            }
+        }
+        .registerWrapperRight{
+            padding-top: 10px;
+            .registerBox{
+                .registerBoxBottom{
+                    .registerForm{
+                        height: 350px;
+                    }
+                    .registerImgUpload{
+                        padding-top: 20px;
+                    }
+                }
+            }
+        }
+    }
+};
     
