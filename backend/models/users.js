@@ -1,15 +1,20 @@
-module.exports = (sequelize, DataTypes) => {
-    const User = sequelize.define('user', {
-        file: {
-          type: DataTypes.STRING,
-          allowNull: false
-        },
+const { DataTypes } = require('sequelize');
+
+module.exports = (sequelize) => {
+  // creates the user model
+    const User = sequelize.define('User', {
         name: {
           type: DataTypes.STRING,
           allowNull: false
         },
+        file: {
+          type: DataTypes.STRING,
+        },
         registerEmail: {
           type: DataTypes.STRING,
+          validate: {
+            isEmail: true,
+          },
             allowNull: false,
         },
         registerPassword: {
@@ -17,14 +22,18 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
         },
         timestamp: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
+            type: DataTypes.DATE,
+            defaultValue: DataTypes.NOW,
         }
      },
         {
             freezeTableName: true,
-        }
-     );
-     
+        });
+
+        // // adds userId foreign key
+        // User.associate = function (models) {
+        //   User.hasMany(models.Profile);
+        // };
+
     return User;
-}
+};

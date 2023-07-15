@@ -1,56 +1,64 @@
-module.exports = (sequelize, DataTypes) => {
+module.exports = (sequelize, Sequelize) => {
     const Profile = sequelize.define(
-      "profile",
+      "Profile",
       {
         userId: {
-          type: DataTypes.STRING,
+          type: Sequelize.STRING,
           allowNull: false,
         },
         name: {
-          type: DataTypes.STRING,
+          type: Sequelize.STRING,
           allowNull: false,
         },
         formFile: {
-          type: DataTypes.STRING,
-          allowNull: false,
+          type: Sequelize.STRING,
+         
         },
         formGridEmail: {
-          type: DataTypes.STRING,
-          allowNull: false,
+          type: Sequelize.STRING,
+        
         },
         formGridPassword: {
-          type: DataTypes.STRING,
-          allowNull: false,
+          type: Sequelize.STRING,
+          
         },
         formGridPosition: {
-          type: DataTypes.STRING,
-          allowNull: false,
+          type: Sequelize.STRING,
         },
         formGridPhone: {
-          type: DataTypes.STRING,
-          allowNull: false,
+          type: Sequelize.STRING,
         },
         formGridWorkOffice: {
-          type: DataTypes.STRING,
-          allowNull: false,
+          type: Sequelize.STRING,
+          
         },
         formGridCity: {
-          type: DataTypes.STRING,
-          allowNull: false,
+          type: Sequelize.STRING,
+         
         },
         formGridState: {
-          type: DataTypes.STRING,
-          allowNull: false,
+          type: Sequelize.STRING,
+         
         },
         formGridZip: {
-          type: DataTypes.STRING,
-          allowNull: false,
+          type: Sequelize.STRING,
+         
         },
       },
       {
         freezeTableName: true,
+      
       }
     );
-     
+
+    // // adds userId foreign key
+    // Profile.associate = (models) => {
+    //   Profile.belongsTo(models.User, {
+    //     foreignKey: {
+    //       allowNull: false,
+    //     },
+    //   });
+    // };
+    
     return Profile;
-}
+  };

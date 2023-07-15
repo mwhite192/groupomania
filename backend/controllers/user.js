@@ -2,74 +2,63 @@
 // sets up bcrypt
 const bcrypt = require('bcrypt');
 // sets up jsonwebtoken
-const jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken'); 
 // sets up the user model
-const User = require('../models/users');
+const { User } = require('../models');
 // sets up the profile model
-const Profile = require('../models/profiles');
+const { Profile } = require('../models');
 
 
 // exports the signup function
-exports.signup = (req, res, next) => {
-  // hashes the password
-  bcrypt
-    .hash(req.body.registerPassword, 10)
-    .then((hash) => {
-      // creates a new user
-      const user = new User({
-        name: req.body.name,
-        registerEmail: req.body.registerEmail,
-        registerPassword: hash,
-        timestamp: Date.now(),
-      });
-      // saves the user
-      user
-        .save()
-        // if the user is not saved, returns an error
-        .catch((error) => {
-          res.status(501).json({
-            error: 'failed to save user!',
-          });
-        })
-        // returns success message if the user is saved
-        .then(() => {
-          res.status(201).json({
-            message: 'user added successfully!',
-          });
-          // sets the url for the image
-          const url = req.protocol + '://' + req.get('host');
-          // creates a new user profile
-          const profile = new Profile({
-            userId: user._id,
-            name: user.name,
-            formFile: url + '/images/' + req.file.filename,
-            formGridEmail: user.registerEmail,
-            formGridPassword: user.registerPassword,
-            formGridPosition: req.body.formGridPosition,
-            formGridPhone: req.body.formGridPhone,
-            formGridWorkOffice: req.body.formGridWorkOffice,
-            formGridCity: req.body.formGridCity,
-            formGridState: req.body.formGridState,
-            formGridZip: req.body.formGridZip,
-          });
-          // returns saved profile
-          return profile.save();
-        })
-        // if the profile is not saved, returns an error
-        .catch((error) => {
-          res.status(501).json({
-            error: 'failed to save profile!',
-          });
-        });
-    })
-    // if the password is not hashed, returns an error
-    .catch((error) => {
-      res.status(501).json({
-        error: 'failed to encrypt password!',
-      });
+module.exports.signup = async (req, res, next) => {
+  try {
+    // Check if the registerPassword field is present and is a string
+    if (!req.body.registerPassword || typeof req.body.registerPassword !== 'string') {
+      return res.status(400).json({ error: 'Invalid registerPassword field' });
+    }
+    console.log(req.body)
+    // sets the url for the image
+    const url = req.protocol + '://' + req.get('host');
+    // sets up the salt rounds
+    const saltRounds = 10;
+    // hashes the password
+    const hash = await bcrypt.hash(req.body.registerPassword, saltRounds);
+    // Create a new user
+    const newUser = await User.create({
+      name: req.body.name,
+      registerEmail: req.body.registerEmail,
+      registerPassword: hash,
+      file: url + '/images/' + req.file.filename,
     });
-};
 
+    // Create a new user profile
+    const newProfile = await Profile.create({
+      userId: newUser.id,
+      name: newUser.name,
+      formFile: url + '/images/' + req.file.filename || newUser.file,
+      formGridEmail: newUser.registerEmail,
+      formGridPassword: newUser.registerPassword,
+      formGridPosition: req.body.formGridPosition,
+      formGridPhone: req.body.formGridPhone,
+      formGridWorkOffice: req.body.formGridWorkOffice,
+      formGridCity: req.body.formGridCity,
+      formGridState: req.body.formGridState,
+      formGridZip: req.body.formGridZip,
+    });
+
+    res.status(201).json({
+      message: 'User added successfully!',
+      profile: newProfile,
+    });
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      error: 'Failed to create user or profile!',
+    });
+  }
+};
+        
 
 // exports the login function
 exports.login = async (req, res, next) => {

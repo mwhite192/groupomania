@@ -1,39 +1,6 @@
 const http = require('http');
 const app = require('./app');
 
-const dbConfig = require('./config/db-config');
-const Sequelize = require('sequelize');
-
-const sequelize = new Sequelize(
-    dbConfig.DATABASE,
-    dbConfig.USER,
-    dbConfig.PASSWORD,
-    {
-        host: dbConfig.HOST,
-        dialect: dbConfig.DIALECT,
-    }
-);
-
-const db = {};
-db.Sequelize = sequelize;
-db.models = require('./models/users')(sequelize, Sequelize);
-db.models = require('./models/profiles')(sequelize, Sequelize);
-db.models = require('./models/post')(sequelize, Sequelize);
-db.models = require('./models/comment')(sequelize, Sequelize);
-
-module.exports = db;
-
-sequelize.authenticate().then(() => {
-  console.log('Connection has been established successfully.');
-}).catch((error) => {
-  console.error('Unable to connect to the database: ', error);
-});
-
-(async () => {
-  await sequelize.sync();
-  sequelize.sync({force: true}); 
-  console.log('Database synced');
-})();
 
 const normalizePort = val => {
   const port = parseInt(val, 10);

@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-    const Post = sequelize.define('post', {
+    const Post = sequelize.define('Post', {
         userId: {
           type: DataTypes.STRING,
           allowNull: false
@@ -32,15 +32,19 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false,
         },
-        comments: {
+        comment: {
             type: DataTypes.STRING,
             allowNull: false,
         },
      },
         {
             freezeTableName: true,
-        }
-     );
-     
+        });
+
+        // // adds 
+        // Post.associate = function (models) {
+        //     Post.hasMany(models.comment);
+        // };
+
     return Post;
 }
