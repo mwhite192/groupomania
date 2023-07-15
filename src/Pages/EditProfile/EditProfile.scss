@@ -98,10 +98,29 @@
                 .editProfileFormInput::placeholder{
                     font-family: 'Arimo', sans-serif;
                 }
-                .editProfileButtons{
+                .editProfileButtonOption{
                     display: flex;
                     justify-content: space-between;
                     padding-top: 20px;
+                    .editProfileUpdateButton{
+                        width: 20%;
+                        font-size: 17px;
+                        font-family: 'Arimo', sans-serif;
+                        color: #FCFFE7;
+                        background-color: #7B8490;
+                        border: none;
+                        border-radius: 8px;
+                        padding: 8px;
+                        cursor: pointer;
+                        &:hover {
+                            border: none;
+                            background-color: #fcffe7;
+                            color: #7B8490;
+                            border-radius: 8px;
+                            -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
+                            box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
+                        }
+                    }
                 }
             }
         }

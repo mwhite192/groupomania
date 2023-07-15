@@ -12,7 +12,6 @@ import { useState } from 'react';
 // imports the useNavigate hook
 import { useNavigate } from 'react-router-dom';
 // imports react bootstrap components
-import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 // imports the icons from the material ui library
 import { IconButton } from '@mui/material';
@@ -87,12 +86,12 @@ export const DeletePost = ({ postId }) => {
         </Modal.Header>
         <Modal.Body>Are you sure you want to delete this post?</Modal.Body>
         <Modal.Footer>
-          <Button className='postOptionsButton' onClick={handleClose}>
+          <button className='postCancelButton' onClick={handleClose}>
             Cancel
-          </Button>
-          <Button className='postOptionsButton' onClick={handleDelete}>
+          </button>
+          <button className='postUndoButton' onClick={handleDelete}>
             Delete
-          </Button>
+          </button>
         </Modal.Footer>
       </Modal>
     </div>

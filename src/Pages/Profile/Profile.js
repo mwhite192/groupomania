@@ -12,7 +12,7 @@ import { useNavigate } from 'react-router-dom';
 // imports the react bootstrap components
 import { Navbar } from '../../Components/Navbar/Navbar';
 import { Sidebar } from '../../Components/Sidebar/Sidebar';
-import { Feed } from '../../Components/Feed/Feed';
+//import { Feed } from '../../Components/Feed/Feed';
 // imports the ProfileRightBar, User, and ProfileCover images
 import { ProfileRightBar } from '../../Components/ProfileRightBar/ProfileRightBar'; 
 import ProfileCover from '../../Assets/Person/profileCover.jpeg';
@@ -55,7 +55,7 @@ export const Profile = () => {
                 </div>
             </div>
             <div className='profileRightBottom'>
-                <Feed />
+                {/* <Feed /> */}
                 <ProfileRightBar />
             </div>
         </div>

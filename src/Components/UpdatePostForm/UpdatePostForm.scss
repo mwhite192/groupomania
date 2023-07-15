@@ -10,14 +10,17 @@
     width: 17%;
     font-size: 17px;
     font-family: 'Arimo', sans-serif;
-    color: #FCFFE7;;
-    background-color: #d2042d;
+    color: #FCFFE7;
+    background-color: #7B8490;
+    border: none;
     border-radius: 8px;
-    border: 1px solid #FCFFE7;
     cursor: pointer;
-}
-.updatePostFormSubmitButton:hover,
-.updatePostFormCloseButton:hover{
-    background-color: #2B3467;
-    border: 1px solid #FCFFE7;
+    &:hover {
+        border: 1px solid #FCFFE7;
+        background-color: transparent;
+        color: #FCFFE7;
+        border-radius: 8px;
+        -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
+        box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
+    }
 }

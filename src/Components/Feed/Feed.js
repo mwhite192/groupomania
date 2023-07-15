@@ -77,6 +77,7 @@ export const Feed = () => {
   return (
     <div className='feed'>
       <div className='feedWrapper'>
+      <h4 className='onlineHeader'>Groupomania Team Members</h4>
         <Online />
         <Share />
         {Posts.filter((p) => typeof p._id !== 'undefined').map((post) => {

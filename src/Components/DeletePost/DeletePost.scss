@@ -1,13 +1,40 @@
-.postOptionsButton{
-    height: 40px;
-    width: 30%;
+.postCancelButton{
+    margin-right: 25px;
+    font-size: 17px;
+    font-family: 'Arimo', sans-serif;
     color: #FCFFE7;
-    background-color: #2B3467;
+    background-color: #7B8490;
+    border: none;
     border-radius: 8px;
-    border: 1px solid #FCFFE7;
     cursor: pointer;
+    &:hover {
+        border: 1px solid #FCFFE7;
+        background-color: transparent;
+        color: #FCFFE7;
+        border-radius: 8px;
+        -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
+        box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
+    }
 }
-.postOptionsButton:hover{
-    background-color: #d2042d;
-    border: 1px solid #FCFFE7;
+.postUndoButton{
+    font-size: 17px;
+    font-family: 'Arimo', sans-serif;
+    color: #FCFFE7;
+    background-color: #7B8490;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    &:hover {
+        border: none;
+        background-color: #d2042d;
+        color: white;
+        border-radius: 8px;
+        -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
+        box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
+    }
+}
+.postUndoButton,
+.postCancelButton{
+    height: 40px;
+    width: 25%;
 }

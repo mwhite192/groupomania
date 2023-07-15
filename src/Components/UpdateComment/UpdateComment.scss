@@ -2,7 +2,7 @@
     padding: 5px;
     font-family: 'Arimo', sans-serif;
     border: 1px solid #FCFFE7;
-    border-radius: 15px;
+    border-radius: 10px;
     background-color: transparent;
 }
 .postAddComment::placeholder{
@@ -33,13 +33,15 @@
     font-size: 17px;
     font-family: 'Arimo', sans-serif;
     color: #FCFFE7;
-    border: 1px solid #FCFFE7;
-    background-color: #d2042d;
-    border-radius: 8px;
+    background-color: transparent;
+    border: none;
     cursor: pointer;
-}
-.updateCommentCloseButton:hover,
-.updateCommentSubmitButton:hover{
-    background-color: #2B3467;
-    border: 1px solid #FCFFE7;
+    &:hover {
+        border: none;
+        background-color: #FCFFE7;
+        color: #7B8490;
+        border-radius: 8px;
+        -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
+        box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
+    }
 }

@@ -4,7 +4,7 @@ import './EditProfile.scss';
 // imports the store
 import { store } from '../../App/store';
 // imports the getUser, deauthenticate, and getAuthenticated actions and selectors
-import { getUser, deauthenticate, getAuthenticated } from '../../App/Features/User/userSlice';
+import { getUser, getAuthenticated } from '../../App/Features/User/userSlice';
 // imports the update action and get profile selector from the profileSlice
 import { update } from '../../App/Features/Profile/profileSlice';
 // imports useNavigate hook
@@ -15,7 +15,6 @@ import { useState, useEffect } from 'react';
 import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
-import Button from 'react-bootstrap/Button';
 // imports the Navbar, Sidebar, and images
 import { Navbar } from '../../Components/Navbar/Navbar';
 import { Sidebar } from '../../Components/Sidebar/Sidebar';
@@ -52,7 +51,7 @@ export const EditProfile = () => {
     name,
     userId,
     token,
-    formGridEmail: email,
+    formGridEmail,
   } = getUser(store.getState());
 
 
@@ -60,6 +59,7 @@ export const EditProfile = () => {
   const [profileData, setProfileData] = useState({
     userId: userId,
     formFile: formFile,
+    formGridEmail: formGridEmail,
     formGridPassword: '',
     formGridPhone: '',
     formGridWorkOffice: '',
@@ -100,44 +100,6 @@ export const EditProfile = () => {
         alert('Account updated successfully!');
         // navigates user to profile page
         navigate('/profile');
-      })
-      // catches errors
-      .catch((error) => {
-        console.error(error);
-      });
-  };
-
-
-  // creates a handleDelete function
-  const handleDelete = (e) => {
-    // prevents page from reloading on submit
-    e.preventDefault();
-    // DELETES form data to backend
-    fetch('/api/user/' + email, {
-      method: 'DELETE',
-      headers: {
-        Authorization: 'Bearer ' + token,
-      },
-    })
-      // converts response to JSON
-      .then((response) => {
-        // checks for errors
-        if (response.status === 403 || !response.ok) {
-          throw new Error('unable to delete profile!');
-        }
-        // returns response body as JSON
-        return response.json();
-      })
-      // handles JSON response
-      .then((data) => {
-        // dispatches DEAUTHENTICATE action to store
-        store.dispatch(deauthenticate());
-        // deletes user from local storage
-        localStorage.removeItem('persist:root');
-        // Show alert message
-        alert('Account deleted successfully!');
-        // navigates user to login page
-        navigate('/');
       })
       // catches errors
       .catch((error) => {
@@ -330,13 +292,10 @@ export const EditProfile = () => {
                       ></p>
                     </Form.Group>
                   </Row>
-                  <div className='editProfileButtons'>
-                    <Button variant='primary' onClick={handleDelete}>
-                      Delete Account
-                    </Button>
-                    <Button variant='primary' type='submit'>
-                      Update Account
-                    </Button>
+                  <div className='editProfileButtonOption'>
+                    <button className='editProfileUpdateButton' type='submit'>
+                      Submit 
+                    </button>
                   </div>
                 </Form>
               </div>

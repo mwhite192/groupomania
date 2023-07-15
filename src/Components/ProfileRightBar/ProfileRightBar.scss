@@ -1,9 +1,9 @@
 .profileRightBar{
-    flex: 1;  
     padding: 20px;
     .profileRightBarHeading{
         display: flex;
         margin: 20px 0;
+        justify-content: center;
         .profileRightBarTitle{
             font-size: 20px;
             color: #fcffe7;
@@ -25,15 +25,40 @@
             }
         } 
     }
-    // .profileEditButton{
-    //     padding: 7px 12px;
-    //     font-size: 18px;
-    //     color: #2B3467;
-    //     background-color: #BAD7E9;
-    //     border: none;
-    //     border-radius: 5px;
-    //     cursor: pointer;
-    // }
+    .profileRightBarButtonOptions{
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        margin-bottom: 20px;
+        .profileRightBarUpdateButton{
+            &:hover{
+                background-color: #7b8490;
+                color: #fcffe7;
+                -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
+                box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
+            }
+        }
+        .profileRightBarDeleteButton{
+            &:hover{
+                background-color: #d2042d;
+                color: white;
+                -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
+                box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
+            }
+        }
+        .profileRightBarUpdateButton,
+        .profileRightBarDeleteButton{
+            width: 50%;
+            padding: 8px;
+            border-radius: 10px;
+            border: none;
+            border: none;
+            background-color: #fcffe7;
+            color: #2B3467;
+            font-weight: 500;
+            cursor: pointer;
+        }
+    }
     
 }
 

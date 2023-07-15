@@ -12,7 +12,6 @@
   // imports the navigate function from the react-router-dom library
   import { useNavigate } from 'react-router-dom';
   // imports react-bootstrap components
-  import Button from 'react-bootstrap/Button';
   import Modal from 'react-bootstrap/Modal';
   // imports the icons from the material ui library
   import { IconButton } from '@mui/material';
@@ -120,12 +119,12 @@
             </form>
           </Modal.Body>
           <Modal.Footer>
-            <Button className='updateCommentCloseButton' onClick={handleClose}>
+            <button className='updateCommentCloseButton' onClick={handleClose}>
               Close
-            </Button>
-            <Button className='updateCommentSubmitButton' onClick={() => handleUpdate(commentId)}>
+            </button>
+            <button className='updateCommentSubmitButton' onClick={() => handleUpdate(commentId)}>
               Update
-            </Button>
+            </button>
           </Modal.Footer>
         </Modal>
       </div>
