@@ -48,8 +48,10 @@ export const Post = ({ post }) => {
   const postsComments = getCommentsByPostId(store.getState(), _id);
   // creates the postClass variable and sets it to the useState hook
   const [postClass, setPostClass] = useState(time < Date.parse(post.timestamp) ? 'newPost' : '');
-  // creates the userId variable and sets it to the getUser selector
+  // creates the like variable and sets it to the useState hook
   const [like, setLike] = useState((usersLiked || []).length);
+  // creates the commentlikes variable and sets it to the useState hook
+  const [commentLikes, setCommentLikes] = useState((usersLiked || []).length);
   // creates the liked variable and sets it to the useState hook
   const [liked, setLiked] = useState(false);
   // creates the commentLiked variable and sets it to the useState hook
@@ -68,6 +70,7 @@ export const Post = ({ post }) => {
     profilePicture: formFile,
     commentText: commentText,
     commentDate: new Date().toISOString(),
+    usersLiked: usersLiked,
   };
   
   
@@ -147,13 +150,17 @@ export const Post = ({ post }) => {
         if (data.message === 'Comment un-liked successfully!') {
           // Display the message to the user
           alert(data.message); 
+          // Update the like state only if the user didn't like the post before
+          setCommentLikes(data.usersLiked.length);
           // Update the commentLiked state only if the user didn't like the post before
           setCommentLiked(false);
         } else {
-          // Dispatch the Redux action to update the like count in the store
-          store.dispatch(updateComment({ commentId: commentId, likes: data.likes }));
+          // Update the like state only if the user didn't like the post before
+          setCommentLikes(data.usersLiked.length);
           // Update the commentLiked state only if the user didn't like the post before
           setCommentLiked(true);
+          // Dispatch the Redux action to update the like count in the store
+          store.dispatch(updateComment({ commentId: commentId, usersLiked: data.usersLiked }));
           // Navigate to the home page
           navigate('/home');
         }
@@ -325,6 +332,10 @@ export const Post = ({ post }) => {
                     <ThumbUpAltOutlined className="commentFooterIcon" />
                   )}
                 </button>
+                <span className="commentLikeCounter">
+                  {commentLikes} &#x2022; {commentLikes.length}
+                  {commentLikes.length === 1 ? "like" : "likes"}
+                </span>
                 {post.userId === userId ? (
                   <>
                     <button
