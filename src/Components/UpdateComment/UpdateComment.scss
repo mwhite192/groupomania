@@ -1,14 +1,14 @@
 .postAddComment{
     padding: 5px;
+    margin-left: 10px;
     font-family: 'Arimo', sans-serif;
     border: 1px solid #FCFFE7;
-    border-radius: 10px;
+    border-radius: 8px;
     background-color: transparent;
 }
 .postAddComment::placeholder{
     font-family: 'Arimo', sans-serif;
     font-size: 15px;
-    padding-left: 10px;
     color: #FCFFE7;
 }
 .commentFooterIcon {

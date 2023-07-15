@@ -50,8 +50,6 @@ export const Post = ({ post }) => {
   const [postClass, setPostClass] = useState(time < Date.parse(post.timestamp) ? 'newPost' : '');
   // creates the like variable and sets it to the useState hook
   const [like, setLike] = useState((usersLiked || []).length);
-  // creates the commentlikes variable and sets it to the useState hook
-  const [commentLikes, setCommentLikes] = useState((usersLiked || []).length);
   // creates the liked variable and sets it to the useState hook
   const [liked, setLiked] = useState(false);
   // creates the commentLiked variable and sets it to the useState hook
@@ -70,7 +68,6 @@ export const Post = ({ post }) => {
     profilePicture: formFile,
     commentText: commentText,
     commentDate: new Date().toISOString(),
-    usersLiked: usersLiked,
   };
   
   
@@ -133,10 +130,10 @@ export const Post = ({ post }) => {
     };
     // sends a post request to the server
     fetch(`/api/posts/${_id}/comments/${commentId}/likes`, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
-         Authorization: 'Bearer ' + token,
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
       },
       // converts the like object to a json string
       body: JSON.stringify(like),
@@ -147,23 +144,27 @@ export const Post = ({ post }) => {
       })
       .then((data) => {
         // Check the response to see if the user already liked the post
-        if (data.message === 'Comment un-liked successfully!') {
+        if (data.message === "comment un-liked successfully!") {
           // Display the message to the user
-          alert(data.message); 
+          alert(data.message);
           // Update the like state only if the user didn't like the post before
-          setCommentLikes(data.usersLiked.length);
-          // Update the commentLiked state only if the user didn't like the post before
           setCommentLiked(false);
+          // Update the like state only if the user didn't like the post before
+          setCommentLikes(data.userLiked.length);
+          //m Dispatch the Redux action to update the like count in the store
+          store.dispatch(updateComment({ commentId: commentId, usersLiked: data.userLiked }));
+          // Dispatch the Redux action to update the like count in the store
+          store.dispatch(updateComment({ commentId: commentId, likes: data.likes }));
         } else {
           // Update the like state only if the user didn't like the post before
-          setCommentLikes(data.usersLiked.length);
-          // Update the commentLiked state only if the user didn't like the post before
           setCommentLiked(true);
+          // Update the like state only if the user didn't like the post before
+          setCommentLikes(data.userLiked.length);
           // Dispatch the Redux action to update the like count in the store
-          store.dispatch(updateComment({ commentId: commentId, usersLiked: data.usersLiked }));
+          store.dispatch(updateComment({ commentId: commentId, likes: data.likes }));
           // Navigate to the home page
-          navigate('/home');
-        }
+          navigate("/home");
+        } 
       })
       .catch((error) => {
         // logs the error
@@ -332,10 +333,6 @@ export const Post = ({ post }) => {
                     <ThumbUpAltOutlined className="commentFooterIcon" />
                   )}
                 </button>
-                <span className="commentLikeCounter">
-                  {commentLikes} &#x2022; {commentLikes.length}
-                  {commentLikes.length === 1 ? "like" : "likes"}
-                </span>
                 {post.userId === userId ? (
                   <>
                     <button

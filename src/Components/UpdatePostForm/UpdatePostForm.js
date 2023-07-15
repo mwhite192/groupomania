@@ -5,7 +5,7 @@ import './UpdatePostForm.scss';
 import { store } from '../../App/store';
 // imports the getUser selector
 import { getUser } from '../../App/Features/User/userSlice';
-//
+// imports the getPostById selector
 import { getPostById } from '../../App/Features/Post/postSlice';
 // imports the createPost action
 import { updatePost } from '../../App/Features/Post/postSlice';
@@ -27,7 +27,7 @@ export const UpdatePostForm = ({ postId }) => {
   const navigate = useNavigate();
   // creates a variable and sets it to the getUser selector
   const { userId, name, formFile, token } = getUser(store.getState());
-  //
+  // creates a variable and sets it to the getPostById selector
   const postToUpdate = getPostById(store.getState(), postId);
   // creates the post state variable and the setPost state function
   const [show, setShow] = useState(false);
@@ -37,7 +37,7 @@ export const UpdatePostForm = ({ postId }) => {
 
   // sets the initial state of the form data
   const [file, setFile] = useState('');
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState(postToUpdate.message);
   
 
   // creates the handleClose function
@@ -127,15 +127,14 @@ export const UpdatePostForm = ({ postId }) => {
                 Post it!
               </Form.Label>
               <Form.Control
-                as='input'
-                type='text'
+                as='textarea'
                 name='message' 
                 className='updatePostFormOption'
                 rows={3}
                 maxLength={500}
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
-                //placeholder={postToUpdate.message}
+                placeholder='What are you thinking?'
               />
             </Form.Group>
           </Form>
