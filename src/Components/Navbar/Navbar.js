@@ -10,7 +10,6 @@ import { Link } from 'react-router-dom';
 // imports the company logo and user image
 import CompanyLogo from '../../Assets/Logos/icon-left-font-monochrome-white.svg';
 // imports the icons from the material ui library
-import { Search } from '@mui/icons-material';
 import { ChatBubble } from '@mui/icons-material';
 import { AccountCircle } from '@mui/icons-material';
 import { Notifications } from '@mui/icons-material';

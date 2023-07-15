@@ -83,6 +83,7 @@ export const Post = ({ post }) => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+         Authorization: 'Bearer ' + token,
       },
       // converts the like object to a json string
       body: JSON.stringify(like),
@@ -235,54 +236,58 @@ export const Post = ({ post }) => {
   setTimeout(() => {setPostClass('')}, 5000);
   return (
     <div className={`post ${postClass}`}>
-      <div className='postWrapper'>
-        <div className='postTop'>
-          <div className='postTopLeft'>
+      <div className="postWrapper">
+        <div className="postTop">
+          <div className="postTopLeft">
             <img
-              className='postProfileImg'
+              className="postProfileImg"
               src={profilePicture ? profilePicture : DefaultOnlineProfileImage}
-              alt='user profile'
+              alt="user profile"
             />
-            <span className='postUsername'>{username}</span>
-            <div className='postTime'>
+            <span className="postUsername">{username}</span>
+            <div className="postTime">
               <ReactTimeAgo
                 date={Date.parse(date)}
-                className='postDate'
-                locale='en-US'
+                className="postDate"
+                locale="en-US"
               />
             </div>
           </div>
-          <div className='postTopRight'>
-            <div className='postDelete'>
-              <DeletePost postId={_id} />
-              <span className='postTopDeleteText'>Delete</span>
-            </div>
-            <div className='postEdit'>
-              <UpdatePostForm postId={_id} />
-              <span className='postTopDeleteText'>Edit</span>
-            </div>
+          <div className="postTopRight">
+            {post.userId === userId ? (
+              <>
+                <div className="postDelete">
+                  <DeletePost postId={_id} />
+                  <span className="postTopDeleteText">Delete</span>
+                </div>
+                <div className="postEdit">
+                  <UpdatePostForm postId={_id} />
+                  <span className="postTopDeleteText">Edit</span>
+                </div>
+              </>
+            ) : null}
           </div>
         </div>
-        <div className='postCenter'>
+        <div className="postCenter">
           <div
-            className='postCenterImg'
-            style={image ? {} : { display: 'none' }}
+            className="postCenterImg"
+            style={image ? {} : { display: "none" }}
           >
-            <img src={image} alt='post' className='postImg' />
+            <img src={image} alt="post" className="postImg" />
           </div>
         </div>
-        <div className='postContent'>
-          <span className='postName'>{username}</span>
-          <span className='postText'>{message}</span>
-          <span className='postCommentText'>
-            {postsComments.length} &#x2022;{' '}
-            {postsComments.length === 1 ? 'comment' : 'comments'}
+        <div className="postContent">
+          <span className="postName">{username}</span>
+          <span className="postText">{message}</span>
+          <span className="postCommentText">
+            {postsComments.length} &#x2022;{" "}
+            {postsComments.length === 1 ? "comment" : "comments"}
           </span>
-          <div className='commentLoad'>
-            {postsComments.length > visibleComments && ( 
+          <div className="commentLoad">
+            {postsComments.length > visibleComments && (
               // If there are more comments than the visibleComments state variable, display the load more button
               <button
-                className='commentLoadButton'
+                className="commentLoadButton"
                 onClick={() => setVisibleComments(visibleComments + 3)}
               >
                 View all {postsComments.length} comments
@@ -290,84 +295,88 @@ export const Post = ({ post }) => {
             )}
           </div>
           {postsComments.slice(0, visibleComments).map((comment) => (
-            <div key={comment._id} className='comment'>
-              <div className='commentUserInfo'>
+            <div key={comment._id} className="comment">
+              <div className="commentUserInfo">
                 <img
-                  className='commentImg'
+                  className="commentImg"
                   src={
                     comment.profilePicture
                       ? comment.profilePicture
                       : DefaultOnlineProfileImage
                   }
-                  alt='user profile'
+                  alt="user profile"
                 />
-                <span className='commentUsername'>{comment.username}</span>
+                <span className="commentUsername">{comment.username}</span>
                 <ReactTimeAgo
-                  className='commentDate'
+                  className="commentDate"
                   date={Date.parse(comment.commentDate)}
-                  locale='en-US'
+                  locale="en-US"
                 />
               </div>
-              <div className='commentText'>{comment.commentText}</div>
-              <div className='commentFooter'>
+              <div className="commentText">{comment.commentText}</div>
+              <div className="commentFooter">
                 <button
-                  className='commentFooterItem'
+                  className="commentFooterItem"
                   onClick={() => handleCommentLikes(comment._id)}
                 >
                   {commentLiked ? (
-                    <ThumbUpAlt className='commentFooterIcon' />
+                    <ThumbUpAlt className="commentFooterIcon" />
                   ) : (
-                    <ThumbUpAltOutlined className='commentFooterIcon' />
+                    <ThumbUpAltOutlined className="commentFooterIcon" />
                   )}
                 </button>
-                <button
-                  className='commentFooterItem'
-                  onClick={() => handleDelete(comment._id)}
-                >
-                  <DeleteOutline className='commentFooterIcon' />
-                </button>
-                <span className='commentFooterItem'>
-                  <UpdateComment
-                    className='commentFooterIcon'
-                    postId={_id}
-                    commentId={comment._id}
-                  />
-                </span>
+                {post.userId === userId ? (
+                  <>
+                    <button
+                      className="commentFooterItem"
+                      onClick={() => handleDelete(comment._id)}
+                    >
+                      <DeleteOutline className="commentFooterIcon" />
+                    </button>
+                    <span className="commentFooterItem">
+                      <UpdateComment
+                        className="commentFooterIcon"
+                        postId={_id}
+                        commentId={comment._id}
+                      />
+                    </span>
+                  </>
+                ) : null}
               </div>
             </div>
           ))}
         </div>
-        <div className='postFooter'>
-          <button className='postFooterBottomItem' onClick={handleLike}>
+        <div className="postFooter">
+          <button className="postFooterBottomItem" onClick={handleLike}>
             {liked ? (
-              <ThumbUpAlt className='postFooterIcon' />
+              <ThumbUpAlt className="postFooterIcon" />
             ) : (
-              <ThumbUpAltOutlined className='postFooterIcon' />
+              <ThumbUpAltOutlined className="postFooterIcon" />
             )}
           </button>
-          <span className='postLikeCounter'>{like} &#x2022; likes</span>
+          <span className="postLikeCounter">{like} &#x2022; likes</span>
         </div>
-        <div className='postComment'>
+        <div className="postComment">
           <img
-            className='postCommentImg'
+            className="postCommentImg"
             src={DefaultOnlineProfileImage}
-            alt='user profile'
+            alt="user profile"
           />
-          <form className='postAddCommentForm'>
+          <form className="postAddCommentForm">
             <input
-              type='text'
-              name='comment'
-              className='postAddComment'
+              type="text"
+              name="comment"
+              className="postAddComment"
               maxLength={500}
               value={commentText}
               onChange={(e) => setCommentText(e.target.value)}
-              placeholder='Add a comment.....'
+              placeholder="Add a comment....."
             />
             <button
-              className='postAddCommentSubmitButton'
+              className="postAddCommentSubmitButton"
               onClick={handleSubmit}
             >
-              <SendOutlined className='postAddCommentSubmitIcon' />
+              <SendOutlined className="postAddCommentSubmitIcon" />
             </button>
           </form>
         </div>

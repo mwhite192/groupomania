@@ -5,6 +5,8 @@ import './UpdatePostForm.scss';
 import { store } from '../../App/store';
 // imports the getUser selector
 import { getUser } from '../../App/Features/User/userSlice';
+//
+import { getPostById } from '../../App/Features/Post/postSlice';
 // imports the createPost action
 import { updatePost } from '../../App/Features/Post/postSlice';
 // imports the useState hook 
@@ -25,6 +27,8 @@ export const UpdatePostForm = ({ postId }) => {
   const navigate = useNavigate();
   // creates a variable and sets it to the getUser selector
   const { userId, name, formFile, token } = getUser(store.getState());
+  //
+  const postToUpdate = getPostById(store.getState(), postId);
   // creates the post state variable and the setPost state function
   const [show, setShow] = useState(false);
   // creates the timestamp variable and sets it to the current time
@@ -123,13 +127,15 @@ export const UpdatePostForm = ({ postId }) => {
                 Post it!
               </Form.Label>
               <Form.Control
-                as='textarea'
-                id='message'
+                as='input'
+                type='text'
+                name='message' 
+                className='updatePostFormOption'
                 rows={3}
                 maxLength={500}
-                className='updatePostFormOption'
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
+                //placeholder={postToUpdate.message}
               />
             </Form.Group>
           </Form>
