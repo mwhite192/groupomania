@@ -4,9 +4,9 @@ const bcrypt = require('bcrypt');
 // sets up jsonwebtoken
 const jwt = require('jsonwebtoken');
 // sets up the user model
-const User = require('../models/user');
+const User = require('../models/users');
 // sets up the profile model
-const Profile = require('../models/profile');
+const Profile = require('../models/profiles');
 
 
 // exports the signup function

@@ -1,8 +1,8 @@
 // Description: This file contains the logic for the posts routes
 // sets up the post model
-const Posts = require('../models/posts');
+const Posts = require('../models/post');
 // sets up the comment model
-const Comment = require('../models/comments');
+const Comment = require('../models/comment');
 
 
 // exports the create post function
