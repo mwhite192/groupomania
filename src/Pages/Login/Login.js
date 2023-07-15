@@ -97,7 +97,10 @@ export const Login = () => {
       })
       // Catches errors
       .catch((error) => {
-        console.error(error);
+        if (error.message === "sign in failed!") {
+        // Show alert message
+        alert('Incorrect email or password!');
+        }
       });
   };
 

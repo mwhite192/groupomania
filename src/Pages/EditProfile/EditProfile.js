@@ -96,6 +96,8 @@ export const EditProfile = () => {
       .then((data) => {
         // dispatches UPDATE action profile to store
         store.dispatch(update(data));
+        // Show alert message
+        alert('Account updated successfully!');
         // navigates user to profile page
         navigate('/profile');
       })
@@ -132,6 +134,8 @@ export const EditProfile = () => {
         store.dispatch(deauthenticate());
         // deletes user from local storage
         localStorage.removeItem('persist:root');
+        // Show alert message
+        alert('Account deleted successfully!');
         // navigates user to login page
         navigate('/');
       })

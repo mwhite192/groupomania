@@ -33,20 +33,26 @@ export const Register = () => {
   // creates a handleSubmit function
   const handleSubmit = (event) => {
     // prevents default form submission
-    event.preventDefault(); 
-    // navigates user to login page
-    navigate('/');
+    event.preventDefault();
     // POST form data to backend
-    fetch('/api/user/signup', {
-      method: 'POST',
+    fetch("/api/user/signup", {
+      method: "POST",
       body: formData,
     })
-    // convert response to JSON
-    .then((response) => response.json())
-    // catches errors
-    .catch((error) => {
-      console.error(error);
-    });
+      // convert response to JSON
+      .then((response) => response.json())
+      .then((data) => {
+        // handle success
+        console.log('Success:', data);
+        // Show alert message
+        alert('Account created successfully!'); 
+        // navigates user to login page
+        navigate('/'); 
+      })
+      .catch((error) => {
+        // handle error
+        console.error(error);
+      });
   };
 
   
@@ -90,7 +96,6 @@ export const Register = () => {
                       onChange={(e) => setFile(e.target.files[0])}
                     />
                   </label>
-                  <p id='uploadImageErrorMsg' className='registerErrorMsg'></p>
                 </div>
                 <input
                   type='text'
@@ -101,7 +106,6 @@ export const Register = () => {
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                 />
-                <p id='fullNameErrorMsg' className='registerErrorMsg'></p>
                 <input
                   type='email'
                   placeholder='Email'
@@ -111,7 +115,6 @@ export const Register = () => {
                   value={registerEmail}
                   onChange={(e) => setRegisterEmail(e.target.value)}
                 />
-                <p id='emailErrorMsg' className='registerErrorMsg'></p>
                 <input
                   type='password'
                   placeholder='Password'
@@ -121,7 +124,6 @@ export const Register = () => {
                   value={registerPassword}
                   onChange={(e) => setRegisterPassword(e.target.value)}
                 />
-                <p id='passwordErrorMsg' className='registerErrorMsg'></p>
                 <button type='submit' className='registerButton'>
                   Sign Up
                 </button>
