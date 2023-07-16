@@ -1,59 +1,54 @@
 // Description: This file contains the logic for the posts routes
 // sets up the post model
-const Posts = require('../models/post');
+const { Post } = require('../models');
 // sets up the comment model
-const Comment = require('../models/comment');
+const { Comment } = require('../models');
 
 
 // exports the create post function
 exports.createPost = (req, res, next) => {
-   // Check if the 'message' field exists and is not empty
-   if (!req.body.message || req.body.message.trim() === '') {
-     return res.status(400).json({
-        error: 'message is required for creating a post.',
+  // Check if the 'message' field exists and is not empty
+  if (!req.body.postContent || req.body.postContent.trim() === '') {
+    return res.status(400).json({
+       error: 'message is required for creating a post.',
+    });
+   }
+   // sets the url for the image
+   const url = req.protocol + '://' + req.get('host');
+   // create the post object
+   const post = {
+     userId: req.body.userId,  
+     postImg: req.body.file,  
+     postContent: req.body.postContent,
+     timestamp: req.body.timestamp,
+     likes: req.body.likes, 
+     usersLiked: req.body.usersLiked,
+     comment: req.body.comments,
+   };
+   console.log(post)
+   // checks if an image is provided, then include it in the post object
+   if (req.file) {
+     post.postImg = url + '/images/' + req.file.filename;
+   }
+   // Save the post using Sequelize's create method
+   Post.create(post)
+     .then((createdPost) => {
+       // sends a response
+       res.status(201).json(createdPost);
+     })
+     .catch((error) => {
+       // sends an error response
+       res.status(400).json({
+         error: 'unable to create post!',
+       });
      });
-    }
-    // sets the url for the image
-    const url = req.protocol + '://' + req.get('host');
-    // sets the post object
-    const post = new Posts({
-      userId: req.body.userId,  
-      username: req.body.username,
-      profilePicture: req.body.profilePicture,  
-      message: req.body.message,
-      timestamp: req.body.timestamp,
-      likes: 0, 
-      usersLiked: [],
-      comments: [],
-    });
-    // checks if an image is provided, then include it in the post object
-    if (req.file) {
-      post.image = url + '/images/' + req.file.filename;
-    }
-    // saves the post
-    post
-    .save()
-    .then(() => {
-      // sends a response
-      res.status(201).json({
-        // returns the post object
-        ...post._doc,
-      });
-    })
-    .catch((error) => {
-      // sends an error response
-      res.status(400).json({
-        // returns the error
-        error: 'unable to create post!',
-      });
-    });
 };
 
 
 // exports the get all posts function
 exports.getAllPosts = (req, res, next) => {
   // finds all the posts
-  Posts.find()
+  Post.findOne()
   // returns the posts
     .then((posts) => {
       res.status(200).json(posts);
@@ -72,7 +67,7 @@ exports.updatePost = (req, res, next) => {
   // sets the url for the image
   const url = req.protocol + '://' + req.get('host');
   // finds the post by id
-  Posts.findOne({ _id: req.params._id })
+  Post.findOne({ _id: req.params._id })
     .then((post) => {
       // checks if the post exists
       if (!post) {
@@ -94,7 +89,7 @@ exports.updatePost = (req, res, next) => {
         updatePost.image = url + '/images/' + req.file.filename;
       }
   // updates the post
-  Posts.updateOne({ _id: req.params._id }, updatePost)
+  Post.updateOne({ _id: req.params._id }, updatePost)
   // returns the post
     .then(() => {
       res.status(201).json(updatePost);
@@ -118,7 +113,7 @@ exports.updatePost = (req, res, next) => {
 // exports the delete post function
 exports.deletePost = (req, res, next) => {
   // finds the posts by id
-  Posts.findOne({ _id: req.params._id }).then((post) => {
+  Post.findOne({ _id: req.params._id }).then((post) => {
     // checks if the posts exists
     console.log(post);
     if (!post) {
@@ -134,7 +129,7 @@ exports.deletePost = (req, res, next) => {
       });
     }
     // finds the post by id and deletes it
-    Posts.deleteOne({ _id: req.params._id })
+    Post.deleteOne({ _id: req.params._id })
       .then(() => {
         // returns the message
         res.status(200).json({
@@ -154,7 +149,7 @@ exports.deletePost = (req, res, next) => {
 // exports the like post function
 exports.likePosts = (req, res, next) => {
   // finds the posts by id
- Posts.findOne({ _id: req.params._id }).then((post) => {
+ Post.findOne({ _id: req.params._id }).then((post) => {
   // checks if the posts exists
   if (!post) {
     return res.status(404).json({ 

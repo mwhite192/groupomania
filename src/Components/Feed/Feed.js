@@ -3,6 +3,7 @@ import React from 'react';
 import './Feed.scss';
 // imports the store
 import { store } from '../../App/store';
+
 // imports the getUser selector
 import { getUser, setUserTime } from '../../App/Features/User/userSlice';
 // imports the createPost and getArrayOfPost action
@@ -19,7 +20,7 @@ import { Post } from '../Post/Post';
 export const Feed = () => {
   // creates the Posts variable and sets it to the getArrayOfPosts selector
   const Posts = getSortedArrayOfPosts(store.getState());
-  // creates a token variable and sets it to the token from the getUser selector
+  // gets the user from the store
   const { token, userId } = getUser(store.getState());
   
 
@@ -37,8 +38,8 @@ export const Feed = () => {
       .then((data) => {
         // checks if data is an array
         if (Array.isArray(data)) {
-          // loops through the data array
-          data.forEach((element) => {
+            // loops through the data array
+            data.forEach((element) => {
             // dispatches createPost action
             store.dispatch(createPost(element));
           });

@@ -1,6 +1,6 @@
 module.exports = (sequelize, Sequelize) => {
     const Profile = sequelize.define(
-      "Profile",
+      'Profile',
       {
         userId: {
           type: Sequelize.STRING,
@@ -12,15 +12,12 @@ module.exports = (sequelize, Sequelize) => {
         },
         formFile: {
           type: Sequelize.STRING,
-         
         },
         formGridEmail: {
           type: Sequelize.STRING,
-        
         },
         formGridPassword: {
           type: Sequelize.STRING,
-          
         },
         formGridPosition: {
           type: Sequelize.STRING,
@@ -29,20 +26,16 @@ module.exports = (sequelize, Sequelize) => {
           type: Sequelize.STRING,
         },
         formGridWorkOffice: {
-          type: Sequelize.STRING,
-          
+          type: Sequelize.STRING, 
         },
         formGridCity: {
           type: Sequelize.STRING,
-         
         },
         formGridState: {
           type: Sequelize.STRING,
-         
         },
         formGridZip: {
           type: Sequelize.STRING,
-         
         },
       },
       {

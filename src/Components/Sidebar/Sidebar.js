@@ -40,7 +40,7 @@ export const Sidebar = () => {
       headers: {
         'Content-Type': 'application/json',
          Authorization: 'Bearer ' + token,
-      }
+      },
     })
     // converts the response to json
     .then(response => response.json())
@@ -78,23 +78,35 @@ export const Sidebar = () => {
 
   // returns the Sidebar component
   return (
-    <div className='sidebar'>
-      <div className='sidebarWrapper'>
-        <button className='sidebarWrapperIcon' onClick={handleFeed}><MenuLink icon={<RssFeed />} text='Feed' /></button>
-        <button className='sidebarWrapperIcon' style={{ opacity: 0.6 }}><MenuLink icon={<Chat />} text='Chats' /></button>
-        <button className='sidebarWrapperIcon' style={{ opacity: 0.6 }}><MenuLink icon={<VideoLibrary />} text='Videos' /></button>
-        <button className='sidebarWrapperIcon' style={{ opacity: 0.6 }}><MenuLink icon={<Groups />} text='Friends' /></button>
-        <button className='sidebarWrapperIcon' onClick={handleHelp}><MenuLink icon={<Help />} text='Help' /></button>
-        <button className='sidebarWrapperIcon' onClick={handleClick}><MenuLink icon={<ExitToApp />} text='Logout' /></button>
+    <div className="sidebar">
+      <div className="sidebarWrapper">
+        <button className="sidebarWrapperIcon" onClick={handleFeed}>
+          <MenuLink icon={<RssFeed />} text="Feed" />
+        </button>
+        <button className="sidebarWrapperIcon" style={{ opacity: 0.6 }}>
+          <MenuLink icon={<Chat />} text="Chats" />
+        </button>
+        <button className="sidebarWrapperIcon" style={{ opacity: 0.6 }}>
+          <MenuLink icon={<VideoLibrary />} text="Videos" />
+        </button>
+        <button className="sidebarWrapperIcon" style={{ opacity: 0.6 }}>
+          <MenuLink icon={<Groups />} text="Friends" />
+        </button>
+        <button className="sidebarWrapperIcon" onClick={handleHelp}>
+          <MenuLink icon={<Help />} text="Help" />
+        </button>
+        <button className="sidebarWrapperIcon" onClick={handleClick}>
+          <MenuLink icon={<ExitToApp />} text="Logout" />
+        </button>
 
-        <hr className='sidebarHr' />
+        <hr className="sidebarHr" />
 
-        <ul className='sidebarFriendList'>
-          {users.filter((u) => u.userId !== userId).map((user) => (
-            <Friends key={user.userId} user={user} />
-          ))}
+        <ul className="sidebarFriendList">
+          {users.length > 0 &&
+            users
+              .filter((u) => u.userId !== userId)
+              .map((user) => <Friends key={user.userId} user={user} />)}
         </ul>
-
       </div>
     </div>
   );

@@ -34,7 +34,7 @@ export const Post = ({ post }) => {
     username,
     profilePicture,
     timestamp,
-    image,
+    postPicture,
     message,
     usersLiked,
   } = post;
@@ -52,6 +52,8 @@ export const Post = ({ post }) => {
   const [like, setLike] = useState((usersLiked || []).length);
   // creates the liked variable and sets it to the useState hook
   const [liked, setLiked] = useState(false);
+  // creates the commentLikes variable and sets it to the useState hook
+  const [commentLikes, setCommentLikes] = useState(0);
   // creates the commentLiked variable and sets it to the useState hook
   const [commentLiked, setCommentLiked] = useState(false);
   // creates the commentText variable and sets it to the useState hook
@@ -279,9 +281,9 @@ export const Post = ({ post }) => {
         <div className="postCenter">
           <div
             className="postCenterImg"
-            style={image ? {} : { display: "none" }}
+            style={postPicture ? {} : { display: "none" }}
           >
-            <img src={image} alt="post" className="postImg" />
+            <img src={postPicture} alt="post" className="postImg" />
           </div>
         </div>
         <div className="postContent">

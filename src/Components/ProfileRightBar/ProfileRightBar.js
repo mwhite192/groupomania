@@ -3,10 +3,10 @@ import React from 'react';
 import './ProfileRightBar.scss';
 // imports the store 
 import { store } from '../../App/store';
-//imports the getUser selector
-import { getUser,  deauthenticate } from '../../App/Features/User/userSlice';
-// imports the getProfile selector
-import { getProfile } from '../../App/Features/Profile/profileSlice';
+//imports the getUser, getToken, and deauthenticate actions
+import { getUser,  getToken, deauthenticate } from '../../App/Features/User/userSlice';
+// imports the getProfile selector and logout action
+import { getProfile, logout } from '../../App/Features/Profile/profileSlice';
 // imports the useNavigate hook 
 import { useNavigate } from 'react-router-dom';
 
@@ -15,10 +15,13 @@ import { useNavigate } from 'react-router-dom';
 export const ProfileRightBar = () => {
   // creates the navigate hook and assigns it to the navigate function
    const navigate = useNavigate();
+  // gets the token from the store
+  const token = getToken(store.getState());
   // gets the users email from the store
-  const { formGridEmail, token } = getUser(store.getState());
+  const { formGridEmail: email } = getUser(store.getState());
   // get the profile from the store
-  const { formGridPhone, 
+  const { formGridPhone,
+    formGridEmail, 
     formGridPosition, 
     formGridWorkOffice, 
     formGridCity, 
@@ -38,7 +41,7 @@ export const ProfileRightBar = () => {
     // prevents page from reloading on submit
     e.preventDefault();
     // DELETES form data to backend
-    fetch('/api/user/' + formGridEmail, {
+    fetch('/api/user/' + email, {
       method: 'DELETE',
       headers: {
         Authorization: 'Bearer ' + token,
@@ -57,6 +60,8 @@ export const ProfileRightBar = () => {
       .then((data) => {
         // dispatches DEAUTHENTICATE action to store
         store.dispatch(deauthenticate());
+        // dispatches LOGOUT action to store
+        store.dispatch(logout());
         // deletes user from local storage
         localStorage.removeItem('persist:root');
         // Show alert message
@@ -81,7 +86,7 @@ export const ProfileRightBar = () => {
       <div className="profileRightBarInfo">
         <div className="profileRightBarInfoItem">
           <span className="profileRightBarInfoKey">Email: </span>
-          <span className="profileRightBarInfoValue">{formGridEmail}</span>
+          <span className="profileRightBarInfoValue">{email}</span>
         </div>
         <div className="profileRightBarInfoItem">
           <span className="profileRightBarInfoKey">Phone#: </span>

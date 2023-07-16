@@ -3,29 +3,20 @@ module.exports = (sequelize, DataTypes) => {
         userId: {
           type: DataTypes.STRING,
           allowNull: false
-        },
-        username: {
-          type: DataTypes.STRING,
-          allowNull: false
-        },
-        profilePicture: {
-          type: DataTypes.STRING,
-            allowNull: false,
-        },
-        image: {
-          type: DataTypes.STRING,
-            allowNull: false,
-        },
-        message: {
-            type: DataTypes.INTEGER,
+        }, 
+        postImg: {
+            type: DataTypes.STRING,
+        }, 
+        postContent: {
+            type: DataTypes.STRING,
             allowNull: false,
         },
         timestamp: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.DATE,
             allowNull: false,
         },
         likes: {
-        type: DataTypes.INTEGER,
+            type: DataTypes.INTEGER,
             allowNull: false,
         },
         usersLiked: {
