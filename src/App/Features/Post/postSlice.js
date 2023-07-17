@@ -11,14 +11,13 @@
     export const UPDATE = 'UPDATE';
     export const DELETE = 'DELETE';
 
-
     // create post slice
     export const postSlice = createSlice({
       name: 'post',
       initialState,
       reducers: {
         [CREATE]: (state, action) => {
-          state[action.payload._id] = action.payload;
+          state[action.payload.id] = action.payload;
         },
         [UPDATE]: (state, action) => {
           const { postId, ...updatedData } = action.payload;
@@ -50,5 +49,6 @@
     export const createPost = postSlice.actions[CREATE];
     export const updatePost = postSlice.actions[UPDATE];
     export const deletePost = postSlice.actions[DELETE];
+
     
 

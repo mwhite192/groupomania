@@ -133,8 +133,6 @@ exports.update = (req, res, next) => {
     // sets the image path for the profile
     updateProfile.formFile = url + '/images/' + req.file.filename;
   }
-  // Update User's Email and Password
-  //const { formGridEmail, formGridPassword } = req.body;
   const { userId } = req.params;
   User.findByPk(userId)
     .then((user) => {
@@ -143,8 +141,6 @@ exports.update = (req, res, next) => {
           error: 'User not found!',
         });
       }
-      // user.registerEmail = formGridEmail;
-      // user.registerPassword = formGridPassword;
       return user.save();
     })
     .then(() => {
@@ -152,23 +148,7 @@ exports.update = (req, res, next) => {
       Profile.update(updateProfile, {
         where: { userId: req.params.userId },
       })
-        .then((result) => {
-          // checks if any rows were affected
-          if (result[0] === 0) {
-            // returns an error if the profile is not found
-            return res.status(404).json({
-              error: 'Profile not found!',
-            });
-          }
-          // returns the updated profile
-          res.status(200).json(updateProfile);
-        })
-        .catch((error) => {
-          // returns the error if the profile is not updated
-          res.status(500).json({
-            error: 'Failed to update profile!',
-          });
-        });
+      return updateProfile;
     })
     .catch((error) => {
       // returns the error if the user is not updated
@@ -176,7 +156,7 @@ exports.update = (req, res, next) => {
         error: 'Failed to update user!',
       });
     });
-};
+  };
 
 
 // exports the delete user function

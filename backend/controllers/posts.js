@@ -17,19 +17,17 @@ exports.createPost = (req, res, next) => {
    const url = req.protocol + '://' + req.get('host');
    // create the post object
    const post = {
-     userId: req.body.userId,  
-     postImg: req.body.file,  
+     userId: req.body.userId,
      postContent: req.body.postContent,
      timestamp: req.body.timestamp,
      likes: req.body.likes, 
      usersLiked: req.body.usersLiked,
-     comment: req.body.comments,
+     comment: req.body.comment,
    };
-   console.log(post)
    // checks if an image is provided, then include it in the post object
-   if (req.file) {
-     post.postImg = url + '/images/' + req.file.filename;
-   }
+    if (req.file) {
+      post.postImg = url + '/images/' + req.file.filename;
+    }
    // Save the post using Sequelize's create method
    Post.create(post)
      .then((createdPost) => {
@@ -46,19 +44,19 @@ exports.createPost = (req, res, next) => {
 
 
 // exports the get all posts function
-exports.getAllPosts = (req, res, next) => {
-  // finds all the posts
-  Post.findOne()
-  // returns the posts
-    .then((posts) => {
-      res.status(200).json(posts);
-    })
-    // returns an error if the posts are not found
-    .catch((error) => {
-      res.status(400).json({
-        error: 'unable to get posts!',
-      });
-    });
+exports.getPosts = async (req, res) => {
+  try {
+    // Retrieve all posts from the database
+    const posts = await Post.findAll();
+    // Filter posts based on your criteria
+    // For example, filter by userId
+    const filteredPosts = posts.filter((post) => post.userId !== req.params.userId);
+    // Send the filtered posts as a response
+    res.status(200).json(filteredPosts);
+  } 
+  catch (error) {
+    res.status(500).json({ error: 'Failed to retrieve posts' });
+  }
 };
 
 

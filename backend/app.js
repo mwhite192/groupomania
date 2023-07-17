@@ -22,6 +22,7 @@ const { createProxyMiddleware } = require('http-proxy-middleware');
 
 // Purpose: Connects the server to mySql workbench
 (async () => {
+    await db.sequelize.sync();
     db.sequelize.authenticate().then(() => {
         console.log('Connection has been established successfully.');
      }).catch((error) => {
