@@ -62,7 +62,7 @@ export const UpdatePostForm = ({ postId }) => {
     formData.append('timestamp', timestamp);
     formData.append('username', name);
     // POST form data to backend
-    fetch('/api/posts/' + userId, {
+    fetch('/api/posts/' + postId, {
       method: 'PUT',
       headers: {
         Authorization: 'Bearer ' + token,
