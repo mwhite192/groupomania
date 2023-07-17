@@ -30,21 +30,3 @@ module.exports = async (req, res, next) => {
     });
   }
 };
-
-      
-//       const user = await User.findByPk(userId);
-//       if (!user) {
-//         res.status(403).json({
-//           error: 'Invalid user ID!',
-//         });
-//       } else {
-//         req.auth = { userId };
-//         next();
-//       }
-//     } catch {
-//       res.status(401).json({
-//         error: 'Invalid request!',
-//       });
-//     }
-//   });
-// };

@@ -31,7 +31,7 @@ export const Sidebar = () => {
   // creates the users variable and sets it to the getUsers selector
   const [users, setUsers] = useState([]);
   // gets the user from the store
-  const { token, userId } = getUser(store.getState());
+  const { token, id } = getUser(store.getState());
 
   // created the useEffect hook to fetch all users
   useEffect(() => {
@@ -104,8 +104,8 @@ export const Sidebar = () => {
         <ul className="sidebarFriendList">
           {users.length > 0 &&
             users
-              .filter((u) => u.userId !== userId)
-              .map((user) => <Friends key={user.userId} user={user} />)}
+              .filter((u) => u.id !== id)
+              .map((user) => <Friends key={user.id} user={user} />)}
         </ul>
       </div>
     </div>

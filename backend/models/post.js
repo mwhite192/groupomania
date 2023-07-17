@@ -4,6 +4,14 @@ module.exports = (sequelize, DataTypes) => {
           type: DataTypes.STRING,
           allowNull: false
         }, 
+        userName: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        postProfileImg: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
         postImg: {
             type: DataTypes.STRING,
         }, 

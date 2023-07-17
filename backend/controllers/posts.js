@@ -18,6 +18,8 @@ exports.createPost = (req, res, next) => {
    // create the post object
    const post = {
      userId: req.body.userId,
+     userName: req.body.userName,
+     postProfileImg: req.body.postProfileImg,
      postContent: req.body.postContent,
      timestamp: req.body.timestamp,
      likes: req.body.likes, 
@@ -48,11 +50,8 @@ exports.getPosts = async (req, res) => {
   try {
     // Retrieve all posts from the database
     const posts = await Post.findAll();
-    // Filter posts based on your criteria
-    // For example, filter by userId
-    const filteredPosts = posts.filter((post) => post.userId !== req.params.userId);
     // Send the filtered posts as a response
-    res.status(200).json(filteredPosts);
+    res.status(200).json(posts);
   } 
   catch (error) {
     res.status(500).json({ error: 'Failed to retrieve posts' });
@@ -75,8 +74,8 @@ exports.updatePost = (req, res, next) => {
       }
       // checks if the user ID from the request object matches the user ID of the post
       if (post.userId !== req.body.userId) {
-        return res.status(403).json({ 
-          error: 'you are unauthorized to update this post.' 
+        return res.status(403).json({
+          error: 'unauthorized request!',
         });
       }
       // if the user is authorized, proceed with the update
@@ -110,37 +109,43 @@ exports.updatePost = (req, res, next) => {
 
 // exports the delete post function
 exports.deletePost = (req, res, next) => {
-  // finds the posts by id
-  Post.findOne({ _id: req.params._id }).then((post) => {
-    // checks if the posts exists
-    console.log(post);
-    if (!post) {
-      // returns an error
-      return res.status(404).json({
-        error: 'post not found!',
-      });
-    }
-    // checks if the user is authorized
-    if (post.userId !== req.auth.userId) {
-      return res.status(403).json({
-        error: 'unauthorized request!',
-      });
-    }
-    // finds the post by id and deletes it
-    Post.deleteOne({ _id: req.params._id })
-      .then(() => {
-        // returns the message
-        res.status(200).json({
-          message: 'posts deleted successfully!',
+  // finds the post by id
+  Post.findByPk(req.params.id)
+    .then((post) => {
+      // checks if the post exists
+      if (!post) {
+        // returns an error
+        return res.status(404).json({
+          error: 'Post not found!',
         });
-      })
-      // returns an error if the post is not deleted
-      .catch((error) => {
-        res.status(400).json({
-          error: 'unable to delete posts!',
+      }
+      // checks if the user is authorized
+      if (post.userId !== req.auth.userId.toString()) {
+        return res.status(403).json({
+          error: 'Unauthorized request!',
         });
+      }
+      // deletes the post
+      post.destroy()
+        .then(() => {
+          // returns the message
+          res.status(200).json({
+            message: 'Post deleted successfully!',
+          });
+        })
+        .catch((error) => {
+          // returns an error if the post is not deleted
+          res.status(400).json({
+            error: 'Unable to delete post!',
+          });
+        });
+    })
+    .catch((error) => {
+      // returns an error if the post is not found
+      res.status(500).json({
+        error: 'Failed to find post!',
       });
-  });
+    });
 };
 
 

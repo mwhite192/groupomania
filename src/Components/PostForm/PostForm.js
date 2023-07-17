@@ -39,6 +39,8 @@ export const PostForm = () => {
   // creates a form data object and appends the form data to it
   const formData = new FormData();
   formData.append('userId', userId);
+  formData.append('userName', name);
+  formData.append('postProfileImg', formFile);
   formData.append('file', file);
   formData.append('postContent', postContent);
   formData.append('timestamp', timestamp);

@@ -13,7 +13,7 @@ export const initialState = {
 export const AUTHENTICATE = 'AUTHENTICATE';
 export const DEAUTHENTICATE = 'DEAUTHENTICATE';
 export const SETUSERTIME = 'SETUSERTIME';
-export const UPDATEUSER = 'UPDATEUSER';
+
 
 // create profile slice
 export const userSlice = createSlice({
@@ -31,11 +31,6 @@ export const userSlice = createSlice({
         [SETUSERTIME]: (state, action) => {
             state.user.timestamp = action.payload;    
         },
-        [UPDATEUSER]: (state, action) => {
-            state.user.user.dataValues.formGridEmail = action.payload.formGridEmail;
-            state.user.user.dataValues.formGridPassword = action.payload.formGridPassword;
-          },
-          
     },
 })
 
@@ -53,7 +48,7 @@ export const getToken = (state) => state.user.user.token;
 export const authenticate = userSlice.actions[AUTHENTICATE];
 export const deauthenticate = userSlice.actions[DEAUTHENTICATE];
 export const setUserTime = userSlice.actions[SETUSERTIME];
-export const updateUser = userSlice.actions[UPDATEUSER];
+
 
 
 

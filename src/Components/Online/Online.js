@@ -48,7 +48,7 @@ export const Online = () => {
         <img src={formFile} alt='user online background' className='onlineBackground' />
         <span className='onlineUser'>{name}</span>
       </div>
-      {profiles.filter((p) => p.userId === userId).map((profile) => (<OnlineCard key={profile.id} profile={profile} />))}
+      {/* {profiles.filter((p) => p.userId === userId).map((profile) => (<OnlineCard key={profile.id} profile={profile} />))} */}
     </div>
   )
 }

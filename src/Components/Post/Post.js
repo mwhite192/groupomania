@@ -31,6 +31,8 @@ export const Post = ({ post }) => {
   // creates the variables from the post object
   const {
     id,
+    userName,
+    postProfileImg,
     timestamp,
     postPicture,
     postContent,
@@ -247,10 +249,10 @@ export const Post = ({ post }) => {
           <div className="postTopLeft">
             <img
               className="postProfileImg"
-              src={formFile ? formFile : DefaultOnlineProfileImage}
+              src={postProfileImg ? postProfileImg : DefaultOnlineProfileImage}
               alt="user profile"
             />
-            <span className="postUsername">{name}</span>
+            <span className="postUsername">{userName}</span>
             <div className="postTime">
               <ReactTimeAgo
                 date={Date.parse(date)}
@@ -283,7 +285,7 @@ export const Post = ({ post }) => {
           </div>
         </div>
         <div className="postContent">
-          <span className="postName">{name}</span>
+          <span className="postName">{userName}</span>
           <span className="postText">{postContent}</span>
           <span className="postCommentText">
             {postsComments.length} &#x2022;{" "}
