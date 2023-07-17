@@ -20,6 +20,7 @@ exports.createPost = (req, res, next) => {
      userId: req.body.userId,
      userName: req.body.userName,
      postProfileImg: req.body.postProfileImg,
+     postImg: url + '/images/' + req.file.filename,
      postContent: req.body.postContent,
      timestamp: req.body.timestamp,
      likes: req.body.likes, 
@@ -64,18 +65,18 @@ exports.updatePost = (req, res, next) => {
   // sets the url for the image
   const url = req.protocol + '://' + req.get('host');
   // finds the post by id
-  Post.findOne({ _id: req.params._id })
+  Post.findByPk(req.params.id)
     .then((post) => {
       // checks if the post exists
       if (!post) {
         return res.status(404).json({ 
-          error: 'post not found.' 
+          error: 'Post not found.' 
         });
       }
       // checks if the user ID from the request object matches the user ID of the post
       if (post.userId !== req.body.userId) {
         return res.status(403).json({
-          error: 'unauthorized request!',
+          error: 'Unauthorized request!',
         });
       }
       // if the user is authorized, proceed with the update
@@ -83,27 +84,26 @@ exports.updatePost = (req, res, next) => {
       // checks if there is a file
       if (req.file) {
         // sets the post image url
-        updatePost.image = url + '/images/' + req.file.filename;
+        updatePost.postImg = url + '/images/' + req.file.filename;
       }
-  // updates the post
-  Post.updateOne({ _id: req.params._id }, updatePost)
-  // returns the post
-    .then(() => {
-      res.status(201).json(updatePost);
-    })
-    // returns an error if the post is not updated
-    .catch((error) => {
-      res.status(400).json({
-        error: 'unable to update post!',
-      });
+      // updates the post
+      post.update(updatePost)
+        .then(() => {
+          res.status(200).json(updatePost);
+        })
+        // returns an error if the post is not updated
+        .catch((error) => {
+          res.status(400).json({
+            error: 'Unable to update post!',
+          });
+        });
     })
     // returns an error if the post is not found
-  .catch((error) => {
-    res.status(404).json({ 
-      error: 'unable to locate post!' 
+    .catch((error) => {
+      res.status(404).json({ 
+        error: 'Unable to locate post!' 
+      });
     });
-  });
-});
 };
 
 

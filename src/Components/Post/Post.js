@@ -33,8 +33,8 @@ export const Post = ({ post }) => {
     id,
     userName,
     postProfileImg,
+    postImg,
     timestamp,
-    postPicture,
     postContent,
     usersLiked,
   } = post;
@@ -279,9 +279,9 @@ export const Post = ({ post }) => {
         <div className="postCenter">
           <div
             className="postCenterImg"
-            style={postPicture ? {} : { display: "none" }}
+            style={postImg ? {} : { display: "none" }}
           >
-            <img src={postPicture} alt="post" className="postImg" />
+            <img src={postImg} alt="post" className="postImg" />
           </div>
         </div>
         <div className="postContent">
