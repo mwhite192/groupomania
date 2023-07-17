@@ -18,11 +18,11 @@ export const commentSlice = createSlice({
     initialState,
     reducers: {
         [CREATE]: (state, action) => {
-            state[action.payload._id] = action.payload;
+            state[action.payload.id] = action.payload;
         },
         [UPDATE]: (state, action) => {
             const updatedComment = action.payload;
-            const comment = Object.values(state).find((c) => c._id === updatedComment._id);
+            const comment = Object.values(state).find((c) => c.id === updatedComment.id);
             if (comment) {
                 // Update the comment text property
                 comment.commentText = updatedComment.commentText;

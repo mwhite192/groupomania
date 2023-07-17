@@ -2,136 +2,113 @@
 // sets up bcrypt
 const bcrypt = require('bcrypt');
 // sets up jsonwebtoken
-const jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken'); 
 // sets up the user model
-const User = require('../models/user');
+const { User } = require('../models');
 // sets up the profile model
-const Profile = require('../models/profile');
+const { Profile } = require('../models');
 
 
 // exports the signup function
-exports.signup = (req, res, next) => {
-  // hashes the password
-  bcrypt
-    .hash(req.body.registerPassword, 10)
-    .then((hash) => {
-      // creates a new user
-      const user = new User({
-        name: req.body.name,
-        registerEmail: req.body.registerEmail,
-        registerPassword: hash,
-        timestamp: Date.now(),
-      });
-      // saves the user
-      user
-        .save()
-        // if the user is not saved, returns an error
-        .catch((error) => {
-          res.status(501).json({
-            error: 'failed to save user!',
-          });
-        })
-        // returns success message if the user is saved
-        .then(() => {
-          res.status(201).json({
-            message: 'user added successfully!',
-          });
-          // sets the url for the image
-          const url = req.protocol + '://' + req.get('host');
-          // creates a new user profile
-          const profile = new Profile({
-            userId: user._id,
-            name: user.name,
-            formFile: url + '/images/' + req.file.filename,
-            formGridEmail: user.registerEmail,
-            formGridPassword: user.registerPassword,
-            formGridPosition: req.body.formGridPosition,
-            formGridPhone: req.body.formGridPhone,
-            formGridWorkOffice: req.body.formGridWorkOffice,
-            formGridCity: req.body.formGridCity,
-            formGridState: req.body.formGridState,
-            formGridZip: req.body.formGridZip,
-          });
-          // returns saved profile
-          return profile.save();
-        })
-        // if the profile is not saved, returns an error
-        .catch((error) => {
-          res.status(501).json({
-            error: 'failed to save profile!',
-          });
-        });
-    })
-    // if the password is not hashed, returns an error
-    .catch((error) => {
-      res.status(501).json({
-        error: 'failed to encrypt password!',
-      });
+module.exports.signup = async (req, res, next) => {
+  try {
+    // Check if the registerPassword field is present and is a string
+    if (!req.body.registerPassword || typeof req.body.registerPassword !== 'string') {
+      return res.status(400).json({ error: 'Invalid registerPassword field' });
+    }
+    console.log(req.body)
+    // sets the url for the image
+    const url = req.protocol + '://' + req.get('host');
+    // sets up the salt rounds
+    const saltRounds = 10;
+    // hashes the password
+    const hash = await bcrypt.hash(req.body.registerPassword, saltRounds);
+    // Create a new user
+    const newUser = await User.create({
+      name: req.body.name,
+      registerEmail: req.body.registerEmail,
+      registerPassword: hash,
+      file: url + '/images/' + req.file.filename,
     });
-};
 
+    // Create a new user profile
+    const newProfile = await Profile.create({
+      userId: newUser.id,
+      name: newUser.name,
+      formFile: url + '/images/' + req.file.filename,
+      formGridEmail: newUser.registerEmail,
+      formGridPassword: newUser.registerPassword,
+      formGridPosition: req.body.formGridPosition,
+      formGridPhone: req.body.formGridPhone,
+      formGridWorkOffice: req.body.formGridWorkOffice,
+      formGridCity: req.body.formGridCity,
+      formGridState: req.body.formGridState,
+      formGridZip: req.body.formGridZip,
+    });
+  
+    res.status(201).json({
+      message: 'User added successfully!',
+      profile: newProfile,
+    });
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      error: 'Failed to create user or profile!',
+    });
+  }
+};
+        
 
 // exports the login function
 exports.login = async (req, res, next) => {
-  // finds the user by email
-  User.findOne({ registerEmail: req.body.email })
-    // returns the user
-    .then((user) => {
-      // checks if the user exists
-      if (!user) {
-        // returns the error if the user does not exist
-        return res.status(401).json({
-          error: 'user not found!',
-        });
-      }
-      // compares the password
-      bcrypt
-        .compare(req.body.password, user.registerPassword)
-        // returns the password
-        .then( async (valid) => {
-          // checks if the password is valid
-          if (!valid) {
-            // returns the error if the password is not valid
-            return res.status(401).json({
-              error: 'incorrect password!',
-            });
-          }
-          // finds the profile by user id
-          const profile = await Profile.findOne({ userId: user._id });
-          // sets the token to expire in 24 hours
-          const token = jwt.sign(
-            // sets the payload
-            {userId: user._id}, 
-            'RANDOM_TOKEN_SECRET',
-            {expiresIn: '24h'});
-          // returns the token, user id, user, and profile
-          res.status(200).json({
-            ...profile._doc,
-            ...user._doc,
-            userId: user._id,
-            token: token,
-          });
-        })
-        // returns the error if the password is not valid
-        .catch((error) => {
-          res.status(500).json({
-            error: 'password does not match!',
-          });
-        });
-    })
-    // returns the error if the user is not found
-    .catch((error) => {
-      res.status(500).json({
-        error: 'user not found!',
+  try {
+    // finds the user by email
+    const user = await User.findOne({ where: { registerEmail: req.body.email } });
+    // checks if the user exists
+    if (!user) {
+      return res.status(401).json({
+        error: 'User not found!',
       });
+    }
+    // compares the password
+    const passwordMatch = await bcrypt.compare(req.body.password, user.registerPassword);
+    // checks if the password is valid
+    if (!passwordMatch) {
+      return res.status(401).json({
+        error: 'Incorrect password!',
+      });
+    }
+    // finds the profile by user id
+    const profile = await Profile.findOne({ where: { userId: user.id } });
+    // sets the token to expire in 24 hours
+    const token = jwt.sign(
+      // sets the payload
+      { userId: user.id },
+      'RANDOM_TOKEN_SECRET',
+      { expiresIn: '24h' }
+    );
+    // returns the token, user id, user, and profile
+    res.status(200).json({
+      userId: user.id,
+      token: token,
+      ...user,
+      ...profile,
     });
-};
+  } catch (error) {
+    res.status(500).json({
+      error: 'An error occurred while logging in!',
+    });
+  }
+  console.log();
+}; 
+
 
 
 // exports the get all users function
 exports.getAll = (req, res, next) => {
   // finds all users
-  Profile.find()
+  Profile.findAll()
     // returns the users
     .then((profiles) => {
       res.status(200).json(profiles);
@@ -139,7 +116,7 @@ exports.getAll = (req, res, next) => {
     // returns the error if the users are not found
     .catch((error) => {
       res.status(400).json({
-        error: 'users not found!',
+        error: 'Users not found!',
       });
     });
 };
@@ -149,68 +126,81 @@ exports.getAll = (req, res, next) => {
 exports.update = (req, res, next) => {
   // sets the url for the image
   const url = req.protocol + '://' + req.get('host');
-  // creates a update profile object
-  const updateProfile = { ...req.body};
-  // checks if the is an image
+  // creates an update profile object
+  const updateProfile = { ...req.body };
+  // checks if there is an image
   if (req.file) {
     // sets the image path for the profile
     updateProfile.formFile = url + '/images/' + req.file.filename;
   }
-  // updates the profile
-  Profile.updateOne({ userId: req.body.userId }, updateProfile)
-    // returns the updated profile
-    .then(() => {
-      res.status(201).json(updateProfile);
+  const { userId } = req.params;
+  User.findByPk(userId)
+    .then((user) => {
+      if (!user) {
+        throw new Error('User not found!');
+      }
+      // Update the user
+      return user.save();
     })
-    // returns the error if the profile is not updated
+    .then(() => {
+      // Update the profile
+      return Profile.update(updateProfile, {
+        where: { userId: req.params.userId },
+      });
+    })
+    .then(() => {
+      // Retrieve the updated profile
+      return Profile.findOne({ where: { userId: req.params.userId } });
+    })
+    .then((updatedProfile) => {
+      // returns the updated profile
+      res.json(updatedProfile);
+    })
     .catch((error) => {
-      res.status(501).json({
-        error: 'failed to update profile!',
+      // returns the error if the user or profile is not updated
+      res.status(500).json({
+        error: 'Failed to update user or profile!',
       });
     });
 };
 
 
+
+
 // exports the delete user function
 exports.delete = async (req, res, next) => {
-  // finds the user by user email
-  const user = await User.findOne({ registerEmail: req.params.userId })
-  // returns the profile
-  .then((user) => user)
-  // returns the error if the user is not found
-  .catch((error) => {
-      res.status(400).json({
-      error: 'user not found!',  
+  try {
+    // finds the user by user email
+    const user = await User.findOne({ where: { registerEmail: req.params.userId } });
+    // checks if the user exists
+    if (!user) {
+      // returns the error if the user does not exist
+      return res.status(404).json({
+        error: 'User not found!',
+      });
+    }
+    // checks if the user is authorized to delete user
+    if (user.registerEmail !== req.params.userId) {
+      // returns the error if the user is not authorized
+      return res.status(401).json({
+        error: 'User not authorized!',
+      });
+    }
+    // deletes the user and associated profile
+    await Promise.all([
+      user.destroy(),
+      Profile.destroy({ where: { userId: user.id } }),
+    ]);
+    // returns success message
+    return res.status(200).json({
+      message: 'User deleted successfully!',
     });
-  });
-  // checks if the user exists
-  if (!user) {
-    // returns the error if the user does not exist
-    return res.status(404).json({
-      error: 'user not found!',
-    });
-  } 
-  // checks if the user is authorized to delete user
-  if (user.registerEmail !== req.params.userId) {
-    // returns the error if the user is not authorized
-    return res.status(401).json({
-      error: 'user not authorized!',
+  } catch (error) {
+    // returns the error if the user is not deleted
+    return res.status(400).json({
+      error: 'Failed to delete user!',
     });
   }
-  // finds the user by email and deletes the user
-  User.deleteOne({ registerEmail: req.params.userId })
-    // returns message if user is deleted successfully
-    .then(() => {
-      res.status(200).json({
-        message: 'user deleted successfully!'
-      });
-    })
-    // returns the error if the user is not deleted
-    .catch((error) => {
-      res.status(400).json({
-        error: 'failed to delete user!'
-      });
-    })
 };
 
 

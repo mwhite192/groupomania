@@ -1,7 +1,6 @@
 // imports create slice from redux toolkit
 import { createSlice } from '@reduxjs/toolkit';
 
-
 // define initial state
 export const initialState = {
     authenticated: false,
@@ -24,6 +23,7 @@ export const profileSlice = createSlice({
             state.profile = {
                 ...state.profile,
                 ...action.payload,
+                dataValues: action.payload,
             };
         },
         [LOGIN]: (state, action) => {
@@ -40,7 +40,7 @@ export const profileSlice = createSlice({
 
 // export selectors
 export const getAuthenticated = (state) => state.profile.authenticated;
-export const getProfile = (state) => state.profile.profile;
+export const getProfile = (state) => state.profile.profile.dataValues;
 export const getProfileId = (state) => getProfile(state).userId;
 
 

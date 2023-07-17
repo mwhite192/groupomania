@@ -3,8 +3,8 @@ import React from 'react';
 import './PostForm.scss';
 // imports the store
 import { store } from '../../App/store';
-// imports the getUser selector
-import { getUser } from '../../App/Features/User/userSlice';
+// imports the getUser and getToken selector
+import { getUser, getToken } from '../../App/Features/User/userSlice';
 // imports the createPost action
 import { createPost } from '../../App/Features/Post/postSlice';
 // imports the useState hook 
@@ -21,31 +21,32 @@ import { PermMedia, Note } from '@mui/icons-material';
 // creates the PostForm component
 export const PostForm = () => {
   // creates a userId variable and sets it to the getUser selector
-  const { userId, name, formFile, token } = getUser(store.getState());
+  const { userId, name, formFile } = getUser(store.getState());
+  // creates a token variable and sets it to the getToken selector
+  const token = getToken(store.getState());
   // creates the post state variable and the setPost state function
   const [show, setShow] = useState(false);
   // creates the timestamp variable and sets it to the current time
   const timestamp = new Date();
   // creates the navigate variable and sets it to the useNavigate hook
   const navigate = useNavigate();
-  // creates the username variable and sets it to the name variable
-  const username = name;
-  // creates the profilePicture variable and sets it to the formFile variable
-  const profilePicture = formFile;
+  
 
 
   // sets the initial state of the form data
   const [file, setFile] = useState('');
-  const [message, setMessage] = useState('');
+  const [postContent, setPostContent] = useState('');
   // creates a form data object and appends the form data to it
   const formData = new FormData();
   formData.append('userId', userId);
-  formData.append('token', token);
+  formData.append('userName', name);
+  formData.append('postProfileImg', formFile);
   formData.append('file', file);
-  formData.append('message', message);
+  formData.append('postContent', postContent);
   formData.append('timestamp', timestamp);
-  formData.append('username', username);
-  formData.append('profilePicture', profilePicture);
+  formData.append('likes', 0);
+  formData.append('usersLiked', {});
+  formData.append('comment', {});
 
 
   // creates the handleClose function
@@ -122,8 +123,8 @@ export const PostForm = () => {
                 rows={3}
                 maxLength={500}
                 className='postOption'
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
+                value={postContent}
+                onChange={(e) => setPostContent(e.target.value)}
               />
             </Form.Group>
           </Form>

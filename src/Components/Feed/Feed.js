@@ -3,8 +3,9 @@ import React from 'react';
 import './Feed.scss';
 // imports the store
 import { store } from '../../App/store';
+
 // imports the getUser selector
-import { getUser, setUserTime } from '../../App/Features/User/userSlice';
+import { getUser, getToken, setUserTime } from '../../App/Features/User/userSlice';
 // imports the createPost and getArrayOfPost action
 import { createPost, getSortedArrayOfPosts } from '../../App/Features/Post/postSlice';
 // imports useEffect hook
@@ -17,10 +18,12 @@ import { Post } from '../Post/Post';
 
 // creates the Feed component
 export const Feed = () => {
-  // creates the Posts variable and sets it to the getArrayOfPosts selector
+  // gets the posts from the store
   const Posts = getSortedArrayOfPosts(store.getState());
-  // creates a token variable and sets it to the token from the getUser selector
-  const { token, userId } = getUser(store.getState());
+  // gets the user from the store
+  const { userId } = getUser(store.getState());
+  // gets the token from the store
+  const token = getToken(store.getState());
   
 
   // creates the useEffect hook to fetch all posts
@@ -28,7 +31,6 @@ export const Feed = () => {
     fetch('http://localhost:3000/api/posts/all', {
       method: 'GET',
       headers: {
-        'Content-Type': 'application/json',
          Authorization: 'Bearer ' + token,
       },
     })
@@ -37,8 +39,8 @@ export const Feed = () => {
       .then((data) => {
         // checks if data is an array
         if (Array.isArray(data)) {
-          // loops through the data array
-          data.forEach((element) => {
+            // loops through the data array
+            data.forEach((element) => {
             // dispatches createPost action
             store.dispatch(createPost(element));
           });
@@ -80,8 +82,8 @@ export const Feed = () => {
       <h4 className='onlineHeader'>Groupomania Team Members</h4>
         <Online />
         <Share />
-        {Posts.filter((p) => typeof p._id !== 'undefined').map((post) => {
-          return <Post key={post._id} post={post} likes={post.userLiked} />;
+        {Posts.filter((p) => typeof p.id !== 'undefined').map((post) => {
+          return <Post key={post.id} post={post} likes={post.userLiked} />;
         })}
       </div>
     </div>

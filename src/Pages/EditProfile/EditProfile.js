@@ -3,8 +3,10 @@ import React from 'react';
 import './EditProfile.scss';
 // imports the store
 import { store } from '../../App/store';
-// imports the getUser, deauthenticate, and getAuthenticated actions and selectors
-import { getUser, getAuthenticated } from '../../App/Features/User/userSlice';
+// imports the getUser, deauthenticate, getAuthenticated, and updateUser actions and selectors
+import { getUser, getToken, getAuthenticated } from '../../App/Features/User/userSlice';
+// imports the getProfile action and selector from the profileSlice
+import { getProfile } from '../../App/Features/Profile/profileSlice';
 // imports the update action and get profile selector from the profileSlice
 import { update } from '../../App/Features/Profile/profileSlice';
 // imports useNavigate hook
@@ -33,6 +35,17 @@ export const EditProfile = () => {
   const navigate = useNavigate();
   // creates an authenticated variable and sets it to the getAuthenticated function
   const authenticated = getAuthenticated(store.getState());
+  // creates a token variable and sets it to the getToken function
+  const token = getToken(store.getState());
+  // creates a formGridEmail variable and sets it to the getProfile function
+  const { formGridEmail } = getProfile(store.getState());
+  // gets the user from the store
+  const {
+    formFile,
+    name,
+    userId,
+    formGridPassword,
+  } = getUser(store.getState());
 
 
   // checks if the user is authenticated
@@ -45,22 +58,12 @@ export const EditProfile = () => {
   }, [authenticated]);
   
   
-  // gets the user from the store
-  const {
-    formFile,
-    name,
-    userId,
-    token,
-    formGridEmail,
-  } = getUser(store.getState());
-
-
   // sets the initial state of the form data
   const [profileData, setProfileData] = useState({
     userId: userId,
     formFile: formFile,
     formGridEmail: formGridEmail,
-    formGridPassword: '',
+    formGridPassword: formGridPassword,
     formGridPhone: '',
     formGridWorkOffice: '',
     formGridPosition: '',
@@ -74,20 +77,31 @@ export const EditProfile = () => {
   const handleSubmit = (e) => {
     // prevents default form submission
     e.preventDefault();
+
+    // creates a newProfileData object to hold the updated values
+    const newProfileData = {
+      userId: userId,
+      formGridPhone: profileData.formGridPhone,
+      formGridWorkOffice: profileData.formGridWorkOffice,
+      formGridPosition: profileData.formGridPosition,
+      formGridCity: profileData.formGridCity,
+      formGridState: profileData.formGridState,
+      formGridZip: profileData.formGridZip,
+    };
     // PUTS form data to backend
-    fetch('/api/user/userId', {
-      method: 'PUT',
+    fetch('/api/user/' + userId, {
+      method: "PUT",
       headers: {
-        'Content-Type': 'application/json',
-         Authorization: 'Bearer ' + token,
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
       },
-      body: JSON.stringify(profileData),
+      body: JSON.stringify(newProfileData),
     })
       // converts response to JSON
       .then((response) => {
         // checks for errors
         if (response.status === 404 || !response.ok) {
-          throw new Error('unable to update profile!');
+          throw new Error("unable to update profile!");
         }
         // returns response body as JSON
         return response.json();
@@ -97,9 +111,9 @@ export const EditProfile = () => {
         // dispatches UPDATE action profile to store
         store.dispatch(update(data));
         // Show alert message
-        alert('Account updated successfully!');
+        alert("Account updated successfully!");
         // navigates user to profile page
-        navigate('/profile');
+        navigate("/profile");
       })
       // catches errors
       .catch((error) => {

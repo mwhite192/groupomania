@@ -24,8 +24,9 @@ export const Profile = () => {
   const navigate = useNavigate();
   // creates an authenticated variable and sets it to the getAuthenticated selector
   const authenticated = getAuthenticated(store.getState());
-  // gets the user from the store
+  // creates a user variable and sets it to the getUser selector
   const { name, formFile } = getUser(store.getState());
+  
 
 
   // checks if the user is authenticated
@@ -55,7 +56,6 @@ export const Profile = () => {
                 </div>
             </div>
             <div className='profileRightBottom'>
-                {/* <Feed /> */}
                 <ProfileRightBar />
             </div>
         </div>

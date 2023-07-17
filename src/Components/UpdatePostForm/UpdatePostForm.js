@@ -4,7 +4,7 @@ import './UpdatePostForm.scss';
 // imports the store
 import { store } from '../../App/store';
 // imports the getUser selector
-import { getUser } from '../../App/Features/User/userSlice';
+import { getUser, getToken } from '../../App/Features/User/userSlice';
 // imports the getPostById selector
 import { getPostById } from '../../App/Features/Post/postSlice';
 // imports the createPost action
@@ -26,7 +26,9 @@ export const UpdatePostForm = ({ postId }) => {
   // creates the navigate variable and sets it to the useNavigate hook
   const navigate = useNavigate();
   // creates a variable and sets it to the getUser selector
-  const { userId, name, formFile, token } = getUser(store.getState());
+  const { userId, name, formFile } = getUser(store.getState());
+  // creates a variable and sets it to the getToken selector
+  const token = getToken(store.getState());
   // creates a variable and sets it to the getPostById selector
   const postToUpdate = getPostById(store.getState(), postId);
   // creates the post state variable and the setPost state function
@@ -37,7 +39,7 @@ export const UpdatePostForm = ({ postId }) => {
 
   // sets the initial state of the form data
   const [file, setFile] = useState('');
-  const [message, setMessage] = useState(postToUpdate.message);
+  const [postContent, setPostContent] = useState(postToUpdate.postContent);
   
 
   // creates the handleClose function
@@ -54,11 +56,11 @@ export const UpdatePostForm = ({ postId }) => {
     const formData = new FormData();
     formData.append('userId', userId);
     formData.append('token', token);
+    formData.append('postProfileImg', formFile);
     formData.append('file', file);
-    formData.append('message', message);
+    formData.append('postContent', postContent);
     formData.append('timestamp', timestamp);
     formData.append('username', name);
-    formData.append('profilePicture', formFile);
     // POST form data to backend
     fetch('/api/posts/' + postId, {
       method: 'PUT',
@@ -74,7 +76,7 @@ export const UpdatePostForm = ({ postId }) => {
         store.dispatch(updatePost({ postId: postId, ...data }));
         // Reset form fields
         setFile('');
-        setMessage('');
+        setPostContent('');
         // navigates to the home page
         navigate('/home');
         // closes the modal
@@ -132,8 +134,8 @@ export const UpdatePostForm = ({ postId }) => {
                 className='updatePostFormOption'
                 rows={3}
                 maxLength={500}
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
+                value={postContent}
+                onChange={(e) => setPostContent(e.target.value)}
                 placeholder='What are you thinking?'
               />
             </Form.Group>

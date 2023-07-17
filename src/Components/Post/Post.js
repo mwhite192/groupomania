@@ -4,7 +4,7 @@ import './Post.scss';
 // imports the store
 import { store } from '../../App/store';
 // imports the getUser selector
-import { getUser } from '../../App/Features/User/userSlice';
+import { getUser, getToken } from '../../App/Features/User/userSlice';
 // imports the createComment action
 import { createComment, getCommentsByPostId, updateComment, deleteComment } from '../../App/Features/Comments/commentSlice';
 // imports updatePost action
@@ -30,28 +30,32 @@ import DefaultOnlineProfileImage from '../../Assets/Person/DefaultOnlineImage.jp
 export const Post = ({ post }) => {
   // creates the variables from the post object
   const {
-    _id,
-    username,
-    profilePicture,
+    id,
+    userName,
+    postProfileImg,
+    postImg,
     timestamp,
-    image,
-    message,
+    postContent,
     usersLiked,
   } = post;
   // creates the date variable from timestamp
   const date = timestamp;
   // creates the navigate variable and sets it to the useNavigate hook
   const navigate = useNavigate();
+  // creates the token variable and sets it to the getToken selector
+  const token = getToken(store.getState());
   // creates the userId variable and sets it to the getUser selector
-  const { userId, name, formFile, token, timestamp: time } = getUser(store.getState());
+  const { userId, name, formFile, timestamp: time } = getUser(store.getState());
   // creates the postsComments variable and sets it to the getCommentsByPostId selector
-  const postsComments = getCommentsByPostId(store.getState(), _id);
+  const postsComments = getCommentsByPostId(store.getState(), id);
   // creates the postClass variable and sets it to the useState hook
   const [postClass, setPostClass] = useState(time < Date.parse(post.timestamp) ? 'newPost' : '');
   // creates the like variable and sets it to the useState hook
   const [like, setLike] = useState((usersLiked || []).length);
   // creates the liked variable and sets it to the useState hook
   const [liked, setLiked] = useState(false);
+  // creates the commentLikes variable and sets it to the useState hook
+  const [commentLikes, setCommentLikes] = useState(0);
   // creates the commentLiked variable and sets it to the useState hook
   const [commentLiked, setCommentLiked] = useState(false);
   // creates the commentText variable and sets it to the useState hook
@@ -62,12 +66,14 @@ export const Post = ({ post }) => {
 
   // sets the initial state of the comment object
   const comment = {
-    postId: _id,
+    postId: id,
     userId: userId,
     username: name,
     profilePicture: formFile,
     commentText: commentText,
     commentDate: new Date().toISOString(),
+    likes: 0,
+    usersLiked: JSON.stringify([]),
   };
   
   
@@ -79,7 +85,7 @@ export const Post = ({ post }) => {
       userId: userId,
     };
     // sends a post request to the server
-    fetch(`/api/posts/${_id}/likes`, {
+    fetch(`/api/posts/${id}/likes`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -102,14 +108,14 @@ export const Post = ({ post }) => {
           // Update the like state only if the user didn't like the post before
           setLike(data.usersLiked.length);
           // Dispatch the Redux action to update the like count in the store
-          store.dispatch(updatePost({ postId: _id, usersLiked: data.usersLiked }));
+          store.dispatch(updatePost({ postId: id, usersLiked: data.usersLiked }));
         } else {
           // Update the like state only if the user didn't like the post before
           setLike(data.usersLiked.length);
           // Update the liked state only if the user didn't like the post before
           setLiked(true);
           // Dispatch the Redux action to update the like count in the store
-          store.dispatch(updatePost({ postId: _id, usersLiked: data.usersLiked }));
+          store.dispatch(updatePost({ postId: id, usersLiked: data.usersLiked }));
           // Navigate to the home page
           navigate('/home');
         }
@@ -129,7 +135,7 @@ export const Post = ({ post }) => {
       userId: userId,
     };
     // sends a post request to the server
-    fetch(`/api/posts/${_id}/comments/${commentId}/likes`, {
+    fetch(`/api/posts/${id}/comments/${commentId}/likes`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -176,12 +182,13 @@ export const Post = ({ post }) => {
   // creates the handleDelete function
   const handleDelete = (commentId) => {
     // sends a delete request to the server
-    fetch(`/api/posts/${_id}/comments/` + commentId, {
+    fetch(`/api/posts/${id}/comments/` + commentId, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
          Authorization: 'Bearer ' + token,
       },
+      body: JSON.stringify({ userId: userId }),
     })
       .then((response) => {
         // checks for errors
@@ -209,7 +216,7 @@ export const Post = ({ post }) => {
     // prevents the default behavior
     e.preventDefault();
     // sends a post request to the server
-    fetch(`/api/posts/${_id}/comments`, {
+    fetch(`/api/posts/${id}/comments`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -217,6 +224,7 @@ export const Post = ({ post }) => {
       },
       // converts the comment object to a json string
       body: JSON.stringify(comment),
+
     })
       .then((response) => {
         // returns the response
@@ -226,7 +234,7 @@ export const Post = ({ post }) => {
         // dispatches the createComment action
         store.dispatch(createComment(data));
         // dispatches the updatePost action
-        store.dispatch(updatePost({ postId: _id, comments: data._id }));
+        store.dispatch(updatePost({ postId: id, comments: data.id }));
         // resets the commentText state variable
         setCommentText('');
         // navigates to the home page
@@ -249,10 +257,10 @@ export const Post = ({ post }) => {
           <div className="postTopLeft">
             <img
               className="postProfileImg"
-              src={profilePicture ? profilePicture : DefaultOnlineProfileImage}
+              src={postProfileImg ? postProfileImg : DefaultOnlineProfileImage}
               alt="user profile"
             />
-            <span className="postUsername">{username}</span>
+            <span className="postUsername">{userName}</span>
             <div className="postTime">
               <ReactTimeAgo
                 date={Date.parse(date)}
@@ -265,11 +273,11 @@ export const Post = ({ post }) => {
             {post.userId === userId ? (
               <>
                 <div className="postDelete">
-                  <DeletePost postId={_id} />
+                  <DeletePost postId={id} />
                   <span className="postTopDeleteText">Delete</span>
                 </div>
                 <div className="postEdit">
-                  <UpdatePostForm postId={_id} />
+                  <UpdatePostForm postId={id} />
                   <span className="postTopDeleteText">Edit</span>
                 </div>
               </>
@@ -279,14 +287,14 @@ export const Post = ({ post }) => {
         <div className="postCenter">
           <div
             className="postCenterImg"
-            style={image ? {} : { display: "none" }}
+            style={postImg ? {} : { display: "none" }}
           >
-            <img src={image} alt="post" className="postImg" />
+            <img src={postImg} alt="post" className="postImg" />
           </div>
         </div>
         <div className="postContent">
-          <span className="postName">{username}</span>
-          <span className="postText">{message}</span>
+          <span className="postName">{userName}</span>
+          <span className="postText">{postContent}</span>
           <span className="postCommentText">
             {postsComments.length} &#x2022;{" "}
             {postsComments.length === 1 ? "comment" : "comments"}
@@ -303,7 +311,7 @@ export const Post = ({ post }) => {
             )}
           </div>
           {postsComments.slice(0, visibleComments).map((comment) => (
-            <div key={comment._id} className="comment">
+            <div key={comment.id} className="comment">
               <div className="commentUserInfo">
                 <img
                   className="commentImg"
@@ -325,7 +333,7 @@ export const Post = ({ post }) => {
               <div className="commentFooter">
                 <button
                   className="commentFooterItem"
-                  onClick={() => handleCommentLikes(comment._id)}
+                  onClick={() => handleCommentLikes(comment.id)}
                 >
                   {commentLiked ? (
                     <ThumbUpAlt className="commentFooterIcon" />
@@ -337,15 +345,15 @@ export const Post = ({ post }) => {
                   <>
                     <button
                       className="commentFooterItem"
-                      onClick={() => handleDelete(comment._id)}
+                      onClick={() => handleDelete(comment.id)}
                     >
                       <DeleteOutline className="commentFooterIcon" />
                     </button>
                     <span className="commentFooterItem">
                       <UpdateComment
                         className="commentFooterIcon"
-                        postId={_id}
-                        commentId={comment._id}
+                        postId={id}
+                        commentId={comment.id}
                       />
                     </span>
                   </>

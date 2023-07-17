@@ -6,7 +6,7 @@ import { store } from '../../App/store';
 // imports the logout action
 import { logout } from '../../App/Features/Profile/profileSlice';
 // imports the getUsers selector
-import { getUser } from '../../App/Features/User/userSlice';
+import { getUser, getToken } from '../../App/Features/User/userSlice';
 // imports useEffect hook
 import { useEffect, useState } from 'react';
 // imports the useNavigate hook 
@@ -31,7 +31,10 @@ export const Sidebar = () => {
   // creates the users variable and sets it to the getUsers selector
   const [users, setUsers] = useState([]);
   // gets the user from the store
-  const { token, userId } = getUser(store.getState());
+  const { id } = getUser(store.getState());
+  // gets the token from the store
+  const token = getToken(store.getState());
+  
 
   // created the useEffect hook to fetch all users
   useEffect(() => {
@@ -40,7 +43,7 @@ export const Sidebar = () => {
       headers: {
         'Content-Type': 'application/json',
          Authorization: 'Bearer ' + token,
-      }
+      },
     })
     // converts the response to json
     .then(response => response.json())
@@ -78,23 +81,35 @@ export const Sidebar = () => {
 
   // returns the Sidebar component
   return (
-    <div className='sidebar'>
-      <div className='sidebarWrapper'>
-        <button className='sidebarWrapperIcon' onClick={handleFeed}><MenuLink icon={<RssFeed />} text='Feed' /></button>
-        <button className='sidebarWrapperIcon' style={{ opacity: 0.6 }}><MenuLink icon={<Chat />} text='Chats' /></button>
-        <button className='sidebarWrapperIcon' style={{ opacity: 0.6 }}><MenuLink icon={<VideoLibrary />} text='Videos' /></button>
-        <button className='sidebarWrapperIcon' style={{ opacity: 0.6 }}><MenuLink icon={<Groups />} text='Friends' /></button>
-        <button className='sidebarWrapperIcon' onClick={handleHelp}><MenuLink icon={<Help />} text='Help' /></button>
-        <button className='sidebarWrapperIcon' onClick={handleClick}><MenuLink icon={<ExitToApp />} text='Logout' /></button>
+    <div className="sidebar">
+      <div className="sidebarWrapper">
+        <button className="sidebarWrapperIcon" onClick={handleFeed}>
+          <MenuLink icon={<RssFeed />} text="Feed" />
+        </button>
+        <button className="sidebarWrapperIcon" style={{ opacity: 0.6 }}>
+          <MenuLink icon={<Chat />} text="Chats" />
+        </button>
+        <button className="sidebarWrapperIcon" style={{ opacity: 0.6 }}>
+          <MenuLink icon={<VideoLibrary />} text="Videos" />
+        </button>
+        <button className="sidebarWrapperIcon" style={{ opacity: 0.6 }}>
+          <MenuLink icon={<Groups />} text="Friends" />
+        </button>
+        <button className="sidebarWrapperIcon" onClick={handleHelp}>
+          <MenuLink icon={<Help />} text="Help" />
+        </button>
+        <button className="sidebarWrapperIcon" onClick={handleClick}>
+          <MenuLink icon={<ExitToApp />} text="Logout" />
+        </button>
 
-        <hr className='sidebarHr' />
+        <hr className="sidebarHr" />
 
-        <ul className='sidebarFriendList'>
-          {users.filter((u) => u.userId !== userId).map((user) => (
-            <Friends key={user.userId} user={user} />
-          ))}
+        <ul className="sidebarFriendList">
+          {users.length > 0 &&
+            users
+              .filter((u) => u.id !== id)
+              .map((user) => <Friends key={user.id} user={user} />)}
         </ul>
-
       </div>
     </div>
   );

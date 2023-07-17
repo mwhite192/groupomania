@@ -4,7 +4,7 @@ import './Online.scss';
 // imports the store
 import { store } from '../../App/store';
 // imports the getUsers selector
-import { getUser } from '../../App/Features/User/userSlice';
+import { getUser, getToken } from '../../App/Features/User/userSlice';
 // imports useState hook
 import { useState, useEffect } from 'react';
 // imports the OnlineCard component
@@ -14,8 +14,10 @@ import { OnlineCard } from '../OnlineCard/OnlineCard';
 // creates the Online component
 export const Online = () => {
   // gets the user from the store
-  const { formFile, name, token, userId } = getUser(store.getState());
-  // creates the users variable and sets it to the getUsers selector
+  const { formFile, name, userId } = getUser(store.getState());
+  // gets the token from the store
+  const token = getToken(store.getState());
+  // creates the profiles state variable and the setProfiles state function
   const [profiles, setProfiles] = useState([]);
 
 
@@ -26,17 +28,18 @@ export const Online = () => {
       headers: {
         'Content-Type': 'application/json',
          Authorization: 'Bearer ' + token,
-      }
+      },
     })
     // converts the response to json
     .then(response => response.json())
       // sets the profiles variable to the data
       .then(data => {
         setProfiles(data);
+        console.log(data);
       })
       // logs an error if there is one
       .catch(error => console.error('Error fetching users:', error));
-  }, [token]);
+  }, [token, userId]);
 
 
   // returns the Online component
@@ -47,7 +50,7 @@ export const Online = () => {
         <img src={formFile} alt='user online background' className='onlineBackground' />
         <span className='onlineUser'>{name}</span>
       </div>
-      {profiles.filter((p) => p.userId !== userId).map((profile) => (<OnlineCard key={profile._id} profile={profile} />))}
+      {profiles.filter((p) => p.userId !== userId).map((profile) => (<OnlineCard key={profile.id} profile={profile} />))}
     </div>
   )
 }

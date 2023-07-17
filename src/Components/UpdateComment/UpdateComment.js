@@ -4,7 +4,7 @@
   // imports the store
   import { store } from '../../App/store';
   // imports the getUser selector
-  import { getUser } from '../../App/Features/User/userSlice';
+  import { getUser, getToken } from '../../App/Features/User/userSlice';
   // imports updateComment action
   import { updateComment, getCommentById } from '../../App/Features/Comments/commentSlice';
   // imports useState from react library
@@ -23,28 +23,24 @@
     // creates the navigate function
     const navigate = useNavigate();
     // creates the token variable and sets it to the token in local storage
-    const { token, username, formFile } = getUser(store.getState());
+    const { username, formFile } = getUser(store.getState());
+    // creates the token variable and sets it to the token in local storage
+    const token = getToken(store.getState());
     // creates the show state variable and the setShow state function
     const [show, setShow] = useState(false);
+    // gets the comment to update from the store
+    const commentToUpdate = getCommentById(store.getState(), commentId);
     // creates the commentText state variable and the setCommentText state function
-    const [commentText, setCommentText] = useState('');
+    const [commentText, setCommentText] = useState(commentToUpdate.commentText);
+    
 
     
     // creates the handleClose function
     const handleClose = () => setShow(false);
     // creates the handleShow function
-    const handleShow = () => { 
-      // sets the show state variable to true
-      setShow(true);
-      // gets the comment to update from the store
-      const commentToUpdate = getCommentById(store.getState(), commentId);
-      // sets the commentText state variable to the comment text
-      if (commentToUpdate) {
-        setCommentText(commentToUpdate.commentText);
-      }
-    };
+    const handleShow = () => setShow(true);
 
-    
+
     // creates the handleUpdate function
     const handleUpdate = () => {
       // gets the comment to update from the store
@@ -65,14 +61,14 @@
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
-           Authorization: 'Bearer ' + token,
+          Authorization: 'Bearer ' + token,
         },
-        // converts the comment object to a json string
+        // converts the comment object to a JSON string
         body: JSON.stringify(comment),
       })
         .then((response) => {
           // checks if the response is unauthorized and throws an error if it is
-          if (response.status === 403) {
+          if (response.status === 401) {
             throw new Error('unauthorized');
           }
           // returns the response
@@ -80,7 +76,7 @@
         })
         .then((data) => {
           // dispatches the updateComment action
-          store.dispatch(updateComment({ _id: commentId, commentText: commentText }));
+          store.dispatch(updateComment({ id: commentId, commentText: commentText }));
           // navigates to the home page
           navigate('/home');
           // handles closing the modal
@@ -91,8 +87,9 @@
           console.log(error);
         });
     };
+    
 
-
+    // returns the UpdateComment component
     return (
       <div className='updateComment'>
         <div className='updateCommentButton'>
@@ -106,7 +103,7 @@
           </Modal.Header>
           <Modal.Body>
             <form className='postAddCommentForm'>
-              <input
+              <textarea
                 type='text'
                 name='comment'
                 className='postAddComment'

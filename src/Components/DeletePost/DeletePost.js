@@ -4,7 +4,7 @@ import './DeletePost.scss';
 // imports the store
 import { store } from '../../App/store';
 // imports the getUser selector
-import { getUser } from '../../App/Features/User/userSlice';
+import { getUser, getToken } from '../../App/Features/User/userSlice';
 // imports the deletePost action
 import { deletePost } from '../../App/Features/Post/postSlice';
 // imports the useState hook
@@ -25,7 +25,9 @@ export const DeletePost = ({ postId }) => {
   // creates the post state variable and the setPost state function
   const [show, setShow] = useState(false);
   // creates a token variable and sets it to the token from the getUser selector
-  const { token, userId } = getUser(store.getState());
+  const { userId } = getUser(store.getState());
+  // creates a token variable and sets it to the token from the getUser selector
+  const token = getToken(store.getState());
   
   
   // creates the handleShow function
