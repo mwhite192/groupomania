@@ -26,23 +26,17 @@
     const { token, username, formFile } = getUser(store.getState());
     // creates the show state variable and the setShow state function
     const [show, setShow] = useState(false);
+    // gets the comment to update from the store
+    const commentToUpdate = getCommentById(store.getState(), commentId);
     // creates the commentText state variable and the setCommentText state function
-    const [commentText, setCommentText] = useState('');
+    const [commentText, setCommentText] = useState(commentToUpdate.commentText);
+    
 
     
     // creates the handleClose function
     const handleClose = () => setShow(false);
     // creates the handleShow function
-    const handleShow = () => { 
-      // sets the show state variable to true
-      setShow(true);
-      // gets the comment to update from the store
-      const commentToUpdate = getCommentById(store.getState(), commentId);
-      // sets the commentText state variable to the comment text
-      if (commentToUpdate) {
-        setCommentText(commentToUpdate.commentText);
-      }
-    };
+    const handleShow = () => setShow(true);
 
     
     // creates the handleUpdate function
@@ -72,7 +66,7 @@
       })
         .then((response) => {
           // checks if the response is unauthorized and throws an error if it is
-          if (response.status === 403) {
+          if (response.status === 401) {
             throw new Error('unauthorized');
           }
           // returns the response
@@ -80,7 +74,7 @@
         })
         .then((data) => {
           // dispatches the updateComment action
-          store.dispatch(updateComment({ _id: commentId, commentText: commentText }));
+          store.dispatch(updateComment({ id: commentId, commentText: commentText }));
           // navigates to the home page
           navigate('/home');
           // handles closing the modal
@@ -92,7 +86,7 @@
         });
     };
 
-
+    // returns the UpdateComment component
     return (
       <div className='updateComment'>
         <div className='updateCommentButton'>
@@ -106,7 +100,7 @@
           </Modal.Header>
           <Modal.Body>
             <form className='postAddCommentForm'>
-              <input
+              <textarea
                 type='text'
                 name='comment'
                 className='postAddComment'

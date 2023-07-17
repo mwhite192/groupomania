@@ -37,7 +37,7 @@ export const DeletePost = ({ postId }) => {
   // creates the handleDelete function
   const handleDelete = () => {
     // DELETE post from backend
-    fetch('/api/posts/' + userId, {
+    fetch('/api/posts/' + postId, {
         method: 'DELETE',
         headers: {
             Authorization: 'Bearer ' + token,

@@ -6,7 +6,7 @@ import { store } from '../../App/store';
 // imports the logout action
 import { logout } from '../../App/Features/Profile/profileSlice';
 // imports the getUsers selector
-import { getUser } from '../../App/Features/User/userSlice';
+import { getUser, getToken } from '../../App/Features/User/userSlice';
 // imports useEffect hook
 import { useEffect, useState } from 'react';
 // imports the useNavigate hook 
@@ -31,7 +31,10 @@ export const Sidebar = () => {
   // creates the users variable and sets it to the getUsers selector
   const [users, setUsers] = useState([]);
   // gets the user from the store
-  const { token, id } = getUser(store.getState());
+  const { id } = getUser(store.getState());
+  // gets the token from the store
+  const token = getToken(store.getState());
+  
 
   // created the useEffect hook to fetch all users
   useEffect(() => {

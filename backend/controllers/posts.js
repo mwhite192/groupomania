@@ -151,62 +151,54 @@ exports.deletePost = (req, res, next) => {
 
 // exports the like post function
 exports.likePosts = (req, res, next) => {
-  // finds the posts by id
- Post.findOne({ _id: req.params._id }).then((post) => {
-  // checks if the posts exists
-  if (!post) {
-    return res.status(404).json({ 
-      error: 'post not found!' 
-    });
-  }
-  // sets the userId to the request body userId
-  const userId = req.body.userId;
-  // checks if the user has already liked the post
-  if (!post.usersLiked.includes(userId)) {
-    // adds the user to the usersLiked array
-    post.usersLiked.push(userId);
-    // increments the likes
-    post.likes++;
-    // saves the updated post to the database
-    post.save()
-    .then((updatedPost) => {
-      res.status(201).json({
-        message: 'post liked successfully!',
-        // return the updated usersLiked count
-        usersLiked: updatedPost.usersLiked, 
-      });
+  // finds the post by id
+  Post.findOne({ id: req.params.id })
+    .then((Post) => {
+      // checks if the post exists
+      if (!Post) {
+        return res.status(404).json({
+          error: 'post not found!',
+        });
+      }
+      // sets the userId to the request body userId
+      const userId = req.body.userId;
+      // checks if the user has already liked the post
+      if (!Post.usersLiked.includes(userId)) {
+        // adds the user to the usersLiked array
+        Post.usersLiked.push(userId);
+        // increments the likes
+        Post.likes++;
+      } else if (post.usersLiked.includes(userId)) {
+        // removes the user from the usersLiked array
+        Post.usersLiked = post.usersLiked.filter((id) => id !== userId);
+        // decrements the likes
+        Post.likes--;
+      }
+      // saves the updated post to the database
+      Post
+        .save()
+        .then((updatedPost) => {
+          res.status(201).json({
+            message: 'post liked/un-liked successfully!',
+            // returns the updated usersLiked count
+            usersLiked: updatedPost.usersLiked,
+          });
+        })
+        // returns an error if the post likes are not updated
+        .catch((error) => {
+          console.error(error);
+          res.status(500).json({
+            error: 'unable to update likes!',
+          });
+        });
     })
-    // returns an error if the post likes are not updated
+    // returns an error if the post is not found
     .catch((error) => {
       console.error(error);
-      res.status(501).json({
-        error: 'unable to update likes!',
+      res.status(404).json({
+        error: 'post not found!',
       });
     });
-    // checks if the user has already liked the post to unlike it
-  } else if (post.usersLiked.includes(userId)) {
-    // removes the user from the usersLiked array
-    post.usersLiked.pull(userId);
-    // decrements the likes
-    post.likes--;
-    // saves the updated post to the database
-    post.save()
-    .then((updatedPost) => {
-      res.status(201).json({
-        message: 'post un-liked successfully!',
-        // returns the updated usersLiked count
-        usersLiked: updatedPost.usersLiked, 
-      });
-    })
-    // returns an error if the post likes are not updated
-    .catch((error) => {
-      console.error(error);
-      res.status(501).json({
-        error: 'failed to un-like post!',
-      });
-    });
-  }
-});
 };
 
 
@@ -215,35 +207,35 @@ exports.likePosts = (req, res, next) => {
 exports.commentPosts = (req, res, next) => {
   // checks if the 'message' field exists and is not empty
   if (!req.body.commentText || req.body.commentText.trim() === '') {
-      return res.status(400).json({
+    return res.status(400).json({
       error: 'message is required for creating a comment.',
-      });
+    });
   }
-  // sets the comment object
-  const comment = new Comment({
-      postId: req.body.postId,
-      userId: req.body.userId,
-      username: req.body.username,
-      profilePicture: req.body.profilePicture,
-      commentText: req.body.commentText,
-      commentDate: req.body.commentDate,
-      likes: 0,
-      usersLiked: [],
-  });
-  // saves the comment
-  comment
-      .save()
-      .then((savedComment) => {
-      // sends the saved comment
-      res.status(201).json(savedComment);
-      })
-      // returns an error if the comment is not saved
-      .catch((error) => {
+  // Create the comment object
+  const comment = {
+    postId: req.body.postId,
+    userId: req.body.userId,
+    username: req.body.username,
+    profilePicture: req.body.profilePicture,
+    commentText: req.body.commentText,
+    commentDate: req.body.commentDate,
+    likes: 0,
+    usersLiked: JSON.stringify([]),
+  };
+  console.log(comment);
+  // Save the comment using Sequelize's create method
+  Comment.create(comment)
+    .then((comment) => {
+      console.log(comment);
+      // Send the saved comment
+      res.status(201).json(comment);
+    })
+    .catch((error) => {
+      // Return an error if the comment is not saved
       res.status(400).json({
-          // returns the error
-          error: 'unable to create comment!',
+        error: 'unable to create comment!',
       });
-      });
+    });
 };
 
 
@@ -251,25 +243,36 @@ exports.commentPosts = (req, res, next) => {
 exports.updateComment = (req, res, next) => {
   // checks if user is authorized to update the comment
   if (req.body.userId !== req.auth.userId) {
-    return res.status(403).json({
+    return res.status(401).json({
       error: 'unauthorized request!',
     });
   }
-   // find the comment by id and update it
-   Comment.updateOne({ _id: req.params.commentId }, 
-    { commentText: req.body.commentText })
-   // returns the sauce
-     .then((comment) => {
-      // sends a response with the saved comment
-       res.status(201).json(comment);
-     })
-     // returns an error if the comment is not updated
-     .catch((error) => {
-       res.status(400).json({
-         error: 'unable to update comment!',
-       });
-     });
- };
+  // find the comment by id and update it
+  Comment.findByPk(req.params.commentId)
+    .then((comment) => {
+      // checks if the comment exists
+      if (!comment) {
+        return res.status(404).json({
+          error: 'Comment not found!',
+        });
+      }
+      // Update the comment text
+      comment.commentText = req.body.commentText;
+      // Save the updated comment
+      return comment.save();
+    })
+    .then((updatedComment) => {
+      // sends a response with the updated comment
+      res.status(200).json(updatedComment);
+    })
+    // returns an error if the comment is not updated
+    .catch((error) => {
+      res.status(400).json({
+        error: 'Unable to update comment!',
+      });
+    });
+};
+
  
 
 // exports the delete comment function

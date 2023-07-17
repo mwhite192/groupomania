@@ -4,7 +4,7 @@ import './Post.scss';
 // imports the store
 import { store } from '../../App/store';
 // imports the getUser selector
-import { getUser } from '../../App/Features/User/userSlice';
+import { getUser, getToken } from '../../App/Features/User/userSlice';
 // imports the createComment action
 import { createComment, getCommentsByPostId, updateComment, deleteComment } from '../../App/Features/Comments/commentSlice';
 // imports updatePost action
@@ -42,8 +42,10 @@ export const Post = ({ post }) => {
   const date = timestamp;
   // creates the navigate variable and sets it to the useNavigate hook
   const navigate = useNavigate();
+  // creates the token variable and sets it to the getToken selector
+  const token = getToken(store.getState());
   // creates the userId variable and sets it to the getUser selector
-  const { userId, name, formFile, token, timestamp: time } = getUser(store.getState());
+  const { userId, name, formFile, timestamp: time } = getUser(store.getState());
   // creates the postsComments variable and sets it to the getCommentsByPostId selector
   const postsComments = getCommentsByPostId(store.getState(), id);
   // creates the postClass variable and sets it to the useState hook
@@ -66,8 +68,12 @@ export const Post = ({ post }) => {
   const comment = {
     postId: id,
     userId: userId,
+    username: name,
+    profilePicture: formFile,
     commentText: commentText,
     commentDate: new Date().toISOString(),
+    likes: 0,
+    usersLiked: JSON.stringify([]),
   };
   
   
@@ -217,6 +223,7 @@ export const Post = ({ post }) => {
       },
       // converts the comment object to a json string
       body: JSON.stringify(comment),
+
     })
       .then((response) => {
         // returns the response
@@ -226,7 +233,7 @@ export const Post = ({ post }) => {
         // dispatches the createComment action
         store.dispatch(createComment(data));
         // dispatches the updatePost action
-        store.dispatch(updatePost({ postId: id, comments: data._id }));
+        store.dispatch(updatePost({ postId: id, comments: data.id }));
         // resets the commentText state variable
         setCommentText('');
         // navigates to the home page
@@ -303,7 +310,7 @@ export const Post = ({ post }) => {
             )}
           </div>
           {postsComments.slice(0, visibleComments).map((comment) => (
-            <div key={comment._id} className="comment">
+            <div key={comment.id} className="comment">
               <div className="commentUserInfo">
                 <img
                   className="commentImg"
@@ -325,7 +332,7 @@ export const Post = ({ post }) => {
               <div className="commentFooter">
                 <button
                   className="commentFooterItem"
-                  onClick={() => handleCommentLikes(comment._id)}
+                  onClick={() => handleCommentLikes(comment.id)}
                 >
                   {commentLiked ? (
                     <ThumbUpAlt className="commentFooterIcon" />
@@ -337,7 +344,7 @@ export const Post = ({ post }) => {
                   <>
                     <button
                       className="commentFooterItem"
-                      onClick={() => handleDelete(comment._id)}
+                      onClick={() => handleDelete(comment.id)}
                     >
                       <DeleteOutline className="commentFooterIcon" />
                     </button>
@@ -345,7 +352,7 @@ export const Post = ({ post }) => {
                       <UpdateComment
                         className="commentFooterIcon"
                         postId={id}
-                        commentId={comment._id}
+                        commentId={comment.id}
                       />
                     </span>
                   </>

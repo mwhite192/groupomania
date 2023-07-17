@@ -39,7 +39,7 @@ export const UpdatePostForm = ({ postId }) => {
 
   // sets the initial state of the form data
   const [file, setFile] = useState('');
-  const [message, setMessage] = useState(postToUpdate.message);
+  const [postContent, setPostContent] = useState(postToUpdate.postContent);
   
 
   // creates the handleClose function
@@ -58,7 +58,7 @@ export const UpdatePostForm = ({ postId }) => {
     formData.append('token', token);
     formData.append('postProfileImg', formFile);
     formData.append('file', file);
-    formData.append('postContent', message);
+    formData.append('postContent', postContent);
     formData.append('timestamp', timestamp);
     formData.append('username', name);
     // POST form data to backend
@@ -76,7 +76,7 @@ export const UpdatePostForm = ({ postId }) => {
         store.dispatch(updatePost({ postId: postId, ...data }));
         // Reset form fields
         setFile('');
-        setMessage('');
+        setPostContent('');
         // navigates to the home page
         navigate('/home');
         // closes the modal
@@ -134,8 +134,8 @@ export const UpdatePostForm = ({ postId }) => {
                 className='updatePostFormOption'
                 rows={3}
                 maxLength={500}
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
+                value={postContent}
+                onChange={(e) => setPostContent(e.target.value)}
                 placeholder='What are you thinking?'
               />
             </Form.Group>

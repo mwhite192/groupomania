@@ -126,8 +126,8 @@ exports.getAll = (req, res, next) => {
 exports.update = (req, res, next) => {
   // sets the url for the image
   const url = req.protocol + '://' + req.get('host');
-  // creates a update profile object
-  const updateProfile = { ...req.body};
+  // creates an update profile object
+  const updateProfile = { ...req.body };
   // checks if there is an image
   if (req.file) {
     // sets the image path for the profile
@@ -137,26 +137,34 @@ exports.update = (req, res, next) => {
   User.findByPk(userId)
     .then((user) => {
       if (!user) {
-        return res.status(404).json({
-          error: 'User not found!',
-        });
+        throw new Error('User not found!');
       }
+      // Update the user
       return user.save();
     })
     .then(() => {
-      // Update Profile
-      Profile.update(updateProfile, {
+      // Update the profile
+      return Profile.update(updateProfile, {
         where: { userId: req.params.userId },
-      })
-      return updateProfile;
+      });
+    })
+    .then(() => {
+      // Retrieve the updated profile
+      return Profile.findOne({ where: { userId: req.params.userId } });
+    })
+    .then((updatedProfile) => {
+      // returns the updated profile
+      res.json(updatedProfile);
     })
     .catch((error) => {
-      // returns the error if the user is not updated
+      // returns the error if the user or profile is not updated
       res.status(500).json({
-        error: 'Failed to update user!',
+        error: 'Failed to update user or profile!',
       });
     });
-  };
+};
+
+
 
 
 // exports the delete user function

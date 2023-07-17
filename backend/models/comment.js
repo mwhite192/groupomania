@@ -19,11 +19,11 @@ module.exports = (sequelize, Sequelize) => {
           allowNull: false,
         },
         commentText: {
-          type: Sequelize.INTEGER,
+          type: Sequelize.STRING,
           allowNull: false,
         },
         commentDate: {
-          type: Sequelize.INTEGER,
+          type: Sequelize.STRING,
           allowNull: false,
         },
         likes: {
@@ -31,7 +31,7 @@ module.exports = (sequelize, Sequelize) => {
           allowNull: false,
         },
         usersLiked: {
-          type: Sequelize.INTEGER,
+          type: Sequelize.TEXT,
           allowNull: false,
         },
       },
