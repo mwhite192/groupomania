@@ -242,11 +242,12 @@ exports.commentPosts = (req, res, next) => {
 // exports the update comment function
 exports.updateComment = (req, res, next) => {
   // checks if user is authorized to update the comment
-  if (req.body.userId !== req.auth.userId) {
+  if (parseInt(req.body.userId) !== parseInt(req.auth.userId)) {
     return res.status(401).json({
       error: 'unauthorized request!',
     });
   }
+  
   // find the comment by id and update it
   Comment.findByPk(req.params.commentId)
     .then((comment) => {
@@ -278,42 +279,42 @@ exports.updateComment = (req, res, next) => {
 // exports the delete comment function
 exports.deleteComment = (req, res, next) => {
   // finds the comment by id
-  Comment.findOne({ _id: req.params.commentId })
-  .then((comment) => {
-    // checks if the comment exists
-    if (!comment) {
-      // returns an error if the comment does not exist
-      return res.status(404).json({
-        error: 'comment not found!',
-      });
-    }
-    // checks if the user is authorized
-    if (comment.userId !== req.auth.userId) {
-      return res.status(401).json({
-        message: 'unauthorized request!',
-      });
-    }
-    // finds the comment by id and deletes it
-    Comment.deleteOne({ _id: req.params.commentId })
-      .then(() => {
-        // returns the message
-        res.status(200).json({
-          message: 'comment deleted successfully!',
+  Comment.findByPk(req.params.commentId)
+    .then((comment) => {
+      // checks if the comment exists
+      if (!comment) {
+        // returns an error if the comment does not exist
+        return res.status(404).json({ 
+          error: 'Comment not found!',
         });
-      })
-      // returns an error if the comment is not deleted
-      .catch((error) => {
-        res.status(400).json({
-          error: 'unable to delete comment!',
+      }
+      // checks if the user is authorized
+      if (parseInt(req.body.userId) !== parseInt(req.auth.userId)) {
+        return res.status(401).json({
+          message: 'Unauthorized request!',
         });
+      }
+      // deletes the comment
+      comment.destroy()
+        .then(() => {
+          // returns the message
+          res.status(200).json({
+            message: 'Comment deleted successfully!',
+          });
+        })
+        // returns an error if the comment is not deleted
+        .catch((error) => {
+          res.status(400).json({
+            error: 'Unable to delete comment!',
+          });
+        });
+    })
+    // returns an error if the comment is not found
+    .catch((error) => {
+      res.status(404).json({ 
+        error: 'Comment not found!' 
       });
-  })
-  // returns an error if the comment is not found
-  .catch((error) => {
-    res.status(404).json({ 
-      error: 'comment not found!' 
     });
-  });
 };
 
 

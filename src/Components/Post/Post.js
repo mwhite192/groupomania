@@ -188,6 +188,7 @@ export const Post = ({ post }) => {
         'Content-Type': 'application/json',
          Authorization: 'Bearer ' + token,
       },
+      body: JSON.stringify({ userId: userId }),
     })
       .then((response) => {
         // checks for errors

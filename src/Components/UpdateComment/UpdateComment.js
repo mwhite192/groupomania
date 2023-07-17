@@ -4,7 +4,7 @@
   // imports the store
   import { store } from '../../App/store';
   // imports the getUser selector
-  import { getUser } from '../../App/Features/User/userSlice';
+  import { getUser, getToken } from '../../App/Features/User/userSlice';
   // imports updateComment action
   import { updateComment, getCommentById } from '../../App/Features/Comments/commentSlice';
   // imports useState from react library
@@ -23,7 +23,9 @@
     // creates the navigate function
     const navigate = useNavigate();
     // creates the token variable and sets it to the token in local storage
-    const { token, username, formFile } = getUser(store.getState());
+    const { username, formFile } = getUser(store.getState());
+    // creates the token variable and sets it to the token in local storage
+    const token = getToken(store.getState());
     // creates the show state variable and the setShow state function
     const [show, setShow] = useState(false);
     // gets the comment to update from the store
@@ -38,7 +40,7 @@
     // creates the handleShow function
     const handleShow = () => setShow(true);
 
-    
+
     // creates the handleUpdate function
     const handleUpdate = () => {
       // gets the comment to update from the store
@@ -59,9 +61,9 @@
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
-           Authorization: 'Bearer ' + token,
+          Authorization: 'Bearer ' + token,
         },
-        // converts the comment object to a json string
+        // converts the comment object to a JSON string
         body: JSON.stringify(comment),
       })
         .then((response) => {
@@ -85,6 +87,7 @@
           console.log(error);
         });
     };
+    
 
     // returns the UpdateComment component
     return (
